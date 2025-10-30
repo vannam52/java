@@ -78,12 +78,12 @@ public class khachHang {
         System.out.println("Diem tich luy cua khach hang: " + diemTichLuy);
     }
 
-
     //sua thong tin theo ma
     public void suaThongTinKH(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap ma khach hang can sua: ");
         String maKHCanSua = sc.nextLine();
+
         if(maKHCanSua.equals(maKH)){
             System.out.print("Nhap ten khach hang moi: ");
             tenKH = sc.nextLine();
@@ -93,6 +93,7 @@ public class khachHang {
             sdt = sc.nextLine();
             System.out.print("Nhap diem tich luy moi: ");
             diemTichLuy = sc.nextInt();
+            sc.nextLine();
             System.out.println("Sua thanh cong");
         } else {
             System.out.println("Khong tim thay ma khach hang can sua.");

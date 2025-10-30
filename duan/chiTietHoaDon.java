@@ -74,7 +74,6 @@ public class chiTietHoaDon {
         System.out.println("Thành tiền: " + thanhTien);
     }
 
-    
     public void tinhThanhTien() {
         this.thanhTien = this.soLuong * this.donGia;
     }

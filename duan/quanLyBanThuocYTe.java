@@ -3,127 +3,202 @@ package duan;
 import java.util.Scanner;
 
 public class quanLyBanThuocYTe {
-    private String maThuoc;
-    private String ten;
-    private String NSX;
-    private String HSD;
-    private int donGia;
-    private danhSachNhanVien dsNhanVien;
-    private danhSachKhachHang dsKhachHang;
-    private danhSachThuoc dsThuoc;
-    private danhSachKhuyenMai dsKhuyenMai;
-    private Scanner sc;
-    
+    private final danhSachNhanVien dsNhanVien;
+    private final danhSachKhachHang dsKhachHang;
+    private final danhSachThuoc dsThuoc;
+    private final danhSachKhuyenMai dsKhuyenMai;
+    private final Scanner sc;
 
     public quanLyBanThuocYTe() {
+        this.dsNhanVien = new danhSachNhanVien();
+        this.dsKhachHang = new danhSachKhachHang();
+        this.dsThuoc = new danhSachThuoc();
+        this.dsKhuyenMai = new danhSachKhuyenMai();
+        this.sc = new Scanner(System.in);
+
     }
 
-    public quanLyBanThuocYTe(quanLyBanThuocYTe other){
-        this.maThuoc = other.maThuoc;
-        this.ten = other.ten;
-        this.NSX = other.NSX;
-        this.HSD = other.HSD;
-        this.donGia = other.donGia;
+    public static void main(String[] args) {
+        quanLyBanThuocYTe heThong = new quanLyBanThuocYTe();
+        heThong.hienThiMenuChinh();
     }
 
-    public quanLyBanThuocYTe(String maThuoc, String ten, String NSX, int donGia) {
-        this.maThuoc = maThuoc;
-        this.ten = ten;
-        this.NSX = NSX;
-        this.donGia = donGia;
+    public void hienThiMenuThuoc() {
+        int chon;
+        do {
+            System.out.println("\n--- CHỨC NĂNG QUẢN LÝ THUỐC ---");
+            System.out.println("1. Thêm thuốc mới");
+            System.out.println("2. Xóa thuốc theo mã");
+            System.out.println("3. Sửa thông tin thuốc");
+            System.out.println("4. Tìm kiếm thuốc");
+            System.out.println("5. Thống kê & Hiển thị danh sách");
+            System.out.println("0. Quay lại Menu trước");
+            System.out.print("Chọn chức năng: ");
+
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                chon = -1;
+            }
+
+            switch (chon) {
+                case 1:
+                    dsThuoc.themThuoc();
+                    break;
+                case 2:
+                    dsThuoc.xoaThuoc();
+                    break;
+                case 3:
+                    dsThuoc.suaThongTinThuoc();
+                    break;
+                case 4:
+                    timKiemThuoc();
+                    break; //
+                case 5:
+                    dsThuoc.thongKeThuoc();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+            }
+        } while (chon != 0);
     }
 
-    public String getMaThuoc() {
-        return maThuoc;
-    }
-    public void setMaThuoc(String maThuoc) {
-        this.maThuoc = maThuoc;
-    }
-    public String getTen() {
-        return ten;
-    }
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
-    public String getNSX() {
-        return NSX;
-    }
-    public void setNSX(String nSX) {
-        this.NSX = nSX;
-    }
-    public int getDonGia() {
-        return donGia;
-    }
-    public void setDonGia(int donGia) {
-        this.donGia = donGia;
-    }
-    public String getHSD() {
-        return HSD;
-    }
-    public void setHSD(String hSD) {
-        this.HSD = hSD;
-    }
-public void nhapThongTinThuoc(){
-    System.out.print("Nhap ma thuoc: ");
-    maThuoc = sc.nextLine();
-    System.out.print("Nhap ten thuoc: ");
-    ten = sc.nextLine();
-    System.out.print("Nhap nha san xuat: ");
-    NSX = sc.nextLine();
-    System.out.print("Nhap han su dung (HSD): ");
-    HSD = sc.nextLine();
-    System.out.print("Nhap don gia: ");
-    donGia = sc.nextInt();
-}
+    public void timKiemThuoc() {
+        System.out.print("Nhập mã thuốc cần tìm: ");
+        String maThuocCanTim = sc.nextLine();
 
-public void hienThiThongTinThuoc(){
-    System.out.println("Ma thuoc: " + maThuoc);
-    System.out.println("Ten thuoc: " + ten);
-    System.out.println("Nha san xuat: " + NSX);
-    System.out.println("Han su dung (HSD): " + HSD);
-    System.out.println("Don gia: " + donGia);
-}
+        Thuoc th = dsThuoc.timKiemThuocTheoMa(maThuocCanTim);
 
-public void suaThongTinThuoc(){
-    System.out.print("Nhap ma thuoc can sua: ");
-    String maThuocCanSua = sc.nextLine();
-    if(maThuocCanSua.equals(maThuoc)){
-        System.out.print("Nhap ten thuoc moi: ");
-        ten = sc.nextLine();
-        System.out.print("Nhap nha san xuat moi: ");
-        NSX = sc.nextLine();
-        System.out.print("Nhap han su dung moi (HSD) moi: ");
-        HSD = sc.nextLine();
-        System.out.print("Nhap don gia moi: ");
-        donGia = sc.nextInt();
-        System.out.println("Sua thanh cong");
-    } else {
-        System.out.println("Không tìm thấy mã thuốc cần sửa.");
+        if (th != null) {
+            th.hienThiThongTinThuoc();
+        } else {
+            System.out.println("Không tìm thấy mã thuốc: " + maThuocCanTim);
+        }
     }
-}
 
-    public void xoaThuoc(){
-    System.out.print("Nhap ma thuoc can xoa: ");
-    String maThuocCanXoa = sc.nextLine();
-    if(maThuocCanXoa.equals(maThuoc)){
-        maThuoc = "";
-        ten = "";
-        NSX = "";
-        HSD = "";
-        donGia = 0;
-        System.out.println("Xoa thanh cong");
-    } else {
-        System.out.println("Không tìm thấy mã thuốc cần xóa.");
-    }
-}
+    public void hienThiMenuChinh() {
+        int chon;
 
-    public void timKiemThuoc(){
-    System.out.print("Nhap ma thuoc can tim: ");
-    String maThuocCanTim = sc.nextLine();
-    if(maThuocCanTim.equals(maThuoc)){
-        hienThiThongTinThuoc();
-    } else {
-        System.out.println("Không tìm thấy mã thuốc cần tìm.");
+        do {
+            System.out.println("\n\n============ HỆ THỐNG QUẢN LÝ BÁN THUỐC Y TẾ ============");
+            System.out.println("1. Quản lý SẢN PHẨM (Thuốc, Thiết bị, TPCN)");
+            System.out.println("2. Quản lý NHÂN VIÊN");
+            System.out.println("3. Quản lý KHÁCH HÀNG");
+            System.out.println("4. Quản lý KHUYẾN MÃI");
+            System.out.println("5. Quản lý HÓA ĐƠN");
+            System.out.println("0. THOÁT chương trình");
+            System.out.println("=========================================================");
+            System.out.print("Nhập lựa chọn của bạn (0-5): ");
+
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                chon = -1; // Đặt giá trị không hợp lệ
+            }
+
+            switch (chon) {
+                case 1:
+                    hienThiMenuSanPham();
+                    break;
+                case 2:
+                    hienThiMenuNhanVien();
+                    break;
+                case 3:
+                    hienThiMenuKhachHang();
+                    break;
+                case 4:
+                    hienThiMenuKhuyenMai();
+                    break;
+                case 5:
+                    System.out.println("Đang vào Menu Quản lý Hóa đơn...");
+                    break;
+                case 0:
+                    System.out.println("👋 Cảm ơn bạn đã sử dụng hệ thống! Hẹn gặp lại.");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+            }
+        } while (chon != 0);
     }
-}
+
+    public void hienThiMenuKhachHang() {
+        int chon;
+        do {
+            System.out.println("\n--- Quan ly khach hang ---");
+            System.out.println("1. Thêm khách hàng mới");
+            System.out.println("2. Xóa khách hàng theo mã");
+            System.out.println("3. Sửa thông tin khách hàng");
+            System.out.println("4. Tìm kiếm khách hàng");
+            // System.out.println("5. Hiển thị tất cả khách hàng");
+            System.out.println("0. Quay lại Menu Chính");
+            System.out.print("Chọn chức năng: ");
+
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                chon = -1;
+            }
+
+            switch (chon) {
+                case 1:
+                    dsKhachHang.themKhachHang();
+                    break;
+                case 2:
+                    dsKhachHang.xoaKhachHang();
+                    break;
+                case 3:
+                    dsKhachHang.suaThongTinKH();
+                    break;
+                case 4:
+                    dsKhachHang.timTiemKhachHang();
+                    ;
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+            }
+        } while (chon != 0);
+    }
+
+    public void hienThiMenuNhanVien() {
+        int chon;
+        do {
+            System.out.println("\n--- Quan ly nhan vien ---");
+            System.out.println("1. Them nhan vien moi");
+            System.out.println("2. Xoa nhan vien");
+            System.out.println("3. Sua thong tin nhan vien");
+            System.out.println("4. Tìm kiếm nhan vien");
+            // System.out.println("5. Hiển thị tất cả khách hàng");
+            System.out.println("0. Quay lại Menu Chính");
+            System.out.print("Chọn chức năng: ");
+
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                chon = -1;
+            }
+
+            switch (chon) {
+                case 1:
+                    dsNhanVien.themNhanVien();
+                    break;
+                case 2:
+                    dsNhanVien.xoaNhanVien();
+                    break;
+                case 3:
+                    dsNhanVien.suaThongTinNV();
+                    break;
+                case 4:
+                    dsNhanVien.timKiemNhanVien();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+            }
+        } while (chon != 0);
+    }
 }

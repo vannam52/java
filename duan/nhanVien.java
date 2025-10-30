@@ -93,15 +93,20 @@ public class nhanVien {
         System.out.print("Nhap luong: ");
         luong = sc.nextDouble();
     }
-    public void hienThiThongTinNV(){
-        System.out.println("Ma nhan vien: " + maNV);
-        System.out.println("Ten nhan vien: " + tenNV);
-        System.out.println("Gioi tinh: " + gt);
-        System.out.println("So dien thoai: " + sdt);
-        System.out.println("Dia chi: " + diaChi);
-        System.out.println("Tuoi: " + tuoi);
-        System.out.println("Luong: " + luong);
-    }
+    public void hienThiThongTinNV() {
+    System.out.println("=====================================");
+    System.out.println("       THÔNG TIN NHÂN VIÊN           ");
+    System.out.println("=====================================");
+    
+    System.out.printf("%-20s: %s\n", "Mã nhân viên", maNV);
+    System.out.printf("%-20s: %s\n", "Tên nhân viên", tenNV);
+    System.out.printf("%-20s: %s\n", "Giới tính", gt);
+    System.out.printf("%-20s: %s\n", "Số điện thoại", sdt);
+    System.out.printf("%-20s: %s\n", "Địa chỉ", diaChi);
+    System.out.printf("%-20s: %s\n", "Tuổi", tuoi);
+    System.out.printf("%-20s: %,.0f VNĐ\n", "Lương", luong); 
+    System.out.println("-------------------------------------");
+}
 
     public void suaThongTinNV(){
         Scanner sc = new Scanner(System.in);

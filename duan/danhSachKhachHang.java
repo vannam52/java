@@ -1,6 +1,7 @@
 package duan;
 
 import java.util.Date;
+import java.util.Scanner;
 
 public class danhSachKhachHang {
     private khachHang[] dsKH;
@@ -24,39 +25,100 @@ public class danhSachKhachHang {
 
     // them khach hang theo ma
     public void themKhachHang(khachHang kh) {
-        if (soLuongKH > dsKH.length) {
+        if (soLuongKH == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
+        if (soLuongKH >= dsKH.length) {
             System.out.println("Danh sach khach hang day");
             return;
         } else {
-            dsKH[soLuongKH] = new khachHang(kh);
-            kh.NhapThongTinKH();
+            // kh.NhapThongTinKH();
             if (timKiemTheoMa(kh.getMaKH()) != null) {
-                System.out.println("ma khach hang da ton tai");
+                System.out.println("Ma khach hang da ton tai");
                 return;
             }
+            dsKH[soLuongKH] = new khachHang(kh);
             soLuongKH++;
             tongKH++;
             System.out.println("Them khach hang thanh cong");
         }
     }
-    //xoa khach hang theo ma
+
+    // them khach hang khong tham so
+    public void themKhachHang() {
+        if (soLuongKH == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
+        khachHang kh = new khachHang();
+        kh.HienThiThongTinKH();
+
+        if (timKiemTheoMa(kh.getMaKH()) != null) {
+            System.out.println("da ton tai khach hang co ma" + kh.getMaKH());
+            return;
+        }
+        dsKH[soLuongKH] = kh;
+        soLuongKH++;
+        System.out.println("Them khach hang thanh cong");
+    }
+
+    // xoa khach hang theo ma
     public void xoaKhachHang(String maKH) {
+        if (soLuongKH == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
+        int vt = -1;
         for (int i = 0; i < soLuongKH; i++) {
-            if (dsKH[i].getMaKH().equals(maKH)) {
-                for (int j = i; j < soLuongKH - 1; j++) {
-                    dsKH[j] = dsKH[j + 1];
-                }
-                dsKH[soLuongKH - 1] = null;
-                soLuongKH--;
-                tongKH--;
-                System.out.println("Xoa khach hang thanh cong");
+            if (dsKH[i].getMaKH().equalsIgnoreCase(maKH)) {
+                vt = i;
+                break;
             }
         }
+        if (vt == -1) {
+            System.out.println("Khong tim khach hang co ma" + maKH);
+            return;
+        }
+        for (int j = vt; j < soLuongKH - 1; j++) {
+            dsKH[j] = dsKH[j + 1];
+        }
+        dsKH[soLuongKH] = null;
+        soLuongKH--;
         System.out.println("Khong tim thay ma khach hang can xoa");
+    }
+
+    // xoa khach hang khong tham so
+    public void xoaKhachHang() {
+        if (soLuongKH == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+        String maCanXoa = sc.nextLine();
+
+        int vt = -1;
+        for (int i = 0; i < soLuongKH; i++) {
+            if (dsKH[i].getMaKH().equalsIgnoreCase(maCanXoa)) {
+                vt = i;
+                break;
+            }
+        }
+        if (vt == -1) {
+            System.out.println("Khong tim thay ma can xoa");
+            return;
+        }
+        for (int j = vt; j < soLuongKH - 1; j++) {
+            dsKH[j] = dsKH[j + 1];
+        }
+        dsKH[soLuongKH] = null;
+        soLuongKH--;
+        System.out.println("Xoa thanh cong khach hang co ma " + maCanXoa);
     }
 
     // tim kiem khach hang theo ma
     public khachHang timKiemTheoMa(String maKH) {
+
         for (int i = 0; i < soLuongKH; i++) {
             if (dsKH[i].getMaKH().equals(maKH)) {
                 return dsKH[i];
@@ -81,6 +143,32 @@ public class danhSachKhachHang {
         return result;
     }
 
+    // tim kiem khong tham so
+    public void timTiemKhachHang() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhap ma hoac ten khach hang: ");
+        String input = sc.nextLine();
+
+        khachHang kh = timKiemTheoMa(input);
+
+        if (kh != null) {
+            System.out.println("Tim thay khach hang");
+            kh.HienThiThongTinKH();
+        } else {
+            // theo ten
+            khachHang[] ten = timKiemTheoTen(input);
+
+            if (ten.length > 0) {
+                System.out.println("Tim thay " + ten.length);
+                for (khachHang k : ten) {
+                    k.HienThiThongTinKH();
+                }
+            } else {
+                System.out.println("Khong tim thay ten khach hang");
+            }
+        }
+    }
+
     // sua thong tin khach hang theo ma
     public void suaThongTinKH(String maKH) {
         khachHang kh = timKiemTheoMa(maKH);
@@ -89,6 +177,19 @@ public class danhSachKhachHang {
         } else {
             System.out.println("Khong tim thay ma khach hang can sua" + maKH);
         }
+    }
+
+    // sua khach hang khong tham so
+    public void suaThongTinKH() {
+        if (soLuongKH == 0) {
+            System.out.println("Danh sach khach hang rong");
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhap ma khach hang can sua: ");
+        String maCanSua = sc.nextLine();
+
+        suaThongTinKH(maCanSua);
     }
 
     // cap nhat diem tich luy cho khach hang
@@ -176,5 +277,7 @@ public class danhSachKhachHang {
         }
         return result;
     }
+
+    // hien thi tat ca
 
 }
