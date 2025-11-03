@@ -1,0 +1,4 @@
+3
+TH001,Paracetamol,Vien,5000.00,31/12/2025
+TH002,Amoxicillin,Vien,15000.50,30/06/2026
+TH003,Vitamin C,Vien,3000.00,31/12/2024

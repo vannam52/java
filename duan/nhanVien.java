@@ -1,136 +1,188 @@
 package duan;
 
 import java.util.Scanner;
-public class nhanVien {
+
+public class nhanVien extends conNguoi {
     private String maNV;
-    private String tenNV;
-    private String gt;
-    private String sdt;
     private String diaChi;
-    private int tuoi;
-    private double luong;
+    private double luongCoBan;
+    private double thuong;
 
     public nhanVien() {
+        super();
     }
 
-    public nhanVien(nhanVien other){
-        this.maNV = other.maNV;
-        this.tenNV = other.tenNV;
-        this.gt = other.gt;
-        this.sdt = other.sdt;
-        this.diaChi = other.diaChi;
-        this.tuoi = other.tuoi;
-        this.luong = other.luong;
-    }
-
-    public nhanVien(String maNV, String tenNV, String gt, String sdt, String diaChi, int tuoi, double luong) {
+    // Constructor khớp với file CSV: maNV, HoTen, GioiTinh, SDT, diaChi, tuoi,
+    // luongCoBan, thuong
+    public nhanVien(String maNV, String HoTen, String GioiTinh, String SDT,
+            String diaChi, int tuoi, double luongCoBan, double thuong) {
+        super(HoTen, tuoi, GioiTinh, SDT); // Thứ tự: HoTen, tuoi, GioiTinh, SDT
         this.maNV = maNV;
-        this.tenNV = tenNV;
-        this.gt = gt;
-        this.sdt = sdt;
         this.diaChi = diaChi;
-        this.tuoi = tuoi;
-        this.luong = luong;
+        this.luongCoBan = luongCoBan;
+        this.thuong = thuong;
     }
+
+    public nhanVien(nhanVien other) {
+        this.maNV = other.maNV;
+        this.diaChi = other.diaChi;
+        this.luongCoBan = other.luongCoBan;
+        this.thuong = other.thuong;
+    }
+
     public String getMaNV() {
         return maNV;
     }
+
     public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
-    public String getTenNV() {
-        return tenNV;
-    }
-    public void setTenNV(String tenNV) {
-        this.tenNV = tenNV;
-    }
-    public String getGt() {
-        return gt;
-    }
-    public void setGt(String gt) {
-        this.gt = gt;
-    }
-    public String getSdt() {
-        return sdt;
-    }
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
+
     public String getDiaChi() {
         return diaChi;
     }
+
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
-    public int getTuoi() {
-        return tuoi;
+
+    public double getLuongCoBan() {
+        return luongCoBan;
     }
-    public void setTuoi(int tuoi) {
-        this.tuoi = tuoi;
+
+    public void setLuongCoBan(double luongCoBan) {
+        this.luongCoBan = luongCoBan;
     }
+
+    public double getThuong() {
+        return thuong;
+    }
+
+    public void setThuong(double thuong) {
+        this.thuong = thuong;
+    }
+
     public double getLuong() {
-        return luong;
+        return this.luongCoBan + this.thuong;
     }
 
-    public void setLuong(double luong) {
-        this.luong = luong;
-    }
-
-    public void NhapThongTinNV(){
+    public void NhapMa() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma nhan vien: ");
-        maNV = sc.nextLine();
-        System.out.print("Nhap ten nhan vien: ");
-        tenNV = sc.nextLine();
-        System.out.print("Nhap gioi tinh: ");
-        gt = sc.nextLine();
-        System.out.print("Nhap so dien thoai: ");
-        sdt = sc.nextLine();
+        System.out.print("Nhap ma nhan vien (NV...): ");
+        this.maNV = sc.nextLine();
+    }
+
+    @Override
+    public void Nhap() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhap thong tin nhan vien:");
+
+        super.Nhap();
+
         System.out.print("Nhap dia chi: ");
-        diaChi = sc.nextLine();
-        System.out.print("Nhap tuoi: ");
-        tuoi = sc.nextInt();
-        System.out.print("Nhap luong: ");
-        luong = sc.nextDouble();
-    }
-    public void hienThiThongTinNV() {
-    System.out.println("=====================================");
-    System.out.println("       THÔNG TIN NHÂN VIÊN           ");
-    System.out.println("=====================================");
-    
-    System.out.printf("%-20s: %s\n", "Mã nhân viên", maNV);
-    System.out.printf("%-20s: %s\n", "Tên nhân viên", tenNV);
-    System.out.printf("%-20s: %s\n", "Giới tính", gt);
-    System.out.printf("%-20s: %s\n", "Số điện thoại", sdt);
-    System.out.printf("%-20s: %s\n", "Địa chỉ", diaChi);
-    System.out.printf("%-20s: %s\n", "Tuổi", tuoi);
-    System.out.printf("%-20s: %,.0f VNĐ\n", "Lương", luong); 
-    System.out.println("-------------------------------------");
-}
+        this.diaChi = sc.nextLine();
 
-    public void suaThongTinNV(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Nhap ma nhan vien can sua: ");
-        String maCanSua = sc.nextLine();
-        if(maCanSua.equals(maNV)){
-            System.out.println("Nhap ten nhan vien: ");
-            tenNV = sc.nextLine();
-            System.out.println("Nhap dia chi ten nhan vien: ");
-            diaChi = sc.nextLine();
-            System.out.println("Nhap gioi tinh nhan vien: ");
-            gt = sc.nextLine();
-            System.out.println("Nhap so dien thoai nhan vien: ");
-            sdt = sc.nextLine();
-            System.out.println("Nhap tuoi nhan vien: ");
-            tuoi = sc.nextInt();
-            System.out.println("Nhap luong: ");
-            luong = sc.nextInt();
-        }else{
-            System.out.println("Khong tim thay nhan vien can sua voi ma"+maCanSua);
-        }
+        boolean luongCoBanHopLe = false;
+        do {
+            System.out.print("Nhap luong co ban: ");
+            try {
+                this.luongCoBan = Double.parseDouble(sc.nextLine());
+                if (this.luongCoBan < 0)
+                    throw new NumberFormatException();
+                luongCoBanHopLe = true;
+            } catch (NumberFormatException e) {
+                System.out.println(">> Vui long nhap so hop le lon hon hoac bang 0 cho luong co ban.");
+            }
+        } while (!luongCoBanHopLe);
+
+        boolean thuongHopLe = false;
+        do {
+            System.out.print("Nhap luong thuong: ");
+            try {
+                this.thuong = Double.parseDouble(sc.nextLine());
+                if (this.thuong < 0)
+                    throw new NumberFormatException();
+                thuongHopLe = true;
+            } catch (NumberFormatException e) {
+                System.out.println(">> Vui long nhap so hop le lon hon hoac bang 0 cho luong thuong.");
+            }
+        } while (!thuongHopLe);
     }
 
-    public void tinhLuong(double tien){
-        this.luong += tien;
-    }   
+    @Override
+    public void Xuat() {
+        final String LINE = "══════════════════════════════════════════════════════════════════════════════════════";
+
+        System.out.println("╔" + LINE + "╗");
+        System.out.println("║                                 NHAN VIEN                                            ║");
+        System.out.println("╠" + LINE + "╣");
+        System.out.printf("║ Ma NV: %-77s ║%n", maNV);
+        System.out.println("╠" + LINE + "╣");
+        System.out.println("║                             THONG TIN CA NHAN                                        ║");
+        System.out.println("╠" + LINE + "╣");
+
+        super.Xuat();
+        System.out.printf("║ Dia chi: %-75s ║%n", diaChi);
+        System.out.printf("║ Luong co ban: %-66.0f VND ║%n", luongCoBan);
+        System.out.printf("║ Thuong: %-72.0f VND ║%n", thuong);
+        System.out.printf("║ Tong luong: %-68.0f VND ║%n", getLuong());
+        System.out.println("╚" + LINE + "╝");
+    }
+
+    public void suaThongTinNV(Scanner sc) {
+        System.out.println("--- Cap nhat thong tin Nhan Vien ---");
+        System.out.println("(Bo trong neu khong muon thay doi)");
+
+        System.out.print("Ho ten moi: ");
+        String tenMoi = sc.nextLine();
+        if (!tenMoi.isEmpty())
+            setHoTen(tenMoi);
+
+        System.out.print("Dia chi moi: ");
+        String diaChiMoi = sc.nextLine();
+        if (!diaChiMoi.isEmpty())
+            this.diaChi = diaChiMoi;
+
+        boolean luongCoBanHopLe = false;
+        do {
+            System.out.print("Nhap luong co ban moi: ");
+            String luongMoiStr = sc.nextLine();
+            if (luongMoiStr.isEmpty())
+                break;
+
+            try {
+                double luongMoi = Double.parseDouble(luongMoiStr);
+                if (luongMoi < 0)
+                    throw new NumberFormatException();
+                setLuongCoBan(luongMoi);
+                luongCoBanHopLe = true;
+            } catch (NumberFormatException e) {
+                System.out.println(">> Vui long nhap lai so hop le va lon hon 0.");
+            }
+        } while (!luongCoBanHopLe);
+
+        boolean thuongHopLe = false;
+        do {
+            System.out.print("Nhap luong thuong moi: ");
+            String thuongMoiStr = sc.nextLine();
+            if (thuongMoiStr.isEmpty())
+                break;
+
+            try {
+                double thuongMoi = Double.parseDouble(thuongMoiStr);
+                if (thuongMoi < 0)
+                    throw new NumberFormatException();
+                setThuong(thuongMoi);
+                thuongHopLe = true;
+            } catch (NumberFormatException e) {
+                System.out.println(">> Vui long nhap lai so hop le va lon hon 0.");
+            }
+        } while (!thuongHopLe);
+
+        System.out.println("✓ Cap nhat thanh cong!");
+    }
+
+    public void tinhLuong(double tien) {
+        this.thuong += tien;
+    }
 }

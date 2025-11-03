@@ -1,103 +1,119 @@
 package duan;
 
 import java.util.Scanner;
-public class khachHang {
+
+public class khachHang extends conNguoi {
     private String maKH;
-    private String tenKH;
     private String diaChi;
-    private String sdt;
     private int diemTichLuy;
-    
+
     public khachHang() {
+        super();
     }
 
-    public khachHang(khachHang other){
-        this.maKH = other.maKH;
-        this.tenKH = other.tenKH;
-        this.diaChi = other.diaChi;
-        this.sdt = other.sdt;
-        this.diemTichLuy = other.diemTichLuy;
-    }
-
-    public khachHang(String maKH, String tenKH, String diaChi, String sdt, int diemTichLuy) {
+    public khachHang(String maKH, String HoTen, String GioiTinh, String SDT, int tuoi, String diaChi,
+            int diemTichLuy) {
+        super(HoTen, tuoi, GioiTinh, SDT);
         this.maKH = maKH;
-        this.tenKH = tenKH;
         this.diaChi = diaChi;
-        this.sdt = sdt;
         this.diemTichLuy = diemTichLuy;
     }
 
     public String getMaKH() {
         return maKH;
     }
+
     public void setMaKH(String maKH) {
         this.maKH = maKH;
     }
-    public String getTenKH() {
-        return tenKH;
-    }
-    public void setTenKH(String tenKH) {
-        this.tenKH = tenKH;
-    }
+
     public String getDiaChi() {
         return diaChi;
     }
+
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
-    public String getSdt() {
-        return sdt;
-    }
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
+
     public int getDiemTichLuy() {
         return diemTichLuy;
     }
+
     public void setDiemTichLuy(int diemTichLuy) {
         this.diemTichLuy = diemTichLuy;
     }
-    public void NhapThongTinKH(){
+
+    public void NhapMa() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Ma khach hang la: ");
-        maKH = sc.nextLine();
-        System.out.println("Ten khach hang la: ");
-        tenKH = sc.nextLine();
-        System.out.println("Dia chi khach hang la: ");
-        diaChi = sc.nextLine();
-        System.out.println("So dien thoai khach hang la: ");
-        sdt = sc.nextLine();
-        System.out.println("Diem tich luy cua khach hang la: ");
-        diemTichLuy = sc.nextInt();
-    }
-    public void HienThiThongTinKH(){
-        System.out.println("Ma khach hang: " + maKH);
-        System.out.println("Ten khach hang: " + tenKH);
-        System.out.println("Dia chi khach hang: " + diaChi);
-        System.out.println("So dien thoai khach hang: " + sdt);
-        System.out.println("Diem tich luy cua khach hang: " + diemTichLuy);
+        do {
+            System.out.print("Nhap ma khach hang (KH...): ");
+            this.maKH = sc.nextLine();
+            if (this.maKH.trim().isEmpty()) {
+                System.out.println(">> Loi: Ma KH khong duoc de trong.");
+            }
+        } while (this.maKH.trim().isEmpty());
     }
 
-    //sua thong tin theo ma
-    public void suaThongTinKH(){
+    @Override
+    public void Nhap() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma khach hang can sua: ");
-        String maKHCanSua = sc.nextLine();
+        super.Nhap();
 
-        if(maKHCanSua.equals(maKH)){
-            System.out.print("Nhap ten khach hang moi: ");
-            tenKH = sc.nextLine();
-            System.out.print("Nhap dia chi khach hang moi: ");
-            diaChi = sc.nextLine();
-            System.out.print("Nhap so dien thoai khach hang moi: ");
-            sdt = sc.nextLine();
-            System.out.print("Nhap diem tich luy moi: ");
-            diemTichLuy = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Sua thanh cong");
-        } else {
-            System.out.println("Khong tim thay ma khach hang can sua.");
-        }
+        System.out.print("Nhap dia chi: ");
+        this.diaChi = sc.nextLine();
+
+        boolean nhapSai;
+        do {
+            nhapSai = false;
+            System.out.print("Nhap diem tich luy ban dau: ");
+            try {
+                this.diemTichLuy = Integer.parseInt(sc.nextLine());
+                if (this.diemTichLuy < 0)
+                    throw new NumberFormatException();
+            } catch (NumberFormatException e) {
+                System.out.println(">> Loi: Diem phai la so nguyen khong am.");
+                nhapSai = true;
+            }
+        } while (nhapSai);
+    }
+
+    @Override
+    public void Xuat() {
+        final String LINE = "════════════════════════════════════════════════════════════════════════════════";
+        final int W = 77;
+
+        System.out.println("╔" + LINE + "╗");
+        System.out.println("║ ------------------ THONG TIN KHACH HANG --------------------------------- ║");
+        System.out.println("╠" + LINE + "╣");
+        System.out.printf("║ Ma KH: %-" + (W - 6) + "s ║%n", maKH);
+
+        super.Xuat();
+
+        System.out.printf("║ Dia chi: %-" + (W - 10) + "s ║%n", diaChi);
+        System.out.printf("║ Diem tich luy: %-" + (W - 16) + "d ║%n", diemTichLuy);
+        System.out.println("╚" + LINE + "╝");
+    }
+
+    public void suaThongTinKH(Scanner sc) {
+        System.out.println("--- Cap nhat thong tin Khach Hang ---");
+        System.out.println("(Bo trong neu khong muon thay doi)");
+
+        System.out.print("Ho ten moi: ");
+        String tenMoi = sc.nextLine();
+        if (!tenMoi.isEmpty())
+            setHoTen(tenMoi);
+
+        System.out.print("Dia chi moi: ");
+        String diaChiMoi = sc.nextLine();
+        if (!diaChiMoi.isEmpty())
+            this.diaChi = diaChiMoi;
+
+        System.out.print("SDT moi: ");
+        String sdtMoi = sc.nextLine();
+        if (!sdtMoi.isEmpty())
+            setSDT(sdtMoi);
+
+        System.out.println("✓ Cap nhat thanh cong!");
     }
 
     public void capNhapDiemTichLuy(int diem) {
