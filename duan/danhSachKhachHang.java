@@ -182,7 +182,6 @@ public class danhSachKhachHang implements ChucNang, IFile {
     // Trong class danhSachKhachHang.java
 
     public void hienThiBang(khachHang[] arr, int size) {
-        // ⭐ SỬA 1: Sửa lại đường kẻ và tiêu đề để THÊM CỘT "NĂM SINH"
         final String LINE = "══════════════════════════════════════════════════════════════════════════════════════════════════════════";
         System.out.println("╔" + LINE + "╗");
         System.out.println(
@@ -197,17 +196,15 @@ public class danhSachKhachHang implements ChucNang, IFile {
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) {
 
-                // Logic cắt chuỗi (nếu bạn muốn giữ lại)
                 String tenHienThi = arr[i].getHoTen().length() > 20 ? arr[i].getHoTen().substring(0, 17) + "..."
                         : arr[i].getHoTen();
                 String diaChiHienThi = arr[i].getDiaChi().length() > 25 ? arr[i].getDiaChi().substring(0, 22) + "..."
                         : arr[i].getDiaChi();
 
-                // ⭐ SỬA 2: Thêm arr[i].getNgaySinh() vào printf
                 System.out.printf("║ %-10s ║ %-20s ║ %-10d ║ %-15s ║ %-25s ║ %-10d ║%n",
                         arr[i].getMaKH(),
                         tenHienThi,
-                        arr[i].getTuoi(), // Lấy năm sinh
+                        arr[i].getTuoi(), 
                         arr[i].getSDT(),
                         diaChiHienThi,
                         arr[i].getDiemTichLuy());

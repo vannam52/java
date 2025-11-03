@@ -16,7 +16,7 @@ public class nhanVien extends conNguoi {
     // luongCoBan, thuong
     public nhanVien(String maNV, String HoTen, String GioiTinh, String SDT,
             String diaChi, int tuoi, double luongCoBan, double thuong) {
-        super(HoTen, tuoi, GioiTinh, SDT); // Thứ tự: HoTen, tuoi, GioiTinh, SDT
+        super(HoTen, tuoi, GioiTinh, SDT); 
         this.maNV = maNV;
         this.diaChi = diaChi;
         this.luongCoBan = luongCoBan;

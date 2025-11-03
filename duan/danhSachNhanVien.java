@@ -49,7 +49,6 @@ public class danhSachNhanVien implements ChucNang, IFile {
         nvMoi.Nhap();
 
         themNhanVien(nvMoi);
-        // KHÔNG đóng Scanner ở đây
     }
 
     public nhanVien timKiemTheoMa(String maNV) {
@@ -345,7 +344,6 @@ public class danhSachNhanVien implements ChucNang, IFile {
 
                 String[] parts = line.split(",");
 
-                // Hỗ trợ cả format cũ (10 trường) và mới (8 trường)
                 if (parts.length == 8 || parts.length == 10) {
                     try {
                         String maNV = parts[0].trim();
@@ -358,11 +356,9 @@ public class danhSachNhanVien implements ChucNang, IFile {
                         double luongCoBan, thuong;
 
                         if (parts.length == 10) {
-                            // Format cũ: số bị tách (VD: 15000000,00)
                             luongCoBan = Double.parseDouble(parts[6].trim() + "." + parts[7].trim());
                             thuong = Double.parseDouble(parts[8].trim() + "." + parts[9].trim());
                         } else {
-                            // Format mới: số nguyên vẹn (VD: 15000000.00)
                             luongCoBan = Double.parseDouble(parts[6].trim());
                             thuong = Double.parseDouble(parts[7].trim());
                         }

@@ -116,7 +116,6 @@ public class thietBiYTe extends Thuoc {
         } while (nh.isEmpty());
         setNgayHetHan(nh);
 
-        // Trường riêng
         System.out.print("Nhap loai thiet bi: ");
         this.loaiTB = sc.nextLine();
 

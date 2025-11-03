@@ -68,7 +68,6 @@ public class Thuoc {
         this.ngayHetHan = ngayHetHan;
     }
 
-    // Nhập mã thuốc (dùng khi thêm mới)
     public void NhapMa() {
         Scanner sc = new Scanner(System.in);
         do {
@@ -80,7 +79,6 @@ public class Thuoc {
         } while (this.maThuoc.trim().isEmpty());
     }
 
-    // Nhập thông tin thuốc (không nhập mã)
     public void Nhap() {
         Scanner sc = new Scanner(System.in);
         
@@ -108,7 +106,6 @@ public class Thuoc {
         this.ngayHetHan = sc.nextLine();
     }
 
-    // Xuất thông tin đầy đủ (dạng box)
     public void Xuat() {
         System.out.println("╔══════════════════════════════════════════════════════════════════╗");
         System.out.println("║                   THONG TIN CHI TIET THUOC                       ║");
