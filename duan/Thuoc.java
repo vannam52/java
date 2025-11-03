@@ -109,7 +109,7 @@ public class Thuoc {
     }
 
     // Xuất thông tin đầy đủ (dạng box)
-    public void XuatChiTiet() {
+    public void Xuat() {
         System.out.println("╔══════════════════════════════════════════════════════════════════╗");
         System.out.println("║                   THONG TIN CHI TIET THUOC                       ║");
         System.out.println("╠══════════════════════════════════════════════════════════════════╣");

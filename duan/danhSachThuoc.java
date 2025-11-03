@@ -133,7 +133,7 @@ public class danhSachThuoc implements ChucNang, IFile {
         Thuoc th = timKiemTheoMa(tuKhoa);
         if (th != null) {
             System.out.println("✓ Tim thay thuoc theo ma:");
-            th.XuatChiTiet();
+            th.Xuat();
         } else {
             Thuoc[] ketQua = timKiemTheoTen(tuKhoa);
             if (ketQua.length > 0) {

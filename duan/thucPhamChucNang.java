@@ -1,50 +1,32 @@
 package duan;
 
-public class thucPhamChucNang extends quanLyBanThuocYTe {
-    private String maTP;
-    private String tenTP;
+import java.util.Scanner;
+
+public class thucPhamChucNang extends Thuoc {
     private String NSX;
     private String HSD;
-    private double donGia;
     private int soLuong;
 
-    public thucPhamChucNang() {
-    }
-
-    public thucPhamChucNang(thucPhamChucNang other) {
-        this.maTP = other.maTP;
-        this.tenTP = other.tenTP;
-        this.NSX = other.NSX;
-        this.HSD = other.HSD;
-        this.donGia = other.donGia;
-        this.soLuong = other.soLuong;
-    }
-
-    public thucPhamChucNang(String maTP, String tenTP, String NSX, String HSD, double donGia, int soLuong) {
-        this.maTP = maTP;
-        this.tenTP = tenTP;
-        this.HSD = HSD;
+    public thucPhamChucNang(String ma, String ten, String donVi, double gia, String ngayHH,
+            String NSX, String HSD, int soLuong) {
+        super(ma, ten, donVi, gia, ngayHH);
         this.NSX = NSX;
-        this.donGia = donGia;
+        this.HSD = HSD;
         this.soLuong = soLuong;
     }
 
-    public String getMaTP() {
-        return maTP;
+    public thucPhamChucNang() {
+        super();
     }
 
-    public void setMaTP(String maTP) {
-        this.maTP = maTP;
+    public thucPhamChucNang(thucPhamChucNang other) {
+        super(other);
+        this.NSX = other.NSX;
+        this.HSD = other.HSD;
+        this.soLuong = other.soLuong;
     }
 
-    public String getTenTP() {
-        return tenTP;
-    }
-
-    public void setTenTP(String tenTP) {
-        this.tenTP = tenTP;
-    }
-
+    // 4. Getters/Setters (Giữ nguyên)
     public String getNSX() {
         return NSX;
     }
@@ -61,14 +43,6 @@ public class thucPhamChucNang extends quanLyBanThuocYTe {
         this.HSD = HSD;
     }
 
-    // public double getDonGia() {
-    // return donGia;
-    // }
-
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
-    }
-
     public int getSoLuong() {
         return soLuong;
     }
@@ -77,4 +51,63 @@ public class thucPhamChucNang extends quanLyBanThuocYTe {
         this.soLuong = soLuong;
     }
 
+    // 5. Sửa lỗi Scanner và Logic trong Nhap()
+    @Override
+    public void Nhap() {
+
+        Scanner sc = quanLyBanThuocYTe.sc;
+
+        super.NhapMa();
+
+        super.Nhap();
+
+        System.out.print("Nhap NSX: ");
+        this.NSX = sc.nextLine().trim();
+
+        String hsd;
+        do {
+            System.out.print("Nhap HSD (rieng): ");
+            hsd = sc.nextLine().trim();
+            if (hsd.isEmpty())
+                System.out.println(">> Loi: HSD khong duoc de trong. Nhap lai.");
+        } while (hsd.isEmpty());
+        this.HSD = hsd;
+
+        while (true) {
+            System.out.print("Nhap so luong: ");
+            try {
+                int sl = Integer.parseInt(sc.nextLine());
+                if (sl < 0)
+                    throw new NumberFormatException();
+                this.soLuong = sl;
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println(">> Loi: So luong phai la so nguyen khong am. Nhap lai.");
+            }
+        }
+    }
+
+    @Override
+    public void Xuat() {
+        super.Xuat();
+
+        // In thêm các thuộc tính riêng
+        System.out.println("--- Thong Tin Thuc Pham Chuc Nang ---");
+        System.out.printf("NSX: %s%n", this.NSX);
+        System.out.printf("HSD (rieng): %s%n", this.HSD);
+        System.out.printf("So luong: %d%n", this.soLuong);
+        System.out.println("-------------------------------------");
+    }
+
+    public double tinhThanhTien() {
+        return getGiaBan() * this.soLuong;
+    }
+
+    public boolean kiemTraHetHang() {
+        return this.soLuong <= 0;
+    }
+
+    public boolean kiemTraConHang() {
+        return this.soLuong > 0;
+    }
 }
