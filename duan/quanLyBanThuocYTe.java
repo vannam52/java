@@ -1,7 +1,6 @@
 package duan;
 
 import java.util.Scanner;
-import java.util.Locale;
 
 public class quanLyBanThuocYTe {
 
@@ -14,15 +13,11 @@ public class quanLyBanThuocYTe {
     // public static danhSachHoaDonBanHang dsHoaDonBan = new
     // danhSachHoaDonBanHang();
 
-    public static Scanner sc;
+    public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        sc = new Scanner(System.in);
-
         taiDuLieu();
-
         hienThiMenuChinh();
-
         luuDuLieu();
         sc.close();
     }
@@ -48,23 +43,23 @@ public class quanLyBanThuocYTe {
             System.out.println(
                     "╔══════════════════════════════════════════════════════════════════════════════════════╗");
             System.out.println(
-                    "║                              MENU QUAN LY BAN THUOC Y TE                             ║");
+                    "║                              MENU QUAN LY BAN THUOC Y TE                             ║");
             System.out.println(
                     "╠══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.println(
-                    "║ 1. Quan ly danh sach thuoc y te                                                      ║");
+                    "║ 1. Quan ly danh sach thuoc y te                                                      ║");
             System.out.println(
-                    "║ 2. Quan ly danh sach nhan vien                                                       ║");
+                    "║ 2. Quan ly danh sach nhan vien                                                       ║");
             System.out.println(
-                    "║ 3. Quan ly danh sach khach hang                                                      ║");
+                    "║ 3. Quan ly danh sach khach hang                                                      ║");
             System.out.println(
-                    "║ 4. Quan ly danh sach khuyen mai                                                      ║");
+                    "║ 4. Quan ly danh sach khuyen mai                                                      ║");
             System.out.println(
-                    "║ 5. Quan ly danh sach hoa don ban hang                                                ║");
+                    "║ 5. Quan ly danh sach hoa don ban hang                                                ║");
             System.out.println(
-                    "║ 6. Quan ly danh sach hoa don nhap hang                                               ║");
+                    "║ 6. Quan ly danh sach hoa don nhap hang                                               ║");
             System.out.println(
-                    "║ 0. Thoat chuong trinh                                                                ║");
+                    "║ 0. Thoat chuong trinh                                                                ║");
             System.out.println(
                     "╚══════════════════════════════════════════════════════════════════════════════════════╝");
             System.out.print("Nhap lua chon: ");
@@ -94,7 +89,7 @@ public class quanLyBanThuocYTe {
                 case 0:
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại.");
+                    System.out.println("Vui long nhap lai.");
             }
 
         } while (choice != 0);
@@ -160,7 +155,7 @@ public class quanLyBanThuocYTe {
                 case 0:
                     break;
                 default:
-                    System.out.println("✗ Lua chon khong hop le!");
+                    System.out.println("Vui long nhap lai.");
             }
         } while (choice != 0);
     }
@@ -225,7 +220,7 @@ public class quanLyBanThuocYTe {
                 case 0:
                     break;
                 default:
-                    System.out.println("✗ Lua chon khong hop le!");
+                    System.out.println("Vui long nhap lai");
             }
         } while (choice != 0);
     }
@@ -291,7 +286,7 @@ public class quanLyBanThuocYTe {
                 case 0:
                     break;
                 default:
-                    System.out.println("✗ Lua chon khong hop le!");
+                    System.out.println("Vui long nhap lai. ");
             }
         } while (choice != 0);
     }

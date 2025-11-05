@@ -12,11 +12,9 @@ public class nhanVien extends conNguoi {
         super();
     }
 
-    // Constructor khớp với file CSV: maNV, HoTen, GioiTinh, SDT, diaChi, tuoi,
-    // luongCoBan, thuong
-    public nhanVien(String maNV, String HoTen, String GioiTinh, String SDT,
-            String diaChi, int tuoi, double luongCoBan, double thuong) {
-        super(HoTen, tuoi, GioiTinh, SDT); 
+    public nhanVien(String maNV, String HoTen, String ngaySinh, String GioiTinh, String SDT,
+            String diaChi, double luongCoBan, double thuong) {
+        super(HoTen, ngaySinh, GioiTinh, SDT);
         this.maNV = maNV;
         this.diaChi = diaChi;
         this.luongCoBan = luongCoBan;
@@ -66,47 +64,22 @@ public class nhanVien extends conNguoi {
         return this.luongCoBan + this.thuong;
     }
 
-    public void NhapMa() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma nhan vien (NV...): ");
-        this.maNV = sc.nextLine();
-    }
-
     @Override
     public void Nhap() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhap thong tin nhan vien:");
-
+        System.out.println("Nhap maNV: ");
+        this.maNV = sc.nextLine();
         super.Nhap();
 
         System.out.print("Nhap dia chi: ");
         this.diaChi = sc.nextLine();
 
-        boolean luongCoBanHopLe = false;
-        do {
-            System.out.print("Nhap luong co ban: ");
-            try {
-                this.luongCoBan = Double.parseDouble(sc.nextLine());
-                if (this.luongCoBan < 0)
-                    throw new NumberFormatException();
-                luongCoBanHopLe = true;
-            } catch (NumberFormatException e) {
-                System.out.println(">> Vui long nhap so hop le lon hon hoac bang 0 cho luong co ban.");
-            }
-        } while (!luongCoBanHopLe);
+        System.out.println("Nhap luong co ban: ");
+        this.luongCoBan = sc.nextDouble();
 
-        boolean thuongHopLe = false;
-        do {
-            System.out.print("Nhap luong thuong: ");
-            try {
-                this.thuong = Double.parseDouble(sc.nextLine());
-                if (this.thuong < 0)
-                    throw new NumberFormatException();
-                thuongHopLe = true;
-            } catch (NumberFormatException e) {
-                System.out.println(">> Vui long nhap so hop le lon hon hoac bang 0 cho luong thuong.");
-            }
-        } while (!thuongHopLe);
+        System.out.println("Nhap luong thuong: ");
+        this.thuong = sc.nextDouble();
     }
 
     @Override
@@ -129,58 +102,6 @@ public class nhanVien extends conNguoi {
         System.out.println("╚" + LINE + "╝");
     }
 
-    public void suaThongTinNV(Scanner sc) {
-        System.out.println("--- Cap nhat thong tin Nhan Vien ---");
-        System.out.println("(Bo trong neu khong muon thay doi)");
-
-        System.out.print("Ho ten moi: ");
-        String tenMoi = sc.nextLine();
-        if (!tenMoi.isEmpty())
-            setHoTen(tenMoi);
-
-        System.out.print("Dia chi moi: ");
-        String diaChiMoi = sc.nextLine();
-        if (!diaChiMoi.isEmpty())
-            this.diaChi = diaChiMoi;
-
-        boolean luongCoBanHopLe = false;
-        do {
-            System.out.print("Nhap luong co ban moi: ");
-            String luongMoiStr = sc.nextLine();
-            if (luongMoiStr.isEmpty())
-                break;
-
-            try {
-                double luongMoi = Double.parseDouble(luongMoiStr);
-                if (luongMoi < 0)
-                    throw new NumberFormatException();
-                setLuongCoBan(luongMoi);
-                luongCoBanHopLe = true;
-            } catch (NumberFormatException e) {
-                System.out.println(">> Vui long nhap lai so hop le va lon hon 0.");
-            }
-        } while (!luongCoBanHopLe);
-
-        boolean thuongHopLe = false;
-        do {
-            System.out.print("Nhap luong thuong moi: ");
-            String thuongMoiStr = sc.nextLine();
-            if (thuongMoiStr.isEmpty())
-                break;
-
-            try {
-                double thuongMoi = Double.parseDouble(thuongMoiStr);
-                if (thuongMoi < 0)
-                    throw new NumberFormatException();
-                setThuong(thuongMoi);
-                thuongHopLe = true;
-            } catch (NumberFormatException e) {
-                System.out.println(">> Vui long nhap lai so hop le va lon hon 0.");
-            }
-        } while (!thuongHopLe);
-
-        System.out.println("✓ Cap nhat thanh cong!");
-    }
 
     public void tinhLuong(double tien) {
         this.thuong += tien;

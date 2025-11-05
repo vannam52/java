@@ -3,111 +3,45 @@ package duan;
 import java.util.Scanner;
 
 public class thucPhamChucNang extends Thuoc {
-    private String NSX;
-    private String HSD;
-    private int soLuong;
-
-    public thucPhamChucNang(String ma, String ten, String donVi, double gia, String ngayHH,
-            String NSX, String HSD, int soLuong) {
-        super(ma, ten, donVi, gia, ngayHH);
-        this.NSX = NSX;
-        this.HSD = HSD;
-        this.soLuong = soLuong;
-    }
+    private String loaiTP;
 
     public thucPhamChucNang() {
         super();
     }
 
+    public thucPhamChucNang(String ma, String ten, String donVi, double gia, int soLuong, String HSD, String loaiTP) {
+        super(ma, ten, donVi, gia, soLuong, HSD);
+        this.loaiTP = loaiTP;
+    }
+
     public thucPhamChucNang(thucPhamChucNang other) {
         super(other);
-        this.NSX = other.NSX;
-        this.HSD = other.HSD;
-        this.soLuong = other.soLuong;
+        this.loaiTP = other.loaiTP;
     }
 
-    // 4. Getters/Setters (Giữ nguyên)
-    public String getNSX() {
-        return NSX;
+    public String getLoaiTP() {
+        return loaiTP;
     }
 
-    public void setNSX(String NSX) {
-        this.NSX = NSX;
+    public void setLoaiTP(String loaiTP) {
+        this.loaiTP = loaiTP;
     }
 
-    public String getHSD() {
-        return HSD;
-    }
-
-    public void setHSD(String HSD) {
-        this.HSD = HSD;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    // 5. Sửa lỗi Scanner và Logic trong Nhap()
     @Override
     public void Nhap() {
-
-        Scanner sc = quanLyBanThuocYTe.sc;
-
-        super.NhapMa();
-
+        Scanner sc = new Scanner(System.in);
         super.Nhap();
-
-        System.out.print("Nhap NSX: ");
-        this.NSX = sc.nextLine().trim();
-
-        String hsd;
-        do {
-            System.out.print("Nhap HSD (rieng): ");
-            hsd = sc.nextLine().trim();
-            if (hsd.isEmpty())
-                System.out.println(">> Loi: HSD khong duoc de trong. Nhap lai.");
-        } while (hsd.isEmpty());
-        this.HSD = hsd;
-
-        while (true) {
-            System.out.print("Nhap so luong: ");
-            try {
-                int sl = Integer.parseInt(sc.nextLine());
-                if (sl < 0)
-                    throw new NumberFormatException();
-                this.soLuong = sl;
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println(">> Loi: So luong phai la so nguyen khong am. Nhap lai.");
-            }
-        }
+        System.out.println("Nhap loai: ");
+        this.loaiTP = sc.nextLine();
     }
 
     @Override
     public void Xuat() {
         super.Xuat();
-
-        // In thêm các thuộc tính riêng
-        System.out.println("--- Thong Tin Thuc Pham Chuc Nang ---");
-        System.out.printf("NSX: %s%n", this.NSX);
-        System.out.printf("HSD (rieng): %s%n", this.HSD);
-        System.out.printf("So luong: %d%n", this.soLuong);
-        System.out.println("-------------------------------------");
     }
 
-    public double tinhThanhTien() {
-        return getGiaBan() * this.soLuong;
-    }
-
-    public boolean kiemTraHetHang() {
-        return this.soLuong <= 0;
-    }
-
-    public boolean kiemTraConHang() {
-        return this.soLuong > 0;
+    @Override
+    public String toString() {
+        return super.toString() + "," + loaiTP;
     }
 }

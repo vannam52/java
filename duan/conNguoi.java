@@ -1,20 +1,20 @@
 package duan;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 abstract class conNguoi {
     private String HoTen;
-    private int tuoi;
+    private String ngaySinh;
     private String GioiTinh;
     private String SDT;
 
-    // constructor
     public conNguoi() {
     }
 
-    public conNguoi(String HoTen, int tuoi, String GioiTinh, String SDT) {
+    public conNguoi(String HoTen, String ngaySinh, String GioiTinh, String SDT) {
         this.HoTen = HoTen;
-        this.tuoi = tuoi;
+        this.ngaySinh = ngaySinh;
         this.GioiTinh = GioiTinh;
         this.SDT = SDT;
     }
@@ -23,8 +23,8 @@ abstract class conNguoi {
         return HoTen;
     }
 
-    public int getTuoi() {
-        return tuoi;
+    public String getNgaySinh() {
+        return ngaySinh;
     }
 
     public String getGioiTinh() {
@@ -39,8 +39,8 @@ abstract class conNguoi {
         this.HoTen = HoTen;
     }
 
-    public void setTuoi(int tuoi) {
-        this.tuoi = tuoi;
+    public void setNgaySinh(String ngaySinh) {
+        this.ngaySinh = ngaySinh;
     }
 
     public void setGioiTinh(String GioiTinh) {
@@ -54,41 +54,32 @@ abstract class conNguoi {
     public void Nhap() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Ho ten: ");
-        this.HoTen = sc.nextLine();
-        boolean tuoiHopLe = false;
-        int tuoiNhap = 0;
-        do {
-            System.out.print("Tuoi (từ 6 den 100): ");
-            try {
-                tuoiNhap = Integer.parseInt(sc.nextLine());
-                if (tuoiNhap >= 6 && tuoiNhap <= 100) {
-                    this.tuoi = tuoiNhap;
-                    tuoiHopLe = true;
-                } else {
-                    System.out.println(">> LTuoi phai trong khoang tu 6 - 100.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(">> Vui long nhap mot con so.");
-            }
-        } while (!tuoiHopLe);
+        HoTen = sc.nextLine();
+        System.out.print("Nhap ngay sinh(yyyy-MM-dd): ");
+        ngaySinh = sc.nextLine();
         System.out.print("Giới tính: ");
-        this.GioiTinh = sc.nextLine();
-        boolean sdtHopLe = false;
-        do {
-            System.out.print("So dien thoai(10 so): ");
-            this.SDT = sc.nextLine();
-            if (this.SDT.matches("\\d{10}")) {
-                sdtHopLe = true;
-            } else {
-                System.out.println(">> SDT phai 10 so vui long nhap lai.");
-            }
-        } while (!sdtHopLe);
+        GioiTinh = sc.nextLine();
+        System.out.println("Nhap SDT: ");
+        SDT = sc.nextLine();
     }
 
     public void Xuat() {
         System.out.printf("║ Ho ten: %-76s ║%n", HoTen);
-        System.out.printf("║ Nam sinh: %-78d ║%n", tuoi);
+        System.out.printf("║ Nam sinh: %-78s ║%n", ngaySinh);
         System.out.printf("║ Gioi tinh: %-73s ║%n", GioiTinh);
         System.out.printf("║ SDT: %-79s ║%n", SDT);
+    }
+
+    @Override
+    public String toString() {
+        return HoTen + "," + ngaySinh + "," + GioiTinh + "," + SDT;
+    }
+
+    public int tinhTuoi() {
+        if (ngaySinh == null || ngaySinh.length() < 10)
+            return -1;
+        int namSinh = Integer.parseInt(ngaySinh.substring(0, 4));
+        int namHT = LocalDate.now().getYear();
+        return namHT - namSinh;
     }
 }

@@ -11,9 +11,9 @@ public class khachHang extends conNguoi {
         super();
     }
 
-    public khachHang(String maKH, String HoTen, String GioiTinh, String SDT, int tuoi, String diaChi,
+    public khachHang(String maKH, String HoTen, String ngaySinh, String GioiTinh, String SDT, String diaChi,
             int diemTichLuy) {
-        super(HoTen, tuoi, GioiTinh, SDT);
+        super(HoTen, ngaySinh, GioiTinh, SDT);
         this.maKH = maKH;
         this.diaChi = diaChi;
         this.diemTichLuy = diemTichLuy;
@@ -43,38 +43,17 @@ public class khachHang extends conNguoi {
         this.diemTichLuy = diemTichLuy;
     }
 
-    public void NhapMa() {
-        Scanner sc = new Scanner(System.in);
-        do {
-            System.out.print("Nhap ma khach hang (KH...): ");
-            this.maKH = sc.nextLine();
-            if (this.maKH.trim().isEmpty()) {
-                System.out.println(">> Loi: Ma KH khong duoc de trong.");
-            }
-        } while (this.maKH.trim().isEmpty());
-    }
-
     @Override
     public void Nhap() {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Nhap maKH: ");
+        maKH = sc.nextLine();
         super.Nhap();
-
         System.out.print("Nhap dia chi: ");
-        this.diaChi = sc.nextLine();
-
-        boolean nhapSai;
-        do {
-            nhapSai = false;
-            System.out.print("Nhap diem tich luy ban dau: ");
-            try {
-                this.diemTichLuy = Integer.parseInt(sc.nextLine());
-                if (this.diemTichLuy < 0)
-                    throw new NumberFormatException();
-            } catch (NumberFormatException e) {
-                System.out.println(">> Loi: Diem phai la so nguyen khong am.");
-                nhapSai = true;
-            }
-        } while (nhapSai);
+        diaChi = sc.nextLine();
+        System.out.print("Nhap diem tich luy ban dau: ");
+        diemTichLuy = sc.nextInt();
+        sc.nextLine();
     }
 
     @Override
@@ -88,35 +67,17 @@ public class khachHang extends conNguoi {
         System.out.printf("║ Ma KH: %-" + (W - 6) + "s ║%n", maKH);
 
         super.Xuat();
-
+        System.out.printf("║ Tuoi: %-" + (W - 7) + "d ║%n", tinhTuoi());
         System.out.printf("║ Dia chi: %-" + (W - 10) + "s ║%n", diaChi);
         System.out.printf("║ Diem tich luy: %-" + (W - 16) + "d ║%n", diemTichLuy);
         System.out.println("╚" + LINE + "╝");
     }
 
-    public void suaThongTinKH(Scanner sc) {
-        System.out.println("--- Cap nhat thong tin Khach Hang ---");
-        System.out.println("(Bo trong neu khong muon thay doi)");
-
-        System.out.print("Ho ten moi: ");
-        String tenMoi = sc.nextLine();
-        if (!tenMoi.isEmpty())
-            setHoTen(tenMoi);
-
-        System.out.print("Dia chi moi: ");
-        String diaChiMoi = sc.nextLine();
-        if (!diaChiMoi.isEmpty())
-            this.diaChi = diaChiMoi;
-
-        System.out.print("SDT moi: ");
-        String sdtMoi = sc.nextLine();
-        if (!sdtMoi.isEmpty())
-            setSDT(sdtMoi);
-
-        System.out.println("✓ Cap nhat thanh cong!");
-    }
-
     public void capNhapDiemTichLuy(int diem) {
         this.diemTichLuy += diem;
     }
+    // @Override
+    // public int tinhTuoi(){
+    // super.tinhTuoi();
+    // }
 }
