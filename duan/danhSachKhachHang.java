@@ -1,4 +1,4 @@
-//sua lai ham tinh tuoi0
+//sua lai ham tinh tuoi
 package duan;
 
 import java.util.Arrays;
@@ -77,35 +77,100 @@ public class danhSachKhachHang implements ChucNang, IFile {
     }
 
     // sua
-    public void suaThongTinKH(String maCanSua) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma thuoc can sua: ");
-        maCanSua = sc.nextLine();
-        for (int i = 0; i < soLuongKH; i++) {
-            if (dsKH[i].getMaKH().equalsIgnoreCase(maCanSua)) {
-                System.out.println(">> Nhap lai thong tin moi:");
-                dsKH[i].Nhap();
-                System.out.println(">> Da cap nhat!");
-                return;
-            }
-        }
-        System.out.println(">> Khong tim thay ma thuoc!");
-    }
-
     @Override
     public void Sua() {
+        if (soLuongKH == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
         Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma thuoc can sua: ");
-        String maCanSua = sc.nextLine();
+        System.out.print("Nhap ma khach hang can sua: ");
+        String ma = sc.nextLine();
+
+        int viTri = -1;
         for (int i = 0; i < soLuongKH; i++) {
-            if (dsKH[i].getMaKH().equalsIgnoreCase(maCanSua)) {
-                System.out.println(">> Nhap lai thong tin moi:");
-                dsKH[i].Nhap();
-                System.out.println(">> Da cap nhat!");
-                return;
+            if (dsKH[i].getMaKH().equalsIgnoreCase(ma)) {
+                viTri = i;
+                break;
             }
         }
-        System.out.println(">> Khong tim thay ma thuoc!");
+
+        if (viTri == -1) {
+            System.out.println(">> Khong tim thay ma khach hang!");
+            return;
+        }
+
+        khachHang kh = dsKH[viTri];
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║              SUA THONG TIN KHACH HANG: " + String.format("%-24s", ma) + "  ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Sua ten khach hang                                            ║");
+            System.out.println("║ 2. Sua ngay sinh                                                 ║");
+            System.out.println("║ 3. Sua gioi tinh                                                 ║");
+            System.out.println("║ 4. Sua so dien thoai                                             ║");
+            System.out.println("║ 5. Sua dia chi                                                   ║");
+            System.out.println("║ 6. Sua diem tich luy                                             ║");
+            System.out.println("║ 7. Sua tat ca thong tin                                          ║");
+            System.out.println("║ 0. Hoan thanh                                                    ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-7): ");
+
+            String luaChon = sc.nextLine();
+
+            switch (luaChon) {
+                case "1":
+                    System.out.print("Nhap ten khach hang moi: ");
+                    kh.setHoTen(sc.nextLine());
+                    break;
+
+                case "2":
+                    System.out.print("Nhap ngay sinh moi (dd/MM/yyyy): ");
+                    kh.setNgaySinh(sc.nextLine());
+                    break;
+
+                case "3":
+                    System.out.print("Nhap gioi tinh moi: ");
+                    kh.setGioiTinh(sc.nextLine());
+                    break;
+
+                case "4":
+                    System.out.print("Nhap so dien thoai moi: ");
+                    kh.setSDT(sc.nextLine());
+                    break;
+
+                case "5":
+                    System.out.print("Nhap dia chi moi: ");
+                    kh.setDiaChi(sc.nextLine());
+                    break;
+
+                case "6":
+                    System.out.print("Nhap so diem tich luy moi: ");
+                    int diemMoi = Integer.parseInt(sc.nextLine()); 
+                    if (diemMoi < 0) {
+                        System.out.println(">> Diem tich luy khong the la so am!");
+                    } else {
+                        kh.setDiemTichLuy(diemMoi);
+                    }
+                    break;
+
+                case "7":
+                    System.out.println("\n>> Nhap lai tat ca thong tin:");
+                    kh.Nhap();
+                    break;
+
+                case "0":
+                    System.out.println(">> Hoan thanh sua thong tin!");
+                    tiepTuc = false;
+                    break;
+
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+                    break;
+            }
+        }
     }
 
     // tim kiem
@@ -198,23 +263,14 @@ public class danhSachKhachHang implements ChucNang, IFile {
                 "╠════════════╬══════════════════════╬════════════╬═════════════════╬═══════════════════════════╬════════════╣");
 
         for (int i = 0; i < size; i++) {
-            if (arr[i] != null) {
-
-                String tenHienThi = arr[i].getHoTen().length() > 20 ? arr[i].getHoTen().substring(0, 17) + "..."
-                        : arr[i].getHoTen();
-                String diaChiHienThi = arr[i].getDiaChi().length() > 25 ? arr[i].getDiaChi().substring(0, 22) + "..."
-                        : arr[i].getDiaChi();
-
-                System.out.printf("║ %-10s ║ %-20s ║ %-10s ║ %-15s ║ %-25s ║ %-10d ║%n",
-                        arr[i].getMaKH(),
-                        tenHienThi,
-                        arr[i].getNgaySinh(),
-                        arr[i].getSDT(),
-                        diaChiHienThi,
-                        arr[i].getDiemTichLuy());
-            }
+            System.out.printf("║ %-10s ║ %-20s ║ %-10s ║ %-15s ║ %-25s ║ %-10d ║%n",
+                    arr[i].getMaKH(),
+                    arr[i].getHoTen(),
+                    arr[i].tinhTuoi(),
+                    arr[i].getSDT(),
+                    arr[i].getDiaChi(),
+                    arr[i].getDiemTichLuy());
         }
-
         System.out.println(
                 "╚════════════╩══════════════════════╩════════════╩═════════════════╩═══════════════════════════╩════════════╝");
         System.out.println("Tong so: " + size + " khach hang");

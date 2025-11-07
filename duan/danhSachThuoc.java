@@ -113,20 +113,23 @@ public class danhSachThuoc implements ChucNang, IFile {
         System.out.print("Nhap ma thuoc can sua: ");
         String ma = sc.nextLine().trim();
 
-        boolean found = false;
+        int viTri = -1;
         for (int i = 0; i < soLuongThuoc; i++) {
             if (dsThuoc[i].getMaThuoc().equalsIgnoreCase(ma)) {
-                found = true;
-                if (dsThuoc[i] instanceof thuocKeDon) {
-                    suaThuocKeDon(i);
-                } else if (dsThuoc[i] instanceof thucPhamChucNang) {
-                    suaThucPhamChucNang(i);
-                }
-                return;
+                viTri = i;
+                break;
             }
         }
-        if (!found) {
+
+        if (viTri == -1) {
             System.out.println(">> Khong tim thay ma thuoc!");
+            return;
+        }
+
+        if (dsThuoc[viTri] instanceof thuocKeDon) {
+            suaThuocKeDon(viTri);
+        } else if (dsThuoc[viTri] instanceof thucPhamChucNang) {
+            suaThucPhamChucNang(viTri);
         }
     }
 
@@ -134,7 +137,8 @@ public class danhSachThuoc implements ChucNang, IFile {
         Scanner sc = new Scanner(System.in);
         thuocKeDon tkd = (thuocKeDon) dsThuoc[index];
 
-        while (true) {
+        boolean tiepTuc = true;
+        while (tiepTuc) {
             System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
             System.out.println("║                 SUA THONG TIN THUOC KE DON                       ║");
             System.out.println("╠══════════════════════════════════════════════════════════════════╣");
@@ -144,64 +148,48 @@ public class danhSachThuoc implements ChucNang, IFile {
             System.out.println("║ 4. Sua so luong                                                  ║");
             System.out.println("║ 5. Sua han su dung (HSD)                                         ║");
             System.out.println("║ 6. Sua loai thuoc ke don                                         ║");
-            System.out.println("║ 7. Thoat                                                         ║");
+            System.out.println("║ 0. Thoat                                                         ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-            System.out.print("Chon (1-7): ");
+            System.out.print("Chon (0-6): ");
 
-            int chon = 0;
-            try {
-                chon = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
+            String luaChon = sc.nextLine();
+
+            if (luaChon.equals("1")) {
+                System.out.print("Nhap ten thuoc moi: ");
+                tkd.setTenThuoc(sc.nextLine());
+            } else if (luaChon.equals("2")) {
+                System.out.print("Nhap don vi tinh moi: ");
+                tkd.setDonViTinh(sc.nextLine());
+            } else if (luaChon.equals("3")) {
+                System.out.print("Nhap gia ban moi: ");
+                double gia = Double.parseDouble(sc.nextLine());
+                tkd.setGiaBan(gia);
+            } else if (luaChon.equals("4")) {
+                System.out.print("Nhap so luong moi: ");
+                int sl = Integer.parseInt(sc.nextLine());
+                tkd.setSoLuong(sl);
+            } else if (luaChon.equals("5")) {
+                System.out.print("Nhap HSD moi: ");
+                tkd.setHSD(sc.nextLine());
+            } else if (luaChon.equals("6")) {
+                System.out.print("Nhap loai thuoc ke don moi: ");
+                tkd.setLoaiThuocKeDon(sc.nextLine());
+            } else if (luaChon.equals("0")) {
+                System.out.println("\n>> Thong tin sau khi cap nhat:");
+                tkd.Xuat();
+                tiepTuc = false;
+            } else {
                 System.out.println(">> Lua chon khong hop le!");
-                continue;
-            }
-
-            switch (chon) {
-                case 1:
-                    System.out.print("Nhap ten thuoc moi: ");
-                    String tenMoi = sc.nextLine();
-                    tkd.setTenThuoc(tenMoi);
-                    break;
-                case 2:
-                    System.out.print("Nhap don vi tinh moi: ");
-                    String donViMoi = sc.nextLine();
-                    tkd.setDonViTinh(donViMoi);
-                    break;
-                case 3:
-                    System.out.print("Nhap gia ban moi: ");
-                    double giaMoi = Double.parseDouble(sc.nextLine());
-                    tkd.setGiaBan(giaMoi);
-                    break;
-                case 4:
-                    System.out.print("Nhap so luong moi: ");
-                    int soLuongMoi = Integer.parseInt(sc.nextLine());
-                    tkd.setSoLuong(soLuongMoi);
-                    break;
-                case 5:
-                    System.out.print("Nhap HSD moi: ");
-                    String hsdMoi = sc.nextLine();
-                    tkd.setHSD(hsdMoi);
-                    break;
-                case 6:
-                    System.out.print("Nhap loai thuoc ke don moi: ");
-                    String loaiMoi = sc.nextLine();
-                    tkd.setLoaiThuocKeDon(loaiMoi);
-                    break;
-                case 7:
-                    System.out.println("\n Thong tin sau khi cap nhat:");
-                    tkd.Xuat();
-                    return;
-                default:
-                    System.out.println(" Lua chon khong hop le!");
             }
         }
     }
 
     private void suaThucPhamChucNang(int index) {
         Scanner sc = new Scanner(System.in);
-        thucPhamChucNang TP = (thucPhamChucNang) dsThuoc[index];
+        thucPhamChucNang tpcn = (thucPhamChucNang) dsThuoc[index];
 
-        while (true) {
+        boolean tiepTuc = true;
+        while (tiepTuc) {
             System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
             System.out.println("║              SUA THONG TIN THUC PHAM CHUC NANG                   ║");
             System.out.println("╠══════════════════════════════════════════════════════════════════╣");
@@ -210,51 +198,39 @@ public class danhSachThuoc implements ChucNang, IFile {
             System.out.println("║ 3. Sua gia ban                                                   ║");
             System.out.println("║ 4. Sua so luong                                                  ║");
             System.out.println("║ 5. Sua han su dung (HSD)                                         ║");
-            System.out.println("║ 6. Thoat                                                         ║");
+            System.out.println("║ 6. Sua loai thuc pham                                            ║");
+            System.out.println("║ 0. Thoat                                                         ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-            System.out.print("Chon (1-6): ");
+            System.out.print("Chon (0-6): ");
 
-            int chon = 0;
-            try {
-                chon = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
+            String luaChon = sc.nextLine().trim();
+
+            if (luaChon.equals("1")) {
+                System.out.print("Nhap ten thuoc moi: ");
+                tpcn.setTenThuoc(sc.nextLine());
+            } else if (luaChon.equals("2")) {
+                System.out.print("Nhap don vi tinh moi: ");
+                tpcn.setDonViTinh(sc.nextLine());
+            } else if (luaChon.equals("3")) {
+                System.out.print("Nhap gia ban moi: ");
+                double gia = Double.parseDouble(sc.nextLine());
+                tpcn.setGiaBan(gia);
+            } else if (luaChon.equals("4")) {
+                System.out.print("Nhap so luong moi: ");
+                int sl = Integer.parseInt(sc.nextLine());
+                tpcn.setSoLuong(sl);
+            } else if (luaChon.equals("5")) {
+                System.out.print("Nhap HSD moi: ");
+                tpcn.setHSD(sc.nextLine());
+            } else if (luaChon.equals("6")) {
+                System.out.print("Nhap loai thuc pham moi: ");
+                tpcn.setLoaiTP(sc.nextLine());
+            } else if (luaChon.equals("0")) {
+                System.out.println("\n>> Thong tin sau khi cap nhat:");
+                tpcn.Xuat();
+                tiepTuc = false;
+            } else {
                 System.out.println(">> Lua chon khong hop le!");
-                continue;
-            }
-
-            switch (chon) {
-                case 1:
-                    System.out.print("Nhap ten thuoc moi: ");
-                    String tenMoi = sc.nextLine();
-                    TP.setTenThuoc(tenMoi);
-                    break;
-                case 2:
-                    System.out.print("Nhap don vi tinh moi: ");
-                    String donViMoi = sc.nextLine();
-                    TP.setDonViTinh(donViMoi);
-                    break;
-                case 3:
-                    System.out.print("Nhap gia ban moi: ");
-                    double giaMoi = Double.parseDouble(sc.nextLine());
-                    TP.setGiaBan(giaMoi);
-                    break;
-                case 4:
-                    System.out.print("Nhap so luong moi: ");
-                    int soLuongMoi = Integer.parseInt(sc.nextLine());
-                    TP.setSoLuong(soLuongMoi);
-
-                    break;
-                case 5:
-                    System.out.print("Nhap HSD moi: ");
-                    String hsdMoi = sc.nextLine();
-                    TP.setHSD(hsdMoi);
-                    break;
-                case 6:
-                    System.out.println("\n>> Thong tin sau khi cap nhat:");
-                    TP.Xuat();
-                    return;
-                default:
-                    System.out.println(">> Lua chon khong hop le!");
             }
         }
     }
@@ -334,7 +310,7 @@ public class danhSachThuoc implements ChucNang, IFile {
                 thuocMax = dsThuoc[i];
             }
         }
-        System.out.printf("║ Thuoc gia cao nhat: %-46s║%n", thuocMax.getTenThuoc());
+        System.out.printf("║ Thuoc gia cao nhat: %-45s║%n", thuocMax.getTenThuoc());
         System.out.printf("║ Gia: %-60.2f║%n", thuocMax.getGiaBan());
 
         // Tổng số lượng thuốc trong kho
@@ -358,10 +334,10 @@ public class danhSachThuoc implements ChucNang, IFile {
     }
 
     public void hienThiBang(Thuoc[] arr, int size) {
-        final String LINE = "═════════════════════════════════════════════════════════════════════════════════════════════════════════";
+        final String LINE = "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════";
         System.out.println("╔" + LINE + "╗");
         System.out.println(
-                "║                                        DANH SACH THUOC                                                  ║");
+                "║                                        DANH SACH THUOC                                                        ║");
         System.out.println(
                 "╠═════════════╦════════════════════════╦═════════════════╦═════════════╦════════════╦════════════╦══════════════╣");
         System.out.println(

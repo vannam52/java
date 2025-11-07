@@ -65,7 +65,7 @@ abstract class conNguoi {
 
     public void Xuat() {
         System.out.printf("║ Ho ten: %-76s ║%n", HoTen);
-        System.out.printf("║ Nam sinh: %-78s ║%n", ngaySinh);
+        System.out.printf("║ Nam sinh: %-74s ║%n", ngaySinh);
         System.out.printf("║ Gioi tinh: %-73s ║%n", GioiTinh);
         System.out.printf("║ SDT: %-79s ║%n", SDT);
     }

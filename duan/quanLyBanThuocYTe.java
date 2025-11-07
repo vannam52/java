@@ -8,6 +8,7 @@ public class quanLyBanThuocYTe {
     public static danhSachKhachHang dsKhachHang = new danhSachKhachHang();
     public static danhSachKhuyenMai dsKhuyenMai = new danhSachKhuyenMai();
     public static danhSachThuoc dsThuocYTe = new danhSachThuoc();
+    public static danhSachPhieuXuatHang dsPhieuXuatHang = new danhSachPhieuXuatHang();
     // public static danhSachHoaDonNhapHang dsHoaDonNhap = new
     // danhSachHoaDonNhapHang();
     // public static danhSachHoaDonBanHang dsHoaDonBan = new
@@ -26,6 +27,8 @@ public class quanLyBanThuocYTe {
         dsNhanVien.docFile("duan/nhanVien.txt");
         dsKhachHang.docFile("duan/khachHang.txt");
         dsThuocYTe.docFile("duan/Thuoc.txt");
+        dsKhuyenMai.docFile("duan/khuyenMai.txt");
+        dsPhieuXuatHang.docFile("duan/phieuXuatHang.txt");
 
         System.out.println("Tai du lieu thanh cong!");
     }
@@ -34,36 +37,38 @@ public class quanLyBanThuocYTe {
         dsNhanVien.ghiFile("duan/nhanVien.txt");
         dsKhachHang.ghiFile("duan/khachHang.txt");
         dsKhachHang.ghiFile("duan/Thuoc.txt");
-
+        dsKhuyenMai.ghiFile("duan/khuyenMai.txt");
+        dsPhieuXuatHang.ghiFile("duan/phieuXuatHang.txt");
     }
 
     public static void hienThiMenuChinh() {
         int choice = 0;
         do {
             System.out.println(
-                    "╔══════════════════════════════════════════════════════════════════════════════════════╗");
+                    "╔═══════════════════════════════════════════════════════════════════════════════════════╗");
             System.out.println(
-                    "║                              MENU QUAN LY BAN THUOC Y TE                             ║");
+                    "║                          MENU QUAN LY BAN THUOC Y TE                                  ║");
             System.out.println(
-                    "╠══════════════════════════════════════════════════════════════════════════════════════╣");
+                    "╠═══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.println(
-                    "║ 1. Quan ly danh sach thuoc y te                                                      ║");
+                    "║ 1. Quan ly danh sach thuoc y te                                                       ║");
             System.out.println(
-                    "║ 2. Quan ly danh sach nhan vien                                                       ║");
+                    "║ 2. Quan ly danh sach nhan vien                                                        ║");
             System.out.println(
-                    "║ 3. Quan ly danh sach khach hang                                                      ║");
+                    "║ 3. Quan ly danh sach khach hang                                                       ║");
             System.out.println(
-                    "║ 4. Quan ly danh sach khuyen mai                                                      ║");
+                    "║ 4. Quan ly danh sach khuyen mai                                                       ║");
             System.out.println(
-                    "║ 5. Quan ly danh sach hoa don ban hang                                                ║");
+                    "║ 5. Quan ly danh sach hoa don ban hang                                                 ║");
             System.out.println(
-                    "║ 6. Quan ly danh sach hoa don nhap hang                                               ║");
+                    "║ 6. Quan ly danh sach hoa don nhap hang                                                ║");
             System.out.println(
-                    "║ 0. Thoat chuong trinh                                                                ║");
+                    "║ 7. Quan ly danh sach hoa don xuat hang                                                ║");
             System.out.println(
-                    "╚══════════════════════════════════════════════════════════════════════════════════════╝");
+                    "║ 0. Thoat chuong trinh                                                                 ║");
+            System.out.println(
+                    "╚═══════════════════════════════════════════════════════════════════════════════════════╝");
             System.out.print("Nhap lua chon: ");
-
             try {
                 choice = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
@@ -80,16 +85,20 @@ public class quanLyBanThuocYTe {
                 case 3:
                     menuQuanLyKhachHang(sc);
                     break;
-                // case 4: menuQuanLyKhuyenMai(sc);
-                // break;
-                // case 5: menuQuanLyHoaDonBan(sc);
+                case 4:
+                    menuQuanLyKhuyenMai(sc);
+                    break;
+                // case 5:
+                // menuQuanLyHoaDonBan
                 // break;
                 // case 6: menuQuanLyHoaDonNhap(sc);
                 // break;
+                case 7:
+                    menuQuanLyPhieuXuatHang(sc);
                 case 0:
                     break;
                 default:
-                    System.out.println("Vui long nhap lai.");
+                    System.out.println("Lua chon khong hop le! Vui long chon lai.");
             }
 
         } while (choice != 0);
@@ -291,55 +300,69 @@ public class quanLyBanThuocYTe {
         } while (choice != 0);
     }
 
-    // public static void menuQuanLyKhuyenMai(Scanner sc) {
-    // int choice = 0;
-    // do {
-    // System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
-    // System.out.println("║                              QUẢN LÝ DANH SÁCH KHUYẾN
-    // MÃI                            ║");
-    // System.out.println("╠══════════════════════════════════════════════════════════════════════════════════════╣");
-    // System.out.println("║ 1. Nhập danh sách khuyến mãi                          
-    //                               ║");
-    // System.out.println("║ 2. Thêm khuyến mãi                                    
-    //                               ║");
-    // System.out.println("║ 3. Sửa thông tin khuyến mãi                            
-    //                              ║");
-    // System.out.println("║ 4. Xóa khuyến mãi                                      
-    //                              ║");
-    // System.out.println("║ 5. Tìm kiếm khuyến mãi                                
-    //                               ║");
-    // System.out.println("║ 6. Xem danh sách khuyến mãi                            
-    //                              ║");
-    // System.out.println("║ 0. Quay lại menu chính                                
-    //                               ║");
-    // System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
-    // System.out.print("Nhập lựa chọn: ");
+    public static void menuQuanLyKhuyenMai(Scanner sc) {
+        int choice = 0;
+        do {
+            System.out.println(
+                    "╔═══════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println(
+                    "║                              QUAN LY DANH SACH KHUYEN MAI                             ║");
+            System.out.println(
+                    "╠═══════════════════════════════════════════════════════════════════════════════════════╣");
+            System.out.println(
+                    "║ 1. Nhap danh sach khuyen mai                                                          ║");
+            System.out.println(
+                    "║ 2. Them khuyen mai                                                                    ║");
+            System.out.println(
+                    "║ 3. Sua thong tin khuyen mai                                                           ║");
+            System.out.println(
+                    "║ 4. Xoa khuyen mai                                                                     ║");
+            System.out.println(
+                    "║ 5. Tim kiem khuyen mai                                                                ║");
+            System.out.println(
+                    "║ 6. Xem danh sach khuyen mai                                                           ║");
+            System.out.println(
+                    "║ 7. Thong ke khuyen mai                                                                ║");
+            System.out.println(
+                    "║ 0. Quay lai menu chinh                                                                ║");
+            System.out.println(
+                    "╚═══════════════════════════════════════════════════════════════════════════════════════╝");
+            System.out.print("Nhap lua chon: ");
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                choice = -1;
+            }
 
-    // try {
-    // choice = Integer.parseInt(sc.nextLine());
-    // } catch (NumberFormatException e) {
-    // choice = -1;
-    // }
-
-    // switch (choice) {
-    // case 1: dsKhuyenMai.Nhap();
-    // break;
-    // case 2: dsKhuyenMai.Them();
-    // break;
-    // case 3: dsKhuyenMai.Sua();
-    // break;
-    // case 4: dsKhuyenMai.Xoa();
-    // break;
-    // case 5: dsKhuyenMai.TimKiem();
-    // break;
-    // case 6: dsKhuyenMai.XuatDS();
-    // break;
-    // case 0:
-    // break;
-    // default: System.out.println("Lựa chọn không hợp lệ!");
-    // }
-    // } while (choice != 0);
-    // }
+            switch (choice) {
+                case 1:
+                    dsKhuyenMai.Nhap();
+                    break;
+                case 2:
+                    dsKhuyenMai.Them();
+                    break;
+                case 3:
+                    dsKhuyenMai.Sua();
+                    break;
+                case 4:
+                    dsKhuyenMai.Xoa();
+                    break;
+                case 5:
+                    dsKhuyenMai.TimKiem();
+                    break;
+                case 6:
+                    dsKhuyenMai.XuatDS();
+                    break;
+                case 7:
+                    dsKhuyenMai.thongKe();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le!");
+            }
+        } while (choice != 0);
+    }
 
     // public static void menuQuanLyHoaDonBan(Scanner sc) {
     // int choice = 0;
@@ -440,4 +463,68 @@ public class quanLyBanThuocYTe {
     // }
     // } while (choice != 0);
     // }
+
+    public static void menuQuanLyPhieuXuatHang(Scanner sc) {
+        int choice = 0;
+        do {
+            System.out.println(
+                    "╔═══════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println(
+                    "║                              QUAN LY DANH SACH PHIEU XUAT HANG                       ║");
+            System.out.println(
+                    "╠═══════════════════════════════════════════════════════════════════════════════════════╣");
+            System.out.println(
+                    "║ 1. Nhap danh sach phieu xuat hang                                                     ║");
+            System.out.println(
+                    "║ 2. Them phieu xuat hang                                                               ║");
+            System.out.println(
+                    "║ 3. Sua thong tin phieu xuat hang                                                      ║");
+            System.out.println(
+                    "║ 4. Xoa phieu xuat hang                                                                ║");
+            System.out.println(
+                    "║ 5. Tim kiem phieu xuat hang                                                           ║");
+            System.out.println(
+                    "║ 6. Xem danh sach phieu xuat hang                                                      ║");
+            System.out.println(
+                    "║ 7. Thong ke phieu xuat hang                                                           ║");
+            System.out.println(
+                    "║ 0. Quay lai menu chinh                                                                ║");
+            System.out.println(
+                    "╚═══════════════════════════════════════════════════════════════════════════════════════╝");
+            System.out.print("Nhap lua chon: ");
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                choice = -1;
+            }
+
+            switch (choice) {
+                case 1:
+                    dsPhieuXuatHang.Nhap();
+                    break;
+                case 2:
+                    dsPhieuXuatHang.Them();
+                    break;
+                case 3:
+                    dsPhieuXuatHang.Sua();
+                    break;
+                case 4:
+                    dsPhieuXuatHang.Xoa();
+                    break;
+                case 5:
+                    dsPhieuXuatHang.TimKiem();
+                    break;
+                case 6:
+                    dsPhieuXuatHang.XuatDS();
+                    break;
+                case 7:
+                    dsPhieuXuatHang.thongKe();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("✗ Lua chon khong hop le!");
+            }
+        } while (choice != 0);
+    }
 }

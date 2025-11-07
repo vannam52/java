@@ -82,36 +82,114 @@ public class danhSachNhanVien implements ChucNang, IFile {
     }
 
     // SUA
-    public void suaThongTinNV(String maCanSua) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma thuoc can sua: ");
-        maCanSua = sc.nextLine();
-        for (int i = 0; i < soLuongNV; i++) {
-            if (dsNV[i].getMaNV().equalsIgnoreCase(maCanSua)) {
-                System.out.println(">> Nhap lai thong tin moi:");
-                dsNV[i].Nhap();
-                System.out.println(">> Da cap nhat!");
-                return;
-            }
-        }
-        System.out.println(">> Khong tim thay ma thuoc!");
-    }
-
     @Override
     public void Sua() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma thuoc can sua: ");
-        String ma = sc.nextLine().trim();
+        if (soLuongNV == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
 
+        Scanner sc = new Scanner(System.in);
+        // Sửa lỗi "ma thuoc" -> "ma nhan vien"
+        System.out.print("Nhap ma nhan vien can sua: ");
+        String ma = sc.nextLine();
+
+        int viTri = -1;
         for (int i = 0; i < soLuongNV; i++) {
             if (dsNV[i].getMaNV().equalsIgnoreCase(ma)) {
-                System.out.println(">> Nhap lai thong tin moi:");
-                dsNV[i].Nhap();
-                System.out.println(">> Da cap nhat!");
-                return;
+                viTri = i;
+                break;
             }
         }
-        System.out.println(">> Khong tim thay ma thuoc!");
+
+        if (viTri == -1) {
+            // Sửa lỗi "ma thuoc" -> "ma nhan vien"
+            System.out.println(">> Khong tim thay ma nhan vien!");
+            return;
+        }
+
+        nhanVien nv = dsNV[viTri];
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║              SUA THONG TIN NHAN VIEN: " + String.format("%-26s", ma) + "  ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Sua ten nhan vien                                             ║");
+            System.out.println("║ 2. Sua ngay sinh                                                 ║");
+            System.out.println("║ 3. Sua gioi tinh                                                 ║");
+            System.out.println("║ 4. Sua so dien thoai                                             ║");
+            System.out.println("║ 5. Sua dia chi                                                   ║");
+            System.out.println("║ 6. Sua luong co ban                                              ║");
+            System.out.println("║ 7. Sua thuong                                                    ║");
+            System.out.println("║ 8. Sua tat ca thong tin                                          ║");
+            System.out.println("║ 0. Hoan thanh                                                    ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-8): ");
+
+            String luaChon = sc.nextLine();
+
+            switch (luaChon) {
+                case "1":
+                    System.out.print("Nhap ten nhan vien moi: ");
+                    nv.setHoTen(sc.nextLine());
+                    break;
+
+                case "2":
+                    System.out.print("Nhap ngay sinh moi (yyyy-MM-dd): ");
+                    nv.setNgaySinh(sc.nextLine());
+                    break;
+
+                case "3":
+                    System.out.print("Nhap gioi tinh moi: ");
+                    nv.setGioiTinh(sc.nextLine());
+                    break;
+
+                case "4":
+                    System.out.print("Nhap so dien thoai moi: ");
+                    nv.setSDT(sc.nextLine());
+                    break;
+
+                case "5":
+                    System.out.print("Nhap dia chi moi: ");
+                    nv.setDiaChi(sc.nextLine());
+                    break;
+
+                case "6":
+                    System.out.print("Nhap luong co ban moi: ");
+                    double luongMoi = Double.parseDouble(sc.nextLine());
+                    if (luongMoi < 0) {
+                        System.out.println(">> Luong không thể am!");
+                    } else {
+                        nv.setLuongCoBan(luongMoi);
+                    }
+                    break;
+
+                case "7":
+                    System.out.print("Nhap thuong moi: ");
+                    double thuongMoi = Double.parseDouble(sc.nextLine());
+                    if (thuongMoi < 0) {
+                        System.out.println(">> Thuong không thể am!");
+                    } else {
+                        nv.setThuong(thuongMoi);
+                    }
+                    break;
+
+                case "8":
+                    System.out.println("\n>> Nhap lai tat ca thong tin:");
+                    nv.Nhap();
+                    break;
+
+                case "0":
+                    System.out.println(">> Hoan thanh sua thong tin!");
+                    tiepTuc = false;
+                    break;
+
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+                    break;
+            }
+        }
     }
 
     // TIM KIEM
@@ -212,17 +290,17 @@ public class danhSachNhanVien implements ChucNang, IFile {
         System.out.println(
                 "║                                                           DANH SACH NHAN VIEN                                                       ║");
         System.out.println(
-                "╠════════╦══════════════════════╦═══════════╦══════════════╦══════════════╦═══════════════════════╦═══════════════════════════════════╣");
+                "╠════════╦══════════════════════╦════════════╦═════════════╦══════════════╦═══════════════════════╦═══════════════════════════════════╣");
         System.out.println(
                 "║  Ma NV ║      Ho va Ten       ║    Tuoi    ║ Gioi tinh   ║      SDT     ║       Dia chi         ║         Luong (VND)               ║");
         System.out.println(
                 "╠════════╬══════════════════════╬════════════╬═════════════╬══════════════╬═══════════════════════╬═══════════════════════════════════╣");
 
         for (int i = 0; i < size; i++) {
-            System.out.printf("║ %-6s ║ %-20s ║ %-10s ║ %-9s ║ %-12s ║ %-21s ║ %,35.0f ║%n",
+            System.out.printf("║ %-6s ║ %-20s ║ %-10s ║ %-11s ║ %-12s ║ %-21s ║ %,33.0f ║%n",
                     arr[i].getMaNV(),
                     arr[i].getHoTen(),
-                    arr[i].getNgaySinh(),
+                    arr[i].tinhTuoi(),
                     arr[i].getGioiTinh(),
                     arr[i].getSDT(),
                     arr[i].getDiaChi(),
@@ -230,7 +308,7 @@ public class danhSachNhanVien implements ChucNang, IFile {
         }
 
         System.out.println(
-                "╚════════╩══════════════════════╩═════════╩══════════════╩══════════════╩═══════════════════════╩═════════════════════════════════════╝");
+                "╚════════╩══════════════════════╩═══════════╩══════════════╩══════════════╩═══════════════════════╩═══════════════════════════════════╝");
         System.out.println("Tong so: " + size + " nhan vien");
     }
 

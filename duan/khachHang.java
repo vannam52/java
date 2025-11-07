@@ -51,7 +51,7 @@ public class khachHang extends conNguoi {
         super.Nhap();
         System.out.print("Nhap dia chi: ");
         diaChi = sc.nextLine();
-        System.out.print("Nhap diem tich luy ban dau: ");
+        System.out.print("Nhap diem tich luy: ");
         diemTichLuy = sc.nextInt();
         sc.nextLine();
     }
@@ -62,14 +62,16 @@ public class khachHang extends conNguoi {
         final int W = 77;
 
         System.out.println("╔" + LINE + "╗");
-        System.out.println("║ ------------------ THONG TIN KHACH HANG --------------------------------- ║");
+        System.out.println("║                         THONG TIN KHACH HANG                                  ║");
         System.out.println("╠" + LINE + "╣");
-        System.out.printf("║ Ma KH: %-" + (W - 6) + "s ║%n", maKH);
-
-        super.Xuat();
-        System.out.printf("║ Tuoi: %-" + (W - 7) + "d ║%n", tinhTuoi());
-        System.out.printf("║ Dia chi: %-" + (W - 10) + "s ║%n", diaChi);
-        System.out.printf("║ Diem tich luy: %-" + (W - 16) + "d ║%n", diemTichLuy);
+        System.out.printf("║ Ma KH: %-71s ║%n", maKH);
+        System.out.printf("║ Ho ten: %-70s ║%n", getHoTen());
+        System.out.printf("║ Nam sinh: %-68s ║%n", getNgaySinh());
+        System.out.printf("║ Gioi tinh: %-67s ║%n", getGioiTinh());
+        System.out.printf("║ SDT: %-73s ║%n", getSDT());
+        System.out.printf("║ Tuoi: %-72d ║%n", tinhTuoi());
+        System.out.printf("║ Dia chi: %-69s ║%n", diaChi);
+        System.out.printf("║ Diem tich luy: %-63d ║%n", diemTichLuy);
         System.out.println("╚" + LINE + "╝");
     }
 
