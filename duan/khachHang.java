@@ -62,7 +62,7 @@ public class khachHang extends conNguoi {
         final int W = 77;
 
         System.out.println("╔" + LINE + "╗");
-        System.out.println("║                         THONG TIN KHACH HANG                                  ║");
+        System.out.println("║                         THONG TIN KHACH HANG                                   ║");
         System.out.println("╠" + LINE + "╣");
         System.out.printf("║ Ma KH: %-71s ║%n", maKH);
         System.out.printf("║ Ho ten: %-70s ║%n", getHoTen());

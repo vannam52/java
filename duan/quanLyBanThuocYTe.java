@@ -159,7 +159,7 @@ public class quanLyBanThuocYTe {
                     dsThuocYTe.XuatDS();
                     break;
                 case 7:
-                    dsThuocYTe.thongKe();
+                    dsThuocYTe.menuThongKe();
                     break;
                 case 0:
                     break;
@@ -224,7 +224,7 @@ public class quanLyBanThuocYTe {
                     dsNhanVien.XuatDS();
                     break;
                 case 7:
-                    dsNhanVien.thongKe();
+                    dsNhanVien.menuThongKe();
                     break;
                 case 0:
                     break;
@@ -289,7 +289,7 @@ public class quanLyBanThuocYTe {
                     dsKhachHang.XuatDS();
                     break;
                 case 7:
-                    dsKhachHang.thongKe();
+                    dsKhachHang.menuThongKe();
                     ;
                     break;
                 case 0:
@@ -470,7 +470,7 @@ public class quanLyBanThuocYTe {
             System.out.println(
                     "╔═══════════════════════════════════════════════════════════════════════════════════════╗");
             System.out.println(
-                    "║                              QUAN LY DANH SACH PHIEU XUAT HANG                       ║");
+                    "║                              QUAN LY DANH SACH PHIEU XUAT HANG                        ║");
             System.out.println(
                     "╠═══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.println(

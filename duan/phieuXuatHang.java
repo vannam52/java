@@ -104,14 +104,14 @@ public class phieuXuatHang {
         final int W = 77;
 
         System.out.println("╔" + LINE + "╗");
-        System.out.println("║ ---------------- THONG TIN PHIEU XUAT HANG ------------------------------- ║");
+        System.out.println("║ ---------------- THONG TIN PHIEU XUAT HANG -------------------------------  ║");
         System.out.println("╠" + LINE + "╣");
         System.out.printf("║ Ma phieu xuat hang: %-" + (W - 22) + "s ║%n", maPXH);
         System.out.printf("║ Ma thuoc: %-" + (W - 12) + "s ║%n", maThuoc);
         System.out.printf("║ So luong: %-" + (W - 12) + "d ║%n", soLuong);
         System.out.printf("║ Don gia: %-" + (W - 11) + ".2f ║%n", donGia);
         System.out.printf("║ Ma khach hang: %-" + (W - 18) + "s ║%n", maKH);
-        System.out.printf("║ Thanh tien: %-" + (W - 15) + ".2f ║%n", thanhTien);
+        System.out.printf("║ Thanh tien: %-" + (W - 18) + ".2f ║%n", thanhTien);
         System.out.println("╚" + LINE + "╝");
     }
 

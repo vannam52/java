@@ -148,7 +148,7 @@ public class danhSachKhachHang implements ChucNang, IFile {
 
                 case "6":
                     System.out.print("Nhap so diem tich luy moi: ");
-                    int diemMoi = Integer.parseInt(sc.nextLine()); 
+                    int diemMoi = Integer.parseInt(sc.nextLine());
                     if (diemMoi < 0) {
                         System.out.println(">> Diem tich luy khong the la so am!");
                     } else {
@@ -216,7 +216,7 @@ public class danhSachKhachHang implements ChucNang, IFile {
         }
     }
 
-    public void thongKe() {
+    public void thongKeChung() {
         if (soLuongKH == 0) {
             System.out.println("Danh sach khach hang rong");
             return;
@@ -248,6 +248,80 @@ public class danhSachKhachHang implements ChucNang, IFile {
         System.out.printf("║ Trung binh diem/khach: %-42.2f║%n", (double) tongDiem / soLuongKH);
 
         System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+    }
+
+    public void menuThongKe() {
+        Scanner sc = new Scanner(System.in);
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║              MENU THONG KE KHACH HANG                            ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Thong ke chung                                                ║");
+            System.out.println("║ 2. Thong ke theo gioi tinh                                       ║");
+            System.out.println("║ 0. Thoat                                                         ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-2): ");
+
+            String luaChon = sc.nextLine().trim();
+
+            switch (luaChon) {
+                case "1":
+                    thongKeChung();
+                    break;
+                case "2":
+                    thongKeTheoGioiTinh();
+                    break;
+                case "0":
+                    System.out.println(">> Thoat menu thong ke!");
+                    tiepTuc = false;
+                    break;
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+            }
+        }
+    }
+
+    public void thongKeTheoGioiTinh() {
+        if (soLuongKH == 0) {
+            System.out.println("Danh sach khach hang rong");
+            return;
+        }
+
+        // Khách hàng Nam
+        khachHang[] dsNam = new khachHang[soLuongKH];
+        int demNam = 0;
+        for (int i = 0; i < soLuongKH; i++) {
+            if (dsKH[i].getGioiTinh().equalsIgnoreCase("Nam")) {
+                dsNam[demNam] = dsKH[i];
+                demNam++;
+            }
+        }
+
+        // Khách hàng Nữ
+        khachHang[] dsNu = new khachHang[soLuongKH];
+        int demNu = 0;
+        for (int i = 0; i < soLuongKH; i++) {
+            if (dsKH[i].getGioiTinh().equalsIgnoreCase("Nu")) {
+                dsNu[demNu] = dsKH[i];
+                demNu++;
+            }
+        }
+
+        System.out.println("\n>>> DANH SACH KHACH HANG NAM:");
+        if (demNam > 0) {
+            hienThiBang(dsNam, demNam);
+        } else {
+            System.out.println("Khong co khach hang Nam");
+        }
+
+        System.out.println("\n>>> DANH SACH KHACH HANG NU:");
+        if (demNu > 0) {
+            hienThiBang(dsNu, demNu);
+        } else {
+            System.out.println("Khong co khach hang Nu");
+        }
     }
 
     public void hienThiBang(khachHang[] arr, int size) {

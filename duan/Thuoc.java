@@ -100,8 +100,16 @@ abstract public class Thuoc {
     }
 
     public void Xuat() {
-        System.out.printf("| %-10s | %-20s | %-10s | %15.2f | %10d | %-12s |\n",
+        System.out.println(
+                "─────────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.printf("| %-11s | %-22s | %-15s | %-11s | %-10s | %-10s |\n",
+                "Ma Thuoc", "Ten Thuoc", "Don Vi Tinh", "Gia Ban", "So Luong", "HSD");
+        System.out.println(
+                "─────────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.printf("| %-11s | %-22s | %-15s | %11.2f | %10d | %-10s |\n",
                 maThuoc, tenThuoc, donViTinh, giaBan, soLuong, HSD);
+        System.out.println(
+                "─────────────────────────────────────────────────────────────────────────────────────────────────");
     }
 
     @Override

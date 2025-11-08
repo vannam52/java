@@ -247,7 +247,7 @@ public class danhSachNhanVien implements ChucNang, IFile {
         return tongLuong;
     }
 
-    public void thongKe() {
+    public void thongKeChung() {
         if (soLuongNV == 0) {
             System.out.println("Danh sach rong");
             return;
@@ -272,7 +272,7 @@ public class danhSachNhanVien implements ChucNang, IFile {
         }
 
         System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                              THONG KE NHAN VIEN                                      ║");
+        System.out.println("║                              THONG KE CHUNG NHAN VIEN                                ║");
         System.out.println("╠══════════════════════════════════════════════════════════════════════════════════════╣");
         System.out.printf("║ Tong so nhan vien:           %-55d ║%n", soLuongNV);
         System.out.printf("║ So nhan vien nam:            %-55d ║%n", nam);
@@ -282,6 +282,80 @@ public class danhSachNhanVien implements ChucNang, IFile {
         System.out.printf("║ Nhan vien luong cao nhat:    %-40s (%.0f VND) ║%n",
                 nvMax.getHoTen(), nvMax.getLuong());
         System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
+    }
+
+    public void thongKeTheoGioiTinh() {
+        if (soLuongNV == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
+
+        // Nhân viên Nam
+        nhanVien[] dsNam = new nhanVien[soLuongNV];
+        int demNam = 0;
+        for (int i = 0; i < soLuongNV; i++) {
+            if (dsNV[i].getGioiTinh().equalsIgnoreCase("Nam")) {
+                dsNam[demNam] = dsNV[i];
+                demNam++;
+            }
+        }
+
+        // Nhân viên Nữ
+        nhanVien[] dsNu = new nhanVien[soLuongNV];
+        int demNu = 0;
+        for (int i = 0; i < soLuongNV; i++) {
+            if (dsNV[i].getGioiTinh().equalsIgnoreCase("Nu")) {
+                dsNu[demNu] = dsNV[i];
+                demNu++;
+            }
+        }
+
+        System.out.println("\n>>> DANH SACH NHAN VIEN NAM:");
+        if (demNam > 0) {
+            hienThiBang(dsNam, demNam);
+        } else {
+            System.out.println("Khong co nhan vien Nam");
+        }
+
+        System.out.println("\n>>> DANH SACH NHAN VIEN NU:");
+        if (demNu > 0) {
+            hienThiBang(dsNu, demNu);
+        } else {
+            System.out.println("Khong co nhan vien Nu");
+        }
+    }
+
+    public void menuThongKe() {
+        Scanner sc = new Scanner(System.in);
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║              MENU THONG KE NHAN VIEN                             ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Thong ke chung                                                ║");
+            System.out.println("║ 2. Thong ke theo gioi tinh                                       ║");
+            System.out.println("║ 0. Thoat                                                         ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-2): ");
+
+            String luaChon = sc.nextLine();
+
+            switch (luaChon) {
+                case "1":
+                    thongKeChung();
+                    break;
+                case "2":
+                    thongKeTheoGioiTinh();
+                    break;
+                case "0":
+                    System.out.println(" Thoat menu thong ke!");
+                    tiepTuc = false;
+                    break;
+                default:
+                    System.out.println(" Lua chon khong hop le!");
+            }
+        }
     }
 
     public void hienThiBang(nhanVien[] arr, int size) {
@@ -308,7 +382,7 @@ public class danhSachNhanVien implements ChucNang, IFile {
         }
 
         System.out.println(
-                "╚════════╩══════════════════════╩═══════════╩══════════════╩══════════════╩═══════════════════════╩═══════════════════════════════════╝");
+                "╚════════╩══════════════════════╩════════════╩═════════════╩══════════════╩═══════════════════════╩═══════════════════════════════════╝");
         System.out.println("Tong so: " + size + " nhan vien");
     }
 

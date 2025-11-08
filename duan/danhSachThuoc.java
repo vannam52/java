@@ -282,12 +282,11 @@ public class danhSachThuoc implements ChucNang, IFile {
         }
     }
 
-    public void thongKe() {
-        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-        System.out.println("║              THONG KE DANH SACH THUOC                            ║");
-        System.out.println("╠══════════════════════════════════════════════════════════════════╣");
-
-        System.out.printf("║ Tong so thuoc: %-50d║%n", soLuongThuoc);
+    public void thongKeChung() {
+        if (soLuongThuoc == 0) {
+            System.out.println("Danh sach thuoc rong");
+            return;
+        }
 
         int demThuocKeDon = 0;
         int demThucPhamChucNang = 0;
@@ -300,9 +299,6 @@ public class danhSachThuoc implements ChucNang, IFile {
             }
         }
 
-        System.out.printf("║   - Thuoc ke don: %-47d║%n", demThuocKeDon);
-        System.out.printf("║   - Thuc pham chuc nang: %-40d║%n", demThucPhamChucNang);
-
         // Thuốc có giá cao nhất
         Thuoc thuocMax = dsThuoc[0];
         for (int i = 1; i < soLuongThuoc; i++) {
@@ -310,27 +306,120 @@ public class danhSachThuoc implements ChucNang, IFile {
                 thuocMax = dsThuoc[i];
             }
         }
-        System.out.printf("║ Thuoc gia cao nhat: %-45s║%n", thuocMax.getTenThuoc());
-        System.out.printf("║ Gia: %-60.2f║%n", thuocMax.getGiaBan());
 
         // Tổng số lượng thuốc trong kho
         int tongSoLuongKho = 0;
         for (int i = 0; i < soLuongThuoc; i++) {
             tongSoLuongKho += dsThuoc[i].getSoLuong();
         }
-        System.out.printf("║ Tong so luong thuoc trong kho: %-34d║%n", tongSoLuongKho);
 
         // Tổng giá trị kho
         double tongGia = 0;
         for (int i = 0; i < soLuongThuoc; i++) {
             tongGia += dsThuoc[i].getGiaBan() * dsThuoc[i].getSoLuong();
         }
+
+        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+        System.out.println("║              THONG KE CHUNG DANH SACH THUOC                      ║");
+        System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║ Tong so thuoc: %-50d║%n", soLuongThuoc);
+        System.out.printf("║   - Thuoc ke don: %-47d║%n", demThuocKeDon);
+        System.out.printf("║   - Thuc pham chuc nang: %-40d║%n", demThucPhamChucNang);
+        System.out.printf("║ Thuoc gia cao nhat: %-45s║%n", thuocMax.getTenThuoc());
+        System.out.printf("║ Gia: %-60.2f║%n", thuocMax.getGiaBan());
+        System.out.printf("║ Tong so luong thuoc trong kho: %-34d║%n", tongSoLuongKho);
         System.out.printf("║ Tong gia tri kho: %-47.2f║%n", tongGia);
         if (tongSoLuongKho > 0) {
             System.out.printf("║ Trung binh gia/thuoc: %-43.2f║%n", tongGia / tongSoLuongKho);
         }
-
         System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+    }
+
+    public void thongKeThuocKeDon() {
+        Thuoc[] dsThuocKeDon = new Thuoc[soLuongThuoc];
+        int dem = 0;
+
+        for (int i = 0; i < soLuongThuoc; i++) {
+            if (dsThuoc[i] instanceof thuocKeDon) {
+                dsThuocKeDon[dem] = dsThuoc[i];
+                dem++;
+            }
+        }
+
+        if (dem == 0) {
+            System.out.println("Khong co thuoc ke don");
+            return;
+        }
+
+        System.out.println(
+                "\n╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println(
+                "║                              DANH SACH THUOC KE DON                                                            ║");
+        System.out.println(
+                "╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+        hienThiBang(dsThuocKeDon, dem);
+    }
+
+    public void thongKeThucPhamChucNang() {
+        Thuoc[] dsThucPhamChucNang = new Thuoc[soLuongThuoc];
+        int dem = 0;
+
+        for (int i = 0; i < soLuongThuoc; i++) {
+            if (dsThuoc[i] instanceof thucPhamChucNang) {
+                dsThucPhamChucNang[dem] = dsThuoc[i];
+                dem++;
+            }
+        }
+
+        if (dem == 0) {
+            System.out.println("Khong co thuc pham chuc nang");
+            return;
+        }
+
+        System.out.println(
+                "\n╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println(
+                "║                          DANH SACH THUC PHAM CHUC NANG                                                         ║");
+        System.out.println(
+                "╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+        hienThiBang(dsThucPhamChucNang, dem);
+    }
+
+    public void menuThongKe() {
+        Scanner sc = new Scanner(System.in);
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                    MENU THONG KE                                 ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Thong ke chung                                                ║");
+            System.out.println("║ 2. Thong ke thuoc ke don                                         ║");
+            System.out.println("║ 3. Thong ke thuc pham chuc nang                                  ║");
+            System.out.println("║ 0. Thoat                                                         ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-3): ");
+
+            String luaChon = sc.nextLine().trim();
+
+            switch (luaChon) {
+                case "1":
+                    thongKeChung();
+                    break;
+                case "2":
+                    thongKeThuocKeDon();
+                    break;
+                case "3":
+                    thongKeThucPhamChucNang();
+                    break;
+                case "0":
+                    System.out.println(">> Thoat menu thong ke!");
+                    tiepTuc = false;
+                    break;
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+            }
+        }
     }
 
     public void hienThiBang(Thuoc[] arr, int size) {
@@ -361,7 +450,8 @@ public class danhSachThuoc implements ChucNang, IFile {
                     thuocKeDon tkd = (thuocKeDon) arr[i];
                     loai = tkd.getLoaiThuocKeDon();
                 } else if (arr[i] instanceof thucPhamChucNang) {
-                    loai = "TPCN";
+                    thucPhamChucNang TP = (thucPhamChucNang) arr[i];
+                    loai = TP.getLoaiTP();
                 } else {
                     loai = "Khac";
                 }
@@ -479,8 +569,13 @@ public class danhSachThuoc implements ChucNang, IFile {
                                 parts[6].trim(),
                                 parts[7].trim());
                         soLuongThuoc++;
-                    } else if (loai.equals("ThucPhamChucNang") && parts.length == 7) {
+                    } else if (loai.equals("ThucPhamChucNang") && parts.length >= 7) {
                         // Thuc pham chuc nang: Loai,Ma,Ten,DonVi,Gia,SoLuong,HSD
+                        String loaiTP = "";
+                        if (parts.length == 8) {
+                            loaiTP = parts[7];
+                        }
+
                         dsThuoc[soLuongThuoc] = new thucPhamChucNang(
                                 parts[1].trim(),
                                 parts[2].trim(),
@@ -488,7 +583,7 @@ public class danhSachThuoc implements ChucNang, IFile {
                                 Double.parseDouble(parts[4].trim()),
                                 Integer.parseInt(parts[5].trim()),
                                 parts[6].trim(),
-                                "");
+                                loaiTP);
                         soLuongThuoc++;
                     } else {
                         System.err.println(" Dong " + lineNumber + ": Sai dinh dang hoac loai khong hop le");

@@ -102,7 +102,7 @@ public class nhanVien extends conNguoi {
         System.out.println("╚" + LINE + "╝");
     }
 
-
+    
     public void tinhLuong(double tien) {
         this.thuong += tien;
     }
