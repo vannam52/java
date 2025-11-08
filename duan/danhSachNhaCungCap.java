@@ -118,27 +118,120 @@ public class danhSachNhaCungCap implements ChucNang, IFile {
         }
     }
 
+    // sua nha cung cap
+    public void suaNhaCungCap(String maNCC) {
+        while (!kiemTraMa(maNCC)) {
+            System.out.print("Ma nha cung cap khong hop le, vui long nhap lai (nhan 'q' de thoat): ");
+            maNCC = sc.nextLine();
+            if (maNCC.equalsIgnoreCase("q"))
+                return;
+        }
+
+        for (int i = 0; i < this.soLuongNCC; i++) {
+            if (this.dsNCC[i].getMaNCC().equalsIgnoreCase(maNCC)) {
+                System.out.println(">> Nhap lai thong tin moi: ");
+                this.dsNCC[i].Nhap();
+                System.out.println(">> Da cap nhat!");
+                return;
+            }
+        }
+        System.out.println(">> Khong tim thay ma nha cung cap!");
+    }
+
     @Override
     public void Sua() {
         if (soLuongNCC == 0) {
             System.out.println("Danh sach nha cung cap rong");
             return;
         }
-        String maNCC;
-        do {
-            System.out.print("Nhap ma nha cung cap can sua (nhap 'q' de thoat): ");
-            maNCC = sc.nextLine();
-            if (maNCC.equalsIgnoreCase("q"))
-                return;
-            if (kiemTraMa(maNCC))
-                break;
-            System.out.println("Ma nha cung cap khong ton tai. Vui long nhap lai.");
-        } while (true);
+
+        System.out.print("Nhap ma nha cung cap can sua: ");
+        String maNCC = sc.nextLine();
+
+        int viTri = -1;
         for (int i = 0; i < soLuongNCC; i++) {
-            if (this.dsNCC[i].getMaNCC().equals(maNCC)) {
-                dsNCC[i].Nhap();
-                System.out.println("Sua nha cung cap thanh cong");
-                return;
+            if (dsNCC[i].getMaNCC().equalsIgnoreCase(maNCC)) {
+                viTri = i;
+                break;
+            }
+        }
+
+        if (viTri == -1) {
+            System.out.println(">> Khong tim thay ma nha cung cap!");
+            return;
+        }
+
+        nhaCungCap ncc = dsNCC[viTri];
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════╗");
+            System.out.println("║        SUA THONG TIN NHA CUNG CAP: " + String.format("%-10s", maNCC) + "       ║");
+            System.out.println("╠══════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Sua ten nha cung cap                                  ║");
+            System.out.println("║ 2. Sua dia chi                                           ║");
+            System.out.println("║ 3. Sua so dien thoai                                     ║");
+            System.out.println("║ 4. Sua tat ca thong tin                                  ║");
+            System.out.println("║ 0. Hoan thanh                                            ║");
+            System.out.println("╚══════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-4): ");
+
+            String luaChon = sc.nextLine();
+
+            switch (luaChon) {
+                case "1":
+                    System.out.print("Nhap ten nha cung cap moi: ");
+                    ncc.setTenNCC(sc.nextLine());
+                    System.out.println(">> Da cap nhat ten nha cung cap!");
+                    break;
+
+                case "2":
+                    System.out.print("Nhap dia chi moi: ");
+                    ncc.setDiaChi(sc.nextLine());
+                    System.out.println(">> Da cap nhat dia chi!");
+                    break;
+
+                case "3":
+                    while (true) {
+                        System.out.print("Nhap so dien thoai moi: ");
+                        String sdtMoi = sc.nextLine();
+                        if (sdtMoi.matches("\\d{10,11}")) {
+                            ncc.setSdt(sdtMoi);
+                            System.out.println(">> Da cap nhat so dien thoai!");
+                            break;
+                        } else {
+                            System.out.println("So dien thoai khong hop le (phai co 10-11 chu so). Vui long nhap lai.");
+                        }
+                    }
+                    break;
+
+                case "4":
+                    System.out.println(">> Nhap lai tat ca thong tin:");
+                    System.out.print("Nhap ten nha cung cap: ");
+                    ncc.setTenNCC(sc.nextLine());
+                    System.out.print("Nhap dia chi: ");
+                    ncc.setDiaChi(sc.nextLine());
+                    while (true) {
+                        System.out.print("Nhap so dien thoai: ");
+                        String sdtMoi = sc.nextLine();
+                        if (sdtMoi.matches("\\d{10,11}")) {
+                            ncc.setSdt(sdtMoi);
+                            break;
+                        } else {
+                            System.out.println("So dien thoai khong hop le (phai co 10-11 chu so). Vui long nhap lai.");
+                        }
+                    }
+                    System.out.println(">> Da cap nhat tat ca thong tin!");
+                    break;
+
+                case "0":
+                    System.out.println(">> Hoan thanh sua thong tin nha cung cap!");
+                    tiepTuc = false;
+                    break;
+
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+                    break;
             }
         }
     }

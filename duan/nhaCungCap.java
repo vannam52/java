@@ -57,20 +57,32 @@ public class nhaCungCap {
         this.sdt = sdt;
     }
 
-    public void nhapThongTinNCC() {
+    public void Nhap() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Ma NCC la: ");
+        System.out.println("╔════════════════════════════════════════════════════════════════════╗");
+        System.out.print("║ Nhap ma nha cung cap: ");
         maNCC = sc.nextLine();
-        System.out.println("Ten NCC la: ");
+        System.out.println("╠════════════════════════════════════════════════════════════════════╣");
+        System.out.print("║ Nhap ten nha cung cap: ");
         tenNCC = sc.nextLine();
-        System.out.println("Dia chi la: ");
+        System.out.println("╠════════════════════════════════════════════════════════════════════╣");
+        System.out.print("║ Nhap dia chi: ");
         diaChi = sc.nextLine();
-        System.out.println("So dien thoai la: ");
+        System.out.println("╠════════════════════════════════════════════════════════════════════╣");
+        System.out.print("║ Nhap so dien thoai: ");
         sdt = sc.nextLine();
+        System.out.println("╚════════════════════════════════════════════════════════════════════╝");
     }
 
-    public void hienThiNCC() {
-        System.out.println("Ma nha cung cap la: " + this.maNCC + " Ten nha cung cap la: "
-            + this.tenNCC + " Dia chi la: " + this.diaChi + " So dien thoai la: " + this.sdt);
+    public void Xuat() {
+        System.out.println("╔════════════════════════════════════════════════════════════════════╗");
+        System.out.printf("║ MA NHA CUNG CAP    : %-46s ║%n", maNCC);
+        System.out.println("╠════════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║ TEN NHA CUNG CAP   : %-46s ║%n", tenNCC);
+        System.out.println("╠════════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║ DIA CHI            : %-46s ║%n", diaChi);
+        System.out.println("╠════════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║ SO DIEN THOAI      : %-46s ║%n", sdt);
+        System.out.println("╚════════════════════════════════════════════════════════════════════╝");
     }
 }

@@ -1,28 +1,32 @@
 package duan;
 
+import java.util.Scanner;
+
 public class hoaDon {
     private String maHD;
     private String maKH;
     private String maNV;
     private String ngayLap;
     private double tongTien;
-    private chiTietHoaDon[] chiTietHoaDons;
+    public chiTietHoaDon[] chiTietHoaDon;
     private int soLuongChiTiet;
     private final int MAX_CHI_TIET = 100;
 
     public hoaDon() {
+        this.chiTietHoaDon = new chiTietHoaDon[MAX_CHI_TIET];
+        this.soLuongChiTiet = 0;
     }
 
-    public hoaDon(hoaDon other){
+    public hoaDon(hoaDon other) {
         this.maHD = other.maHD;
         this.maKH = other.maKH;
         this.maNV = other.maNV;
         this.ngayLap = other.ngayLap;
         this.tongTien = other.tongTien;
         this.soLuongChiTiet = other.soLuongChiTiet;
-        this.chiTietHoaDons = new chiTietHoaDon[MAX_CHI_TIET];
-        for (int i = 0; i < other.soLuongChiTiet; i++){
-            this.chiTietHoaDons[i] = new chiTietHoaDon(other.chiTietHoaDons[i]);
+        this.chiTietHoaDon = new chiTietHoaDon[MAX_CHI_TIET];
+        for (int i = 0; i < other.soLuongChiTiet; i++) {
+            this.chiTietHoaDon[i] = new chiTietHoaDon(other.chiTietHoaDon[i]);
         }
     }
 
@@ -32,25 +36,30 @@ public class hoaDon {
         this.maNV = maNV;
         this.ngayLap = ngayLap;
         this.tongTien = tongTien;
-        this.chiTietHoaDons = new chiTietHoaDon[MAX_CHI_TIET];
+        this.chiTietHoaDon = new chiTietHoaDon[MAX_CHI_TIET];
         this.soLuongChiTiet = 0;
     }
 
     public String getMaHD() {
         return maHD;
     }
+
     public void setMaHD(String maHD) {
         this.maHD = maHD;
     }
+
     public String getMaKH() {
         return maKH;
     }
+
     public void setMaKH(String maKH) {
         this.maKH = maKH;
     }
+
     public String getMaNV() {
         return maNV;
     }
+
     public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
@@ -58,88 +67,127 @@ public class hoaDon {
     public String getNgayLap() {
         return ngayLap;
     }
+
     public void setNgayLap(String ngayLap) {
         this.ngayLap = ngayLap;
     }
+
+    public chiTietHoaDon[] getChiTietHoaDon() {
+        return chiTietHoaDon;
+    }
+
+    public void setChiTietHoaDon(chiTietHoaDon[] chiTietHoaDon) {
+        this.chiTietHoaDon = chiTietHoaDon;
+    }
+
+    public int getSoLuongChiTiet() {
+        return soLuongChiTiet;
+    }
+
+    public void setSoLuongChiTiet(int soLuongChiTiet) {
+        this.soLuongChiTiet = soLuongChiTiet;
+    }
+
     public double getTongTien() {
         return tongTien;
     }
+
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-    
-    public void tinhTongTien(double tien) {
-        this.tongTien += tien;
+
+    public double tinhTongTien() {
+        this.tongTien = 0;
+        for (int i = 0; i < soLuongChiTiet; i++) {
+            this.tongTien += chiTietHoaDon[i].getThanhTien();
+        }
+        return this.tongTien;
     }
-    public void taoHoaDon(){
+
+    public void taoHoaDon() {
         System.out.println("Hoa don tao tu ma la: " + maHD);
     }
-    public void xoaHoaDon(){
+
+    public void xoaHoaDon() {
         System.out.println("Hoa don bi xoa co ma la: " + maHD);
     }
 
-    public void hienThiHoaDon(){
-        System.out.println("Ma hoa don: " + maHD);
-        System.out.println("Ma khach hang: " + maKH);
-        System.out.println("Ma nhan vien: " + maNV);
-        System.out.println("Ngay lap: " + ngayLap);
-        System.out.println("Tong tien: " + tongTien);
-    }
-
-
-    //them chi tiet hoa don
-    public void themChiTietHoaDon(chiTietHoaDon CTHD, String maThuoc, String tenThuoc, int soLuong, double donGia){
-        if(soLuongChiTiet > MAX_CHI_TIET){
-            System.out.println("Khong the them");
-        }
-            chiTietHoaDons[soLuongChiTiet++] = new chiTietHoaDon(maHD, maThuoc, tenThuoc, soLuong, (int) donGia);
-            System.out.println("Da them chi tiet hoa don");
-
-            this.tinhTongTien(soLuong * donGia);
-    }
-
-    //tinh tong tien hoa don
-    public double tinhTongTienHoaDon(){
-        double tongTien = 0;
-        for(int i = 0; i < soLuongChiTiet; i++){
-            tongTien += chiTietHoaDons[i].getThanhTien();
-        }
-        return tongTien;
-    }
-
-    //hien thi chi tiet hoa don
-    public void hienThiChiTietHoaDon(){
-        System.out.println("Chi tiet hoa don cho ma hoa don: " + maHD);
-        for(int i = 0; i < soLuongChiTiet; i++){
-            chiTietHoaDons[i].hienThiChiTietHoaDon();
-        }
-    }
-
-
-    //xoa chi tiet hoa don theo ma thuoc
-    public void xoaChiTietHoaDon(String maThuoc){
-        for(int i = 0; i < soLuongChiTiet; i++){
-            if(chiTietHoaDons[i].getMaThuoc().equals(maThuoc)){
-                for(int j = i; j < soLuongChiTiet - 1; j++){
-                    chiTietHoaDons[j] = chiTietHoaDons[j + 1];
+    public void Nhap() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhap thong tin hoa don:");
+        System.out.print("Nhap ma HD: ");
+        this.maHD = sc.nextLine();
+        System.out.print("Nhap ma KH: ");
+        this.maKH = sc.nextLine();
+        System.out.print("Nhap ma NV: ");
+        this.maNV = sc.nextLine();
+        while (true) {
+            try {
+                System.out.print("Nhap ngay lap (dd/mm/yyyy): ");
+                this.ngayLap = sc.nextLine();
+                String[] parts = this.ngayLap.split("/");
+                if (parts.length != 3) {
+                    throw new Exception("Ngay lap khong hop le");
                 }
-                soLuongChiTiet--;
-                System.out.println("Da xoa chi tiet hoa don cho ma thuoc: " + maThuoc);
-                return;
+                int day = Integer.parseInt(parts[0]);
+                int month = Integer.parseInt(parts[1]);
+                int year = Integer.parseInt(parts[2]);
+                if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > 2025) {
+                    throw new Exception("Ngay lap khong hop le");
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage() + ". Vui long nhap lai.");
             }
         }
-        System.out.println("Khong tim thay chi tiet hoa don cho ma thuoc: " + maThuoc);
-    }
-
-//tim kiem chi tiet hoa don theo ma thuoc
-    public chiTietHoaDon timKiemChiTietHoaDon(String maThuoc){
-        for(int i = 0; i < soLuongChiTiet; i++){
-            if(chiTietHoaDons[i].getMaThuoc().equals(maThuoc)){
-                return chiTietHoaDons[i];
+        while (true) {
+            try {
+                System.out.print("Nhap so luong chi tiet hoa don: ");
+                this.soLuongChiTiet = Integer.parseInt(sc.nextLine());
+                if (this.soLuongChiTiet <= 0 || this.soLuongChiTiet > MAX_CHI_TIET) {
+                    throw new NumberFormatException();
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("So luong chi tiet hoa don khong hop le. Vui long nhap lai.");
             }
         }
-        return null;
+        for (int i = 0; i < this.soLuongChiTiet; i++) {
+            System.out.println("Nhap chi tiet hoa don thu " + (i + 1) + ": ");
+            this.chiTietHoaDon[i] = new chiTietHoaDon();
+            this.chiTietHoaDon[i].setMaHD(this.maHD);
+            this.chiTietHoaDon[i].Nhap();
+        }
+        this.tongTien = this.tinhTongTien();
     }
 
+    public void Xuat() {
+        final String LINE = "══════════════════════════════════════════════════════════════════════════════════════";
+
+        System.out.println("╔" + LINE + "╗");
+        System.out.println("║                                  HOA DON BAN THUOC                                   ║");
+        System.out.println("╠" + LINE + "╣");
+        System.out.printf("║ Ma hoa don: %-72s ║%n", maHD);
+        System.out.printf("║ Ma khach hang: %-69s ║%n", maKH);
+        System.out.printf("║ Ma nhan vien: %-70s ║%n", maNV);
+        System.out.printf("║ Ngay lap: %-74s ║%n", ngayLap);
+        System.out.println("╠" + LINE + "╣");
+        System.out.println("║                             DANH SACH CHI TIET HOA DON                               ║");
+        System.out.println("╠" + LINE + "╣");
+        if (soLuongChiTiet > 0 && chiTietHoaDon != null) {
+            for (int i = 0; i < soLuongChiTiet; i++) {
+                System.out.printf("║ [%02d] %-79s ║%n", (i + 1), "Chi tiet hoa don:");
+                chiTietHoaDon[i].Xuat();
+                if (i < soLuongChiTiet - 1)
+                    System.out.println("╠" + LINE + "╣");
+            }
+        } else {
+            System.out.println(
+                    "║ (Khong co chi tiet hoa don)                                                          ║");
+        }
+
+        System.out.println("╠" + LINE + "╣");
+        System.out.printf("║ Tong tien: %-69.0f VND ║%n", tongTien);
+        System.out.println("╚" + LINE + "╝");
+    }
 }
-
