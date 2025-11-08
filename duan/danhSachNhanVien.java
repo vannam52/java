@@ -84,13 +84,7 @@ public class danhSachNhanVien implements ChucNang, IFile {
     // SUA
     @Override
     public void Sua() {
-        if (soLuongNV == 0) {
-            System.out.println("Danh sach rong");
-            return;
-        }
-
         Scanner sc = new Scanner(System.in);
-        // Sửa lỗi "ma thuoc" -> "ma nhan vien"
         System.out.print("Nhap ma nhan vien can sua: ");
         String ma = sc.nextLine();
 
@@ -103,7 +97,6 @@ public class danhSachNhanVien implements ChucNang, IFile {
         }
 
         if (viTri == -1) {
-            // Sửa lỗi "ma thuoc" -> "ma nhan vien"
             System.out.println(">> Khong tim thay ma nhan vien!");
             return;
         }
@@ -359,30 +352,29 @@ public class danhSachNhanVien implements ChucNang, IFile {
     }
 
     public void hienThiBang(nhanVien[] arr, int size) {
-        final String LINE = "═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════";
+        final String LINE = "═════════════════════════════════════════════════════════════════════════════════════";
         System.out.println("╔" + LINE + "╗");
         System.out.println(
-                "║                                                           DANH SACH NHAN VIEN                                                       ║");
+                "║                              DANH SACH NHAN VIEN                                    ║");
         System.out.println(
-                "╠════════╦══════════════════════╦════════════╦═════════════╦══════════════╦═══════════════════════╦═══════════════════════════════════╣");
+                "╠════════╦══════════════════════╦═══════╦═══════════╦══════════════╦══════════════════╣");
         System.out.println(
-                "║  Ma NV ║      Ho va Ten       ║    Tuoi    ║ Gioi tinh   ║      SDT     ║       Dia chi         ║         Luong (VND)               ║");
+                "║  Ma NV ║      Ho va Ten       ║ Tuoi  ║ Gioi tinh ║      SDT     ║   Luong (VND)    ║");
         System.out.println(
-                "╠════════╬══════════════════════╬════════════╬═════════════╬══════════════╬═══════════════════════╬═══════════════════════════════════╣");
+                "╠════════╬══════════════════════╬═══════╬═══════════╬══════════════╬══════════════════╣");
 
         for (int i = 0; i < size; i++) {
-            System.out.printf("║ %-6s ║ %-20s ║ %-10s ║ %-11s ║ %-12s ║ %-21s ║ %,33.0f ║%n",
+            System.out.printf("║ %-6s ║ %-20s ║ %-5s ║ %-9s ║ %-12s ║ %,16.0f ║%n",
                     arr[i].getMaNV(),
                     arr[i].getHoTen(),
                     arr[i].tinhTuoi(),
                     arr[i].getGioiTinh(),
                     arr[i].getSDT(),
-                    arr[i].getDiaChi(),
                     arr[i].getLuong());
         }
 
         System.out.println(
-                "╚════════╩══════════════════════╩════════════╩═════════════╩══════════════╩═══════════════════════╩═══════════════════════════════════╝");
+                "╚════════╩══════════════════════╩═══════╩═══════════╩══════════════╩══════════════════╝");
         System.out.println("Tong so: " + size + " nhan vien");
     }
 

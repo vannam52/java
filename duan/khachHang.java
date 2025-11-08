@@ -78,8 +78,4 @@ public class khachHang extends conNguoi {
     public void capNhapDiemTichLuy(int diem) {
         this.diemTichLuy += diem;
     }
-    // @Override
-    // public int tinhTuoi(){
-    // super.tinhTuoi();
-    // }
 }

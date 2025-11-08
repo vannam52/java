@@ -97,7 +97,7 @@ public class khuyenMai {
         System.out.println("╠" + LINE + "╣");
         System.out.printf("║ Ma KM: %-" + (W - 7) + "s ║%n", maKM);
         System.out.printf("║ Ten KM: %-" + (W - 8) + "s ║%n", tenKM);
-        System.out.printf("║ Phan tram giam gia: %-" + (W - 21) + ".2f ║%n", phanTramGiamGia);
+        System.out.printf("║ Phan tram giam gia: %-" + (W - 21) + ".2f  ║%n", phanTramGiamGia);
         System.out.printf("║ Ngay bat dau: %-" + (W - 14) + "s ║%n", ngayBD);
         System.out.printf("║ Ngay ket thuc: %-" + (W - 15) + "s ║%n", ngayKT);
         System.out.println("╚" + LINE + "╝");

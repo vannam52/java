@@ -240,7 +240,7 @@ public class danhSachKhuyenMai implements ChucNang, IFile {
 
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) {
-                System.out.printf("║ %-10s ║ %-20s ║ %14.2f%% ║ %-14s ║ %-9s ║%n",
+                System.out.printf("║ %-10s ║ %-20s ║ %14.2f%% ║ %-14s ║ %-10s║%n",
                         arr[i].getMaKM(),
                         arr[i].getTenKM(),
                         arr[i].getPhanTramGiamGia(),

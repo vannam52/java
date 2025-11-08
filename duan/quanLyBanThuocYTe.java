@@ -9,10 +9,7 @@ public class quanLyBanThuocYTe {
     public static danhSachKhuyenMai dsKhuyenMai = new danhSachKhuyenMai();
     public static danhSachThuoc dsThuocYTe = new danhSachThuoc();
     public static danhSachPhieuXuatHang dsPhieuXuatHang = new danhSachPhieuXuatHang();
-    // public static danhSachHoaDonNhapHang dsHoaDonNhap = new
-    // danhSachHoaDonNhapHang();
-    // public static danhSachHoaDonBanHang dsHoaDonBan = new
-    // danhSachHoaDonBanHang();
+    public static danhSachPhieuNhapHang dsPhieuNhapHang = new danhSachPhieuNhapHang();
 
     public static Scanner sc = new Scanner(System.in);
 
@@ -29,7 +26,7 @@ public class quanLyBanThuocYTe {
         dsThuocYTe.docFile("duan/Thuoc.txt");
         dsKhuyenMai.docFile("duan/khuyenMai.txt");
         dsPhieuXuatHang.docFile("duan/phieuXuatHang.txt");
-
+        dsPhieuNhapHang.docFile("duan/phieuNhapHang.txt");
         System.out.println("Tai du lieu thanh cong!");
     }
 
@@ -39,6 +36,7 @@ public class quanLyBanThuocYTe {
         dsKhachHang.ghiFile("duan/Thuoc.txt");
         dsKhuyenMai.ghiFile("duan/khuyenMai.txt");
         dsPhieuXuatHang.ghiFile("duan/phieuXuatHang.txt");
+        dsPhieuNhapHang.ghiFile("duan/phieuNhapHang.txt");
     }
 
     public static void hienThiMenuChinh() {
@@ -61,9 +59,11 @@ public class quanLyBanThuocYTe {
             System.out.println(
                     "║ 5. Quan ly danh sach hoa don ban hang                                                 ║");
             System.out.println(
-                    "║ 6. Quan ly danh sach hoa don nhap hang                                                ║");
+                    "║ 6. Quan ly danh sach phieu hang                                                       ║");
             System.out.println(
-                    "║ 7. Quan ly danh sach hoa don xuat hang                                                ║");
+                    "║ 7. Quan ly danh sach phieu xuat hang                                                  ║");
+            System.out.println(
+                    "║ 8. Quan ly danh sach phieu nhap hang                                                  ║");
             System.out.println(
                     "║ 0. Thoat chuong trinh                                                                 ║");
             System.out.println(
@@ -98,7 +98,7 @@ public class quanLyBanThuocYTe {
                 case 0:
                     break;
                 default:
-                    System.out.println("Lua chon khong hop le! Vui long chon lai.");
+                    System.out.println("Vui long chon lai.");
             }
 
         } while (choice != 0);
@@ -364,105 +364,47 @@ public class quanLyBanThuocYTe {
         } while (choice != 0);
     }
 
-    // public static void menuQuanLyHoaDonBan(Scanner sc) {
-    // int choice = 0;
-    // do {
-    // System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
-    // System.out.println("║                              QUẢN LÝ HÓA ĐƠN BÁN HÀNG  
-    //                              ║");
-    // System.out.println("╠══════════════════════════════════════════════════════════════════════════════════════╣");
-    // System.out.println("║ 1. Nhập danh sách hóa đơn bán hàng                    
-    //                               ║");
-    // System.out.println("║ 2. Thêm hóa đơn bán hàng                              
-    //                               ║");
-    // System.out.println("║ 3. Sửa hóa đơn bán hàng                                
-    //                              ║");
-    // System.out.println("║ 4. Xóa hóa đơn bán hàng                                
-    //                              ║");
-    // System.out.println("║ 5. Tìm kiếm hóa đơn bán hàng                          
-    //                               ║");
-    // System.out.println("║ 6. Xem danh sách hóa đơn bán hàng                      
-    //                              ║");
-    // System.out.println("║ 0. Quay lại menu chính                                
-    //                               ║");
-    // System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
-    // System.out.print("Nhập lựa chọn: ");
+    public static void menuPhieuNhapHang(Scanner sc) {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n--- MENU QUAN LY PHIEU NHAP HANG ---");
+            System.out.println("1. Them");
+            System.out.println("2. Sua");
+            System.out.println("3. Xoa");
+            System.out.println("4. Xuat danh sach");
+            System.out.println("5. Tim kiem");
+            System.out.println("6. Thong ke");
+            System.out.println("0. Quay lai Menu Chinh");
+            System.out.print("→ Chon: ");
+            String chon = sc.nextLine().trim();
 
-    // try {
-    // choice = Integer.parseInt(sc.nextLine());
-    // } catch (NumberFormatException e) {
-    // choice = -1;
-    // }
-
-    // switch (choice) {
-    // case 1: dsHoaDonBan.Nhap(sc);
-    // break;
-    // case 2: dsHoaDonBan.Them();
-    // break;
-    // case 3: dsHoaDonBan.Sua();
-    // break;
-    // case 4: dsHoaDonBan.Xoa();
-    // break;
-    // case 5: dsHoaDonBan.TimKiem();
-    // break;
-    // case 6: dsHoaDonBan.XuatDS();
-    // break;
-    // case 0:
-    // break;
-    // default: System.out.println("Lựa chọn không hợp lệ!");
-    // }
-    // } while (choice != 0);
-    // }
-
-    // public static void menuQuanLyHoaDonNhap(Scanner sc) {
-    // int choice = 0;
-    // do {
-    // System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
-    // System.out.println("║                              QUẢN LÝ HÓA ĐƠN NHẬP HÀNG
-    //                               ║");
-    // System.out.println("╠══════════════════════════════════════════════════════════════════════════════════════╣");
-    // System.out.println("║ 1. Nhập danh sách hóa đơn nhập hàng                    
-    //                              ║");
-    // System.out.println("║ 2. Thêm hóa đơn nhập hàng                              
-    //                              ║");
-    // System.out.println("║ 3. Sửa hóa đơn nhập hàng                              
-    //                               ║");
-    // System.out.println("║ 4. Xóa hóa đơn nhập hàng                              
-    //                               ║");
-    // System.out.println("║ 5. Tìm kiếm hóa đơn nhập hàng                          
-    //                              ║");
-    // System.out.println("║ 6. Xem danh sách hóa đơn nhập hàng                    
-    //                               ║");
-    // System.out.println("║ 0. Quay lại menu chính                                
-    //                               ║");
-    // System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
-    // System.out.print("Nhập lựa chọn: ");
-
-    // try {
-    // choice = Integer.parseInt(sc.nextLine());
-    // } catch (NumberFormatException e) {
-    // choice = -1;
-    // }
-
-    // switch (choice) {
-    // case 1: dsHoaDonNhap.Nhap(sc, dsNhanVien);
-    // break;
-    // case 2: dsHoaDonNhap.Them();
-    // break;
-    // case 3: dsHoaDonNhap.Sua();
-    // break;
-    // case 4: dsHoaDonNhap.Xoa();
-    // break;
-    // case 5: dsHoaDonNhap.TimKiem();
-    // break;
-    // case 6: dsHoaDonNhap.XuatDS();
-    // break;
-    // case 0:
-    // break;
-    // default: System.out.println("Lựa chọn không hợp lệ!");
-    // }
-    // } while (choice != 0);
-    // }
+            switch (chon) {
+                case "1":
+                    dsPhieuNhapHang.Them();
+                    break;
+                case "2":
+                    dsPhieuNhapHang.Sua();
+                    break;
+                case "3":
+                    dsPhieuNhapHang.Xoa();
+                    break;
+                case "4":
+                    dsPhieuNhapHang.XuatDS();
+                    break;
+                case "5":
+                    dsPhieuNhapHang.TimKiem();
+                    break;
+                case "6":
+                    dsPhieuNhapHang.thongKe();
+                    break;
+                case "0":
+                    back = true;
+                    break;
+                default:
+                    System.out.println("(!) Lua chon khong hop le!");
+            }
+        }
+    }
 
     public static void menuQuanLyPhieuXuatHang(Scanner sc) {
         int choice = 0;
@@ -523,7 +465,7 @@ public class quanLyBanThuocYTe {
                 case 0:
                     break;
                 default:
-                    System.out.println("✗ Lua chon khong hop le!");
+                    System.out.println("Lua chon khong hop le!");
             }
         } while (choice != 0);
     }

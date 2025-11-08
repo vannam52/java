@@ -96,13 +96,12 @@ public class nhanVien extends conNguoi {
 
         super.Xuat();
         System.out.printf("║ Dia chi: %-75s ║%n", diaChi);
-        System.out.printf("║ Luong co ban: %-66.0f VND ║%n", luongCoBan);
-        System.out.printf("║ Thuong: %-72.0f VND ║%n", thuong);
-        System.out.printf("║ Tong luong: %-68.0f VND ║%n", getLuong());
+        System.out.printf("║ Luong co ban: %-66.0f     ║%n", luongCoBan);
+        System.out.printf("║ Thuong: %-72.0f     ║%n", thuong);
+        System.out.printf("║ Tong luong: %-68.0f     ║%n", getLuong());
         System.out.println("╚" + LINE + "╝");
     }
 
-    
     public void tinhLuong(double tien) {
         this.thuong += tien;
     }
