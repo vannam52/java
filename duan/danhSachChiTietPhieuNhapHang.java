@@ -91,21 +91,84 @@ public class danhSachChiTietPhieuNhapHang implements ChucNang, IFile {
         }
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap ma phieu nhap hang can sua: ");
+        System.out.print("Nhap ma phieu nhap hang (MaPNH) can sua: ");
         String maPNH = sc.nextLine().trim();
-        System.out.print("Nhap ma thuoc can sua: ");
-        String maThuoc = sc.nextLine().trim();
 
+        int viTri = -1;
         for (int i = 0; i < soLuongCTPNH; i++) {
-            if (dsCTPNH[i].getMaPNH().equalsIgnoreCase(maPNH) && dsCTPNH[i].getMaThuoc().equalsIgnoreCase(maThuoc)) {
-                System.out.println(">> Nhap lai thong tin moi cho chi tiet phieu nhap hang:");
-                dsCTPNH[i].nhapChiTietPhieuNhapHang();
-                System.out.println("✓ Da cap nhat thong tin chi tiet phieu nhap hang thanh cong!");
-                return;
+            if (dsCTPNH[i].getMaPNH().equalsIgnoreCase(maPNH)) {
+                viTri = i;
+                break;
             }
         }
 
-        System.out.println("✗ Khong tim thay chi tiet phieu nhap hang co ma: " + maPNH + " + " + maThuoc);
+        if (viTri == -1) {
+            System.out.println("✗ Khong tim thay phieu xuat hang co ma: " + maPNH);
+            return;
+        }
+
+        chiTietPhieuNhapHang ctpnh = dsCTPNH[viTri];
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║           SUA THONG TIN CHI TIET PHIEU NHAP: " + String.format("%-20s", maPNH) + "║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Sua ma thuoc                                                  ║");
+            System.out.println("║ 2. Sua so luong                                                  ║");
+            System.out.println("║ 3. Sua don gia                                                   ║");
+            System.out.println("║ 4. Sua tat ca thong tin (tru ma)                                 ║");
+            System.out.println("║ 0. Hoan thanh                                                    ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-3): ");
+
+            String luaChon = sc.nextLine();
+
+            switch (luaChon) {
+                case "1":
+                    System.out.print("Nhap ma thuoc moi: ");
+                    ctpnh.setMaThuoc(sc.nextLine());
+                    break;
+
+                case "2":
+                    System.out.print("Nhap so luong moi: ");
+                    ctpnh.setSoLuong(Integer.parseInt(sc.nextLine()));
+                    ctpnh.thanhTien(); // tự động tính lại
+                    break;
+
+                case "3":
+                    System.out.print("Nhap don gia moi (Hien tai: " + ctpnh.getDonGia() + "): ");
+                    String donGiaStr = sc.nextLine().trim();
+                    if (!donGiaStr.isEmpty()) {
+                        try {
+                            ctpnh.setDonGia(Double.parseDouble(donGiaStr));
+                        } catch (NumberFormatException e) {
+                            System.out.println("(!) Loi: Don gia nhap vao khong hop le.");
+                        }
+                    }
+                    ctpnh.thanhTien();
+                    break;
+                case "4":
+                    System.out.println("\n>> Nhap lai tat ca thong tin (tru ma phieu & thanh tien):");
+                    String maCu = ctpnh.getMaPNH(); // giữ lại mã cũ
+                    System.out.print("Nhap ma thuoc: ");
+                    ctpnh.setMaThuoc(sc.nextLine());
+                    System.out.print("Nhap so luong: ");
+                    ctpnh.setSoLuong(Integer.parseInt(sc.nextLine()));
+                    System.out.print("Nhap don gia: ");
+                    ctpnh.setDonGia(Double.parseDouble(sc.nextLine()));
+                    ctpnh.thanhTien(); // tự động tính lại
+                    ctpnh.setMaPNH(maCu); // giữ nguyên mã phiếu
+                    break;
+                case "0":
+                    System.out.println(">> Hoan thanh sua thong tin chi tiet phieu nhap!");
+                    tiepTuc = false;
+                    break;
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+                    break;
+            }
+        }
     }
 
     public chiTietPhieuNhapHang timKiemTheoMa(String maPNH, String maThuoc) {

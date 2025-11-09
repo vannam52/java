@@ -32,7 +32,7 @@ public class quanLyBanThuocYTe {
         dsKhuyenMai.docFile("duan/khuyenMai.txt");
         dsPhieuXuatHang.docFile("duan/phieuXuatHang.txt");
         dsHoaDon.docFile("duan/hoaDon.txt");
-        dsChiTietHoaDon.docFile("duan/chiTietThuoc.txt");
+        dsChiTietHoaDon.docFile("duan/chiTietHoaDon.txt");
         dsNhaCungCap.docFile("duan/nhaCungCap.txt");
         dsPhieuNhapHang.docFile("duan/phieuNhapHang.txt");
         dsChiTietPhieuNhapHang.docFile("duan/chiTietPhieuNhapHang.txt");
@@ -47,7 +47,7 @@ public class quanLyBanThuocYTe {
         dsKhuyenMai.ghiFile("duan/khuyenMai.txt");
         dsPhieuXuatHang.ghiFile("duan/phieuXuatHang.txt");
         dsHoaDon.ghiFile("duan/hoaDon.txt");
-        dsChiTietHoaDon.ghiFile("duan/chiTietThuoc.txt");
+        dsChiTietHoaDon.ghiFile("duan/chiTietHoaDon.txt");
         dsNhaCungCap.ghiFile("duan/nhaCungCap.txt");
         dsPhieuNhapHang.ghiFile("duan/phieuNhapHang.txt");
         dsChiTietPhieuNhapHang.ghiFile("duan/chiTietPhieuNhapHang.txt");

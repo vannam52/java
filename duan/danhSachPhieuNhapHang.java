@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 public class danhSachPhieuNhapHang implements ChucNang, IFile {
     private phieuNhapHang[] dsPNH;
     private int soLuongPNH;
-    
+
     public danhSachPhieuNhapHang() {
         this.dsPNH = new phieuNhapHang[0];
         this.soLuongPNH = 0;
@@ -37,7 +37,7 @@ public class danhSachPhieuNhapHang implements ChucNang, IFile {
             pnhMoi = new phieuNhapHang();
 
             System.out.println("--- Nhap thong tin phieu nhap hang moi ---");
-            pnhMoi.nhapPhieuNhapHang(); 
+            pnhMoi.nhapPhieuNhapHang();
 
             if (timKiemTheoMa(pnhMoi.getMaPNH()) != null) {
                 System.out.println("✗ Ma phieu nhap hang da ton tai! Vui long nhap lai toan bo thong tin.");
@@ -94,16 +94,89 @@ public class danhSachPhieuNhapHang implements ChucNang, IFile {
         System.out.print("Nhap ma phieu nhap hang can sua: ");
         String ma = sc.nextLine().trim();
 
+        int viTri = -1;
         for (int i = 0; i < soLuongPNH; i++) {
             if (dsPNH[i].getMaPNH().equalsIgnoreCase(ma)) {
-                System.out.println(">> Nhap lai thong tin moi cho phieu nhap hang:");
-                dsPNH[i].nhapPhieuNhapHang();
-                System.out.println("✓ Da cap nhat thong tin phieu nhap hang thanh cong!");
-                return;
+                viTri = i;
+                break;
             }
         }
 
-        System.out.println("✗ Khong tim thay phieu nhap hang co ma: " + ma);
+        if (viTri == -1) {
+            System.out.println("✗ Khong tim thay phieu nhap hang co ma: " + ma);
+            return;
+        }
+
+        phieuNhapHang pnh = dsPNH[viTri];
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║             SUA THONG TIN PHIEU NHAP HANG: " + String.format("%-22s", ma) + "║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Sua ma nhan vien                                              ║");
+            System.out.println("║ 2. Sua ma nha cung cap                                           ║");
+            System.out.println("║ 3. Sua ngay nhap                                                 ║");
+            System.out.println("║ 4. Sua tong tien                                                 ║");
+            System.out.println("║ 5. Sua tat ca thong tin                                          ║");
+            System.out.println("║ 0. Hoan thanh                                                    ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-5): ");
+
+            String luaChon = sc.nextLine();
+
+            switch (luaChon) {
+                case "1":
+                    System.out.print("Nhap ma nhan vien moi (Hien tai: " + pnh.getMaNV() + "): ");
+                    String maNV = sc.nextLine().trim();
+                    if (!maNV.isEmpty())
+                        pnh.setMaNV(maNV);
+                    break;
+                case "2":
+                    System.out.print("Nhap ma nha cung cap moi (Hien tai: " + pnh.getMaNCC() + "): ");
+                    String maNCC = sc.nextLine().trim();
+                    if (!maNCC.isEmpty())
+                        pnh.setMaNCC(maNCC);
+                    break;
+                case "3":
+                    System.out.print("Nhap ngay nhap moi (Hien tai: " + pnh.getNgayNhap() + "): ");
+                    String ngayNhap = sc.nextLine().trim();
+                    if (!ngayNhap.isEmpty())
+                        pnh.setNgayNhap(ngayNhap);
+                    break;
+                case "4":
+                    System.out.print("Nhap tong tien moi (Hien tai: " + pnh.getTongTien() + "): ");
+                    String tongTienStr = sc.nextLine().trim();
+                    if (!tongTienStr.isEmpty()) {
+                        try {
+                            pnh.setTongTien(Double.parseDouble(tongTienStr));
+                        } catch (NumberFormatException e) {
+                            System.out.println("(!) Loi: Tong tien nhap vao khong hop le.");
+                        }
+                    }
+                    break;
+                case "5":
+                    System.out.println("\n>> Nhap lai tat ca thong tin (tru ma phieu):");
+                    System.out.println("Nhap ma nhan vien: ");
+                    pnh.setMaNV(sc.nextLine());
+                    System.out.println("Nhap ma nha cung cap: ");
+                    pnh.setMaNCC(sc.nextLine());
+                    System.out.println("Nhap ngay nhap (dd/MM/yyyy): ");
+                    pnh.setNgayNhap(sc.nextLine());
+                    System.out.println("Nhap tong tien: ");
+                    pnh.setTongTien(sc.nextDouble());
+                    sc.nextLine();
+                    System.out.println("Da cap nhat tat ca thong tin.");
+                    break;
+                case "0":
+                    System.out.println(">> Hoan thanh sua thong tin phieu nhap hang!");
+                    tiepTuc = false;
+                    break;
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+                    break;
+            }
+        }
     }
 
     public phieuNhapHang timKiemTheoMa(String maPNH) {
