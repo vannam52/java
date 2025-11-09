@@ -401,7 +401,7 @@ public class danhSachKhuyenMai implements ChucNang, IFile {
             System.out.println(
                     "╠═══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.printf("║ Da ghi: %-77d ║%n", this.soLuongKM);
-            System.out.printf("║ Vao file: %-74s ║%n", tenFile);
+            System.out.printf("║ Vao file: %-74s  ║%n", tenFile);
             System.out.println(
                     "╚═══════════════════════════════════════════════════════════════════════════════════════╝");
 

@@ -10,8 +10,9 @@ public class donGiaoHang {
     private int soLuong;
     private String trangThai;
     private double tongTien;
-    
-    public donGiaoHang() {}
+
+    public donGiaoHang() {
+    }
 
     public donGiaoHang(donGiaoHang other) {
         this.maDH = other.maDH;
@@ -23,7 +24,8 @@ public class donGiaoHang {
         this.tongTien = other.tongTien;
     }
 
-    public donGiaoHang(String maDH, String maHD, String ngayGiao, String diaChi, int soLuong, String trangThai, double tongTien) {
+    public donGiaoHang(String maDH, String maHD, String ngayGiao, String diaChi, int soLuong, String trangThai,
+            double tongTien) {
         this.maDH = maDH;
         this.maHD = maHD;
         this.ngayGiao = ngayGiao;
@@ -33,167 +35,108 @@ public class donGiaoHang {
         this.tongTien = tongTien;
     }
 
-    public String getMaDH() { 
-        return maDH; 
+    public String getMaDH() {
+        return maDH;
     }
 
-    public void setMaDH(String maDH) { 
-        this.maDH = maDH; 
+    public void setMaDH(String maDH) {
+        this.maDH = maDH;
     }
 
-    public String getMaHD() { 
-        return maHD; 
+    public String getMaHD() {
+        return maHD;
     }
 
-    public void setMaHD(String maHD) { 
-        this.maHD = maHD; 
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
     }
 
-    public String getNgayGiao() { 
-        return ngayGiao; 
+    public String getNgayGiao() {
+        return ngayGiao;
     }
 
-    public void setNgayGiao(String ngayGiao) { 
-        this.ngayGiao = ngayGiao; 
+    public void setNgayGiao(String ngayGiao) {
+        this.ngayGiao = ngayGiao;
     }
 
-    public String getDiaChi() { 
-        return diaChi; 
+    public String getDiaChi() {
+        return diaChi;
     }
 
-    public void setDiaChi(String diaChi) { 
-        this.diaChi = diaChi; 
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
 
-    public int getSoLuong() { 
-        return soLuong; 
+    public int getSoLuong() {
+        return soLuong;
     }
 
-    public void setSoLuong(int soLuong) { 
-        this.soLuong = soLuong; 
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
-    public String getTrangThai() { 
-        return trangThai; 
+    public String getTrangThai() {
+        return trangThai;
     }
 
-    public void setTrangThai(String trangThai) { 
-        this.trangThai = trangThai; 
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 
-    public double getTongTien() { 
-        return tongTien; 
-    }
-    
-    public void setTongTien(double tongTien) { 
-        this.tongTien = tongTien; 
+    public double getTongTien() {
+        return tongTien;
     }
 
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
 
-    public void Nhap() {
+    public void nhapDonGiaoHang() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhap thong tin don giao hang:");
-        System.out.print("Nhap maDH: ");
+        System.out.println("Nhap ma don hang: ");
         this.maDH = sc.nextLine();
-        System.out.print("Nhap maHD: ");
+        System.out.println("Nhap ma hoa don: ");
         this.maHD = sc.nextLine();
-        System.out.print("Nhap ngay giao (dd/MM/yyyy): ");
+        System.out.println("Nhap ngay giao (dd/MM/yyyy): ");
         this.ngayGiao = sc.nextLine();
-        System.out.print("Nhap dia chi: ");
+        System.out.println("Nhap dia chi: ");
         this.diaChi = sc.nextLine();
-        System.out.print("Nhap so luong: ");
-        try { 
-            this.soLuong = Integer.parseInt(sc.nextLine()); 
-        } catch (Exception e) { 
-            this.soLuong = 0; 
-        }
-        System.out.print("Nhap trang thai: ");
+        System.out.println("Nhap so luong: ");
+        this.soLuong = sc.nextInt();
+        sc.nextLine(); // Tiêu thụ ký tự Enter
+        System.out.println("Nhap trang thai: ");
         this.trangThai = sc.nextLine();
-        System.out.print("Nhap tong tien: ");
-        try { this.tongTien = Double.parseDouble(sc.nextLine()); 
-        } catch (Exception e) { 
-            this.tongTien = 0.0; 
-        }
-        sc.close();
-    }
-
-    public void hienThiDonGiaoHang() {
-        // Hàm này có thể giữ lại hoặc dùng Xuat()
-        System.out.println("MaDH: " + maDH);
-        System.out.println("MaHD: " + maHD);
-        System.out.println("Ngay giao: " + ngayGiao);
-        System.out.println("Dia chi: " + diaChi);
-        System.out.println("So luong: " + soLuong);
-        System.out.println("Trang thai: " + trangThai);
-        System.out.println("Tong tien: " + tongTien + " VND");
+        System.out.println("Nhap tong tien: ");
+        this.tongTien = sc.nextDouble();
+        sc.nextLine(); // Tiêu thụ ký tự Enter
+        System.out.println("nhap thong tin thanh cong.");
     }
 
     public void Xuat() {
-        // Định nghĩa độ rộng cột cho printf
-        final int W_LABEL = 18;
-        final int W_VALUE = 66;
+        final String LINE = "═════════════════════════════════════════════════════════════════════════════";
+        final int W = 77; // Giữ nguyên chiều rộng của mẫu
 
-        // Định nghĩa các chuỗi định dạng
-        final String LINE_TOP = "╔" + repeatChar('═', W_LABEL + 2) + "╤" + repeatChar('═', W_VALUE + 2) + "╗";
-        final String LINE_MID = "╠" + repeatChar('═', W_LABEL + 2) + "╬" + repeatChar('═', W_VALUE + 2) + "╣";
-        final String LINE_BOT = "╚" + repeatChar('═', W_LABEL + 2) + "╧" + repeatChar('═', W_VALUE + 2) + "╝";
-        
-        // Dùng %-Ns để căn lề trái
-        final String ROW_FMT = "║ %-" + W_LABEL + "s ║ %-" + W_VALUE + "s ║%n";
-        
-        System.out.println(LINE_TOP);
-        System.out.printf("║ %-" + (W_LABEL + W_VALUE + 5) + "s ║%n", center("CHI TIET DON GIAO HANG", W_LABEL + W_VALUE + 5));
-        System.out.println(LINE_MID);
-        
-        System.out.printf(ROW_FMT, "Ma don hang:", truncate(maDH, W_VALUE));
-        System.out.printf(ROW_FMT, "Ma hoa don:", truncate(maHD, W_VALUE));
-        System.out.printf(ROW_FMT, "Ngay giao:", truncate(ngayGiao, W_VALUE));
-        System.out.printf(ROW_FMT, "Dia chi:", truncate(diaChi, W_VALUE));
-        System.out.printf(ROW_FMT, "So luong:", soLuong);
-        System.out.printf(ROW_FMT, "Trang thai:", truncate(trangThai, W_VALUE));
-        
-        // Định dạng tiền tệ
-        String tien = String.format("%,.0f VND", tongTien);
-        System.out.printf(ROW_FMT, "Tong tien:", tien);
-        
-        System.out.println(LINE_BOT);
+        System.out.println("╔" + LINE + "╗");
+        System.out.println("║ ------------------- THONG TIN DON GIAO HANG -----------------------------   ║");
+        System.out.println("╠" + LINE + "╣");
+        System.out.printf("║ Ma don hang: %-" + (W - 15) + "s ║%n", maDH);
+        System.out.printf("║ Ma hoa don: %-" + (W - 14) + "s ║%n", maHD);
+        System.out.printf("║ Ngay giao: %-" + (W - 13) + "s ║%n", ngayGiao);
+        System.out.printf("║ Dia chi: %-" + (W - 11) + "s ║%n", diaChi);
+        System.out.printf("║ So luong: %-" + (W - 12) + "d ║%n", soLuong);
+        System.out.printf("║ Trang thai: %-" + (W - 14) + "s ║%n", trangThai);
+        System.out.printf("║ Tong tien: %-" + (W - 13) + ".2f ║%n", tongTien);
+        System.out.println("╚" + LINE + "╝");
     }
-    
-    // Hàm lặp ký tự (giống trong ví dụ hoaDon)
-    private String repeatChar(char c, int length) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            sb.append(c);
-        }
-        return sb.toString();
-    }
-    
-    // Hàm căn giữa văn bản (giống trong ví dụ hoaDon)
-    private String center(String text, int width) {
-        if (text == null || text.length() >= width) {
-            return truncate(text, width);
-        }
-        int padding = width - text.length();
-        int leftPad = padding / 2;
-        int rightPad = padding - leftPad;
-        return repeatChar(' ', leftPad) + text + repeatChar(' ', rightPad);
-    }
-
-    // Hàm cắt ngắn (vẫn cần thiết)
-    private String truncate(String text, int width) {
-        if (text == null) return "";
-        if (text.length() <= width) {
-            return text;
-        }
-        if (width < 3) {
-            return text.substring(0, width);
-        }
-        return text.substring(0, width - 3) + "...";
-    }
-
 
     @Override
     public String toString() {
-        return maDH + "," + maHD + "," + ngayGiao + "," + diaChi + "," + soLuong + "," + trangThai + "," + tongTien;
+        return "Mã DH: " + maDH +
+                ", Mã HD: " + maHD +
+                ", Ngày Giao: " + ngayGiao +
+                ", Địa Chỉ: " + diaChi +
+                ", Số Lượng: " + soLuong +
+                ", Trạng Thái: " + trangThai +
+                ", Tổng Tiền: " + tongTien;
     }
 }

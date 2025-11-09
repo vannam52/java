@@ -95,7 +95,7 @@ abstract public class Thuoc {
         System.out.println("Nhap so luong: ");
         this.soLuong = sc.nextInt();
         sc.nextLine();
-        System.out.print("Nhap HSD (vi du: 12 thang): ");
+        System.out.print("Nhap HSD (vi du: 2026-12-02): ");
         this.HSD = sc.nextLine();
     }
 

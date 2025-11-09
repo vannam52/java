@@ -5,3 +5,4 @@ HD001,TH003,Vitamin C,4,12000
 HD002,TH010,Thuoc Huyet Ap,5,52000
 HD002,TH005,Thuoc Dinh Duong,2,38000
 HD003,TH020,Thuoc Khang Sinh,10,65000
+null,,,2,3

@@ -22,8 +22,8 @@ public class phieuXuatHang {
         this.maKH = other.maKH;
     }
 
-    public phieuXuatHang(String maPNH, String maThuoc, int soLuong, double donGia, String maKH) {
-        this.maPXH = maPNH;
+    public phieuXuatHang(String maPXH, String maThuoc, int soLuong, double donGia, String maKH) {
+        this.maPXH = maPXH;
         this.maThuoc = maThuoc;
         this.soLuong = soLuong;
         this.donGia = donGia;
@@ -31,12 +31,12 @@ public class phieuXuatHang {
         this.maKH = maKH;
     }
 
-    public String getMaPNH() {
+    public String getMaPXH() {
         return maPXH;
     }
 
-    public void setMaPNH(String maPNH) {
-        this.maPXH = maPNH;
+    public void setMaPXH(String maPXH) {
+        this.maPXH = maPXH;
     }
 
     public String getMaThuoc() {
@@ -72,7 +72,7 @@ public class phieuXuatHang {
         return maKH;
     }
 
-    public void setmaKH(String maKH) {
+    public void setMaKH(String maKH) {
         this.maKH = maKH;
     }
 
@@ -104,14 +104,14 @@ public class phieuXuatHang {
         final int W = 77;
 
         System.out.println("╔" + LINE + "╗");
-        System.out.println("║ ---------------- THONG TIN PHIEU XUAT HANG -------------------------------  ║");
+        System.out.println("║ ---------------- THONG TIN PHIEU XUAT HANG ------------------------------- ║");
         System.out.println("╠" + LINE + "╣");
         System.out.printf("║ Ma phieu xuat hang: %-" + (W - 22) + "s ║%n", maPXH);
         System.out.printf("║ Ma thuoc: %-" + (W - 12) + "s ║%n", maThuoc);
         System.out.printf("║ So luong: %-" + (W - 12) + "d ║%n", soLuong);
         System.out.printf("║ Don gia: %-" + (W - 11) + ".2f ║%n", donGia);
         System.out.printf("║ Ma khach hang: %-" + (W - 18) + "s ║%n", maKH);
-        System.out.printf("║ Thanh tien: %-" + (W - 18) + ".2f ║%n", thanhTien);
+        System.out.printf("║ Thanh tien: %-" + (W - 15) + ".2f ║%n", thanhTien);
         System.out.println("╚" + LINE + "╝");
     }
 
@@ -124,4 +124,5 @@ public class phieuXuatHang {
                 ", Thành Tiền: " + thanhTien +
                 ", Mã KH: " + maKH;
     }
+
 }

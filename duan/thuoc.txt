@@ -1,16 +1,21 @@
-15
-KH001,Nguyen Van An,1990-12-05,Nam,0912345678,123 Ha Noi,100
-KH002,Tran Thi Binh,1995-09-08,Nu,0987654321,456 Ho Chi Minh,250
-KH003,Le Van Cuong,1988-07-12,Nam,0909123456,789 Da Nang,500
-KH004,Pham Thu Dung,2001-02-05,Nu,0978111222,101 Hai Phong,50
-KH005,Hoang Minh Hai,1992-03-04,Nam,0933444555,222 Can Tho,120
-KH006,Vu Thi Lan,1998-07-06,Nu,0888999000,333 Bien Hoa,300
-KH007,Dang Van Long,1985-09-02,Nam,0777888999,444 Vung Tau,80
-KH008,Bui Minh Ngoc,2003-08-27,Nu,0966555444,555 Nha Trang,0
-KH009,Ngo Gia Phat,1993-10-11,Nam,0922333444,666 Binh Duong,150
-KH010,Duong Thi Hoa,1991-12-05,Nu,0999888777,777 Hue,450
-KH011,Trinh Van Quyet,1989-04-15,Nam,0911223344,888 Vinh,220
-KH012,Mai Thi Huong,2000-01-20,Nu,0988776655,999 Quy Nhon,30
-KH013,Ly Hung Anh,1996-06-30,Nam,0905123123,121 Da Lat,600
-KH014,Ho Thi Kieu,1994-11-18,Nu,0977333222,232 Buon Ma Thuot,75
-KH015,Phan Thanh Binh,1987-05-09,Nam,0965123456,343 Thanh Hoa,180
+20
+ThuocKeDon,T001,Paracetamol 500mg,Vien,25000.00,100,2025-12-31,Giam dau - Hạ sot,
+ThuocKeDon,T002,Amoxicillin 250mg,Vien,18000.00,150,2026-06-15,Khang sinh,
+ThuocKeDon,T003,Omeprazole 20mg,Vien,22000.00,80,2025-10-20,Tieu hoa,
+ThuocKeDon,T004,Metformin 500mg,Vien,15000.00,200,2026-08-10,Dieu tri dai thao,
+ThuocKeDon,T005,Atorvastatin 10mg,Vien,35000.00,60,2026-03-05,Hạ cholesterol,
+ThuocKeDon,T006,Vitamin C 1000mg,Vien,8000.00,300,2025-11-25,Tang suc de khang,
+ThuocKeDon,T007,Aspirin 100mg,Vien,5000.00,500,2026-09-12,Giam dau - Chong dot quy,
+ThuocKeDon,T008,Ibuprofen 400mg,Vien,12000.00,120,2025-07-30,Giam dau - Chong viêm,
+ThucPhamChucNang,T009,Omega 3 Fish Oil,Vien,85000.00,45,2026-02-28,
+ThucPhamChucNang,T010,Vitamin D3 2000IU,Vien,45000.00,90,2026-12-01,
+ThucPhamChucNang,T011,Probiotic 10 Billion,Vien,55000.00,70,2025-09-15,
+ThucPhamChucNang,T012,Collagen Type II,Goi,120000.00,30,2026-05-20,
+ThucPhamChucNang,T013,Ginseng Red Ginseng,Goi,95000.00,25,2025-10-10,
+ThucPhamChucNang,T014,Spirulina Powder,Goi,75000.00,40,2026-04-08,
+ThucPhamChucNang,T015,Calcium + Vitamin D,Vien,65000.00,55,2026-11-30,
+ThuocKeDon,T016,Loratadine 10mg,Vien,15000.00,180,2026-10-10,Chong di ung,
+ThuocKeDon,T017,Salbutamol 2mg,Vien,9000.00,220,2025-08-15,Hen suyen,
+ThucPhamChucNang,T018,Iron (Ferrous Sulfate),Vien,30000.00,130,2026-11-20,
+ThuocKeDon,T019,Amlodipine 5mg,Vien,28000.00,100,2027-01-30,Huyet ap,
+ThucPhamChucNang,T020,Glucosamine HCL,Vien,110000.00,50,2026-07-22,

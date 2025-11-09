@@ -15,7 +15,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
 
     // THEM
     public void themPhieuXuatHang(phieuXuatHang pxh) {
-        if (timKiemTheoMa(pxh.getMaPNH()) != null) {
+        if (timKiemTheoMa(pxh.getMaPXH()) != null) {
             System.out.println("Ma phieu xuat hang da ton tai");
             return;
         }
@@ -39,7 +39,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
             pxhMoi.nhapPhieuXuatHang(); // Nhập tất cả, bao gồm cả mã PXH
 
             // Kiểm tra trùng mã
-            if (timKiemTheoMa(pxhMoi.getMaPNH()) != null) {
+            if (timKiemTheoMa(pxhMoi.getMaPXH()) != null) {
                 System.out.println("✗ Ma phieu xuat hang da ton tai! Vui long nhap lai toan bo thong tin.");
                 maBiTrung = true;
             } else {
@@ -54,7 +54,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
     public void xoaPhieuXuatHang(String maPXH) {
         int vt = -1;
         for (int i = 0; i < soLuongPXH; i++) {
-            if (dsPXH[i].getMaPNH().equalsIgnoreCase(maPXH)) {
+            if (dsPXH[i].getMaPXH().equalsIgnoreCase(maPXH)) {
                 vt = i;
                 break;
             }
@@ -96,22 +96,91 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
         System.out.print("Nhap ma phieu xuat hang can sua: ");
         String ma = sc.nextLine().trim();
 
+        int viTri = -1;
         for (int i = 0; i < soLuongPXH; i++) {
-            if (dsPXH[i].getMaPNH().equalsIgnoreCase(ma)) {
-                System.out.println(">> Nhap lai thong tin moi cho phieu xuat hang:");
-                dsPXH[i].nhapPhieuXuatHang();
-                System.out.println("✓ Da cap nhat thong tin phieu xuat hang thanh cong!");
-                return;
+            if (dsPXH[i].getMaPXH().equalsIgnoreCase(ma)) {
+                viTri = i;
+                break;
             }
         }
 
-        System.out.println("✗ Khong tim thay phieu xuat hang co ma: " + ma);
+        if (viTri == -1) {
+            System.out.println("✗ Khong tim thay phieu xuat hang co ma: " + ma);
+            return;
+        }
+
+        phieuXuatHang pxh = dsPXH[viTri];
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║           SUA THONG TIN PHIEU XUAT HANG: " + String.format("%-25s", ma) + "║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Sua ma thuoc                                                  ║");
+            System.out.println("║ 2. Sua so luong                                                  ║");
+            System.out.println("║ 3. Sua don gia                                                   ║");
+            System.out.println("║ 4. Sua ma khach hang                                             ║");
+            System.out.println("║ 5. Sua tat ca thong tin (tru ma phieu & thanh tien)              ║");
+            System.out.println("║ 0. Hoan thanh                                                    ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-5): ");
+
+            String luaChon = sc.nextLine();
+
+            switch (luaChon) {
+                case "1":
+                    System.out.print("Nhap ma thuoc moi: ");
+                    pxh.setMaThuoc(sc.nextLine());
+                    break;
+
+                case "2":
+                    System.out.print("Nhap so luong moi: ");
+                    pxh.setSoLuong(Integer.parseInt(sc.nextLine()));
+                    pxh.thanhTien(); // tự động tính lại
+                    break;
+
+                case "3":
+                    System.out.print("Nhap don gia moi: ");
+                    pxh.setDonGia(Double.parseDouble(sc.nextLine()));
+                    pxh.thanhTien(); // tự động tính lại
+                    break;
+
+                case "4":
+                    System.out.print("Nhap ma khach hang moi: ");
+                    pxh.setMaKH(sc.nextLine());
+                    break;
+
+                case "5":
+                    System.out.println("\n>> Nhap lai tat ca thong tin (tru ma phieu & thanh tien):");
+                    String maCu = pxh.getMaPXH(); // giữ lại mã cũ
+                    System.out.print("Nhap ma thuoc: ");
+                    pxh.setMaThuoc(sc.nextLine());
+                    System.out.print("Nhap so luong: ");
+                    pxh.setSoLuong(Integer.parseInt(sc.nextLine()));
+                    System.out.print("Nhap don gia: ");
+                    pxh.setDonGia(Double.parseDouble(sc.nextLine()));
+                    System.out.print("Nhap ma khach hang: ");
+                    pxh.setMaKH(sc.nextLine());
+                    pxh.thanhTien(); // tự động tính lại
+                    pxh.setMaPXH(maCu); // giữ nguyên mã phiếu
+                    break;
+
+                case "0":
+                    System.out.println(">> Hoan thanh sua thong tin phieu xuat hang!");
+                    tiepTuc = false;
+                    break;
+
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+                    break;
+            }
+        }
     }
 
     // TIM KIEM
     public phieuXuatHang timKiemTheoMa(String maPXH) {
         for (int i = 0; i < soLuongPXH; i++) {
-            if (dsPXH[i].getMaPNH().equalsIgnoreCase(maPXH)) {
+            if (dsPXH[i].getMaPXH().equalsIgnoreCase(maPXH)) {
                 return dsPXH[i];
             }
         }
@@ -204,13 +273,13 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
 
         // Bảng thống kê ngang
         System.out.println(
-                "╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+                "╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
         System.out.println(
-                "║                                  BANG THONG KE PHIEU XUAT HANG                                                ║");
+                "║                                  BANG THONG KE PHIEU XUAT HANG                                               ║");
         System.out.println(
                 "╠════════════════╦══════════════════╦══════════════════╦══════════════════╦══════════════════╦══════════════════╣");
         System.out.printf("║ %-14s ║ %-16s ║ %-16s ║ %-16s ║ %-16s ║ %-16s ║%n",
-                "Tong so PXH",
+                "Tong so luong PXH",
                 "Tong doanh thu",
                 "Doanh thu TB",
                 "PXH cao nhat",
@@ -222,15 +291,15 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
                 soLuongPXH,
                 tongDoanhThu,
                 tongDoanhThu / soLuongPXH,
-                pxhMax.getMaPNH(),
-                pxhMin.getMaPNH(),
+                pxhMax.getMaPXH(),
+                pxhMin.getMaPXH(),
                 maxThanhTien - minThanhTien);
         System.out.println(
                 "╚════════════════╩══════════════════╩══════════════════╩══════════════════╩══════════════════╩══════════════════╝");
     }
 
     public void hienThiBang(phieuXuatHang[] arr, int size) {
-        final String LINE = "═════════════════════════════════════════════════════════════════════════════════════════";
+        final String LINE = "════════════════════════════════════════════════════════════════════════════════════════════";
         System.out.println("╔" + LINE + "╗");
         System.out
                 .println("║                              DANH SACH PHIEU XUAT HANG                                  ║");
@@ -244,7 +313,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) {
                 System.out.printf("║ %-12s ║ %-12s ║ %-9d ║ %13.2f ║ %13.2f ║ %-13s ║%n",
-                        arr[i].getMaPNH(),
+                        arr[i].getMaPXH(),
                         arr[i].getMaThuoc(),
                         arr[i].getSoLuong(),
                         arr[i].getDonGia(),
@@ -394,7 +463,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
             for (int i = 0; i < soLuongPXH; i++) {
                 phieuXuatHang pxh = dsPXH[i];
                 pw.printf("%s,%s,%d,%.2f,%s%n",
-                        pxh.getMaPNH(),
+                        pxh.getMaPXH(),
                         pxh.getMaThuoc(),
                         pxh.getSoLuong(),
                         pxh.getDonGia(),

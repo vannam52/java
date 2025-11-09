@@ -440,7 +440,7 @@ public class danhSachNhanVien implements ChucNang, IFile {
             System.out.println(
                     "╠══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.printf("║ Da ghi: %-76d ║%n", this.soLuongNV);
-            System.out.printf("║ Vao file: %-75s ║%n", tenFile);
+            System.out.printf("║ Vao file: %-75s║%n", tenFile);
             System.out.println(
                     "╚══════════════════════════════════════════════════════════════════════════════════════╝");
         } catch (IOException e) {

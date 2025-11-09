@@ -6,7 +6,7 @@ public class phieuNhapHang {
     private String maPNH;
     private String maNV;
     private String maNCC;
-    private String ngayNhap; // dd/MM/yyyy (chuoi)
+    private String ngayNhap;
     private double tongTien;
 
     public phieuNhapHang() {}
@@ -28,7 +28,6 @@ public class phieuNhapHang {
         this.tongTien = other.tongTien;
     }
 
-    // ... (Getter/Setter giữ nguyên) ...
     public String getMaPNH() { return maPNH; }
     public void setMaPNH(String maPNH) { this.maPNH = maPNH; }
     public String getMaNV() { return maNV; }
@@ -40,95 +39,43 @@ public class phieuNhapHang {
     public double getTongTien() { return tongTien; }
     public void setTongTien(double tongTien) { this.tongTien = tongTien; }
 
-    // input / output
-    public void nhap() {
+    public void nhapPhieuNhapHang() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhap thong tin phieu nhap hang:");
-        System.out.print("Nhap ma phieu nhap: "); 
+        System.out.println("Nhap ma cua phieu nhap hang: ");
         this.maPNH = sc.nextLine();
-        System.out.print("Nhap ma nhan vien: "); 
+        System.out.println("Nhap ma nhan vien: "); 
         this.maNV = sc.nextLine();
-        System.out.print("Nhap ma nha cung cap: "); 
+        System.out.println("Nhap ma nha cung cap: "); 
         this.maNCC = sc.nextLine();
-        System.out.print("Nhap ngay nhap (dd/MM/yyyy): "); 
+        System.out.println("Nhap ngay nhap (dd/MM/yyyy): "); 
         this.ngayNhap = sc.nextLine();
-        System.out.print("Nhap tong tien: ");
-        try { 
-            this.tongTien = Double.parseDouble(sc.nextLine()); 
-        } catch (Exception e) { 
-            this.tongTien = 0.0; 
-        }
-        sc.close(); // Thêm vào để giống hệt file donGiaoHang.java
-    }
-
-    public void hienThiPhieuNhapHang() {
-        System.out.println("Ma phieu nhap: " + maPNH);
-        System.out.println("Ma nhan vien: " + maNV);
-        System.out.println("Ma nha cung cap: " + maNCC);
-        System.out.println("Ngay nhap: " + ngayNhap);
-        System.out.println("Tong tien: " + tongTien + " VND");
+        System.out.println("Nhap tong tien: ");
+        this.tongTien = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("nhap thong tin thanh cong.");
     }
 
     public void Xuat() {
-        // Định nghĩa độ rộng cột cho printf
-        final int W_LABEL = 18; // Độ rộng của cột "Thuoc tinh"
-        final int W_VALUE = 66; // Độ rộng của cột "Gia tri"
+        final String LINE = "═════════════════════════════════════════════════════════════════════════════";
+        final int W = 77; 
 
-        // Định nghĩa các chuỗi định dạng
-        final String LINE_TOP = "╔" + repeatChar('═', W_LABEL + 2) + "╤" + repeatChar('═', W_VALUE + 2) + "╗";
-        final String LINE_MID = "╠" + repeatChar('═', W_LABEL + 2) + "╬" + repeatChar('═', W_VALUE + 2) + "╣";
-        final String LINE_BOT = "╚" + repeatChar('═', W_LABEL + 2) + "╧" + repeatChar('═', W_VALUE + 2) + "╝";
-        
-        // Dùng %-Ns để căn lề trái
-        final String ROW_FMT = "║ %-" + W_LABEL + "s ║ %-" + W_VALUE + "s ║%n";
-        
-        System.out.println(LINE_TOP);
-        System.out.printf("║ %-" + (W_LABEL + W_VALUE + 5) + "s ║%n", center("CHI TIET PHIEU NHAP HANG", W_LABEL + W_VALUE + 5));
-        System.out.println(LINE_MID);
-        
-        System.out.printf(ROW_FMT, "Ma phieu nhap:", truncate(maPNH, W_VALUE));
-        System.out.printf(ROW_FMT, "Ma nhan vien:", truncate(maNV, W_VALUE));
-        System.out.printf(ROW_FMT, "Ma nha cung cap:", truncate(maNCC, W_VALUE));
-        System.out.printf(ROW_FMT, "Ngay nhap:", truncate(ngayNhap, W_VALUE));
-        
-        // Định dạng tiền tệ
-        String tien = String.format("%,.0f VND", tongTien);
-        System.out.printf(ROW_FMT, "Tong tien:", tien);
-        
-        System.out.println(LINE_BOT);
-    }
-    
-    private String repeatChar(char c, int length) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            sb.append(c);
-        }
-        return sb.toString();
-    }
-    
-    private String center(String text, int width) {
-        if (text == null || text.length() >= width) {
-            return truncate(text, width);
-        }
-        int padding = width - text.length();
-        int leftPad = padding / 2;
-        int rightPad = padding - leftPad;
-        return repeatChar(' ', leftPad) + text + repeatChar(' ', rightPad);
-    }
-
-    private String truncate(String text, int width) {
-        if (text == null) return "";
-        if (text.length() <= width) {
-            return text;
-        }
-        if (width < 3) {
-            return text.substring(0, width);
-        }
-        return text.substring(0, width - 3) + "...";
+        System.out.println("╔" + LINE + "╗");
+        System.out.println("║ ------------------- THONG TIN PHIEU NHAP HANG ---------------------------   ║");
+        System.out.println("╠" + LINE + "╣");
+        System.out.printf("║ Ma phieu nhap hang: %-" + (W - 22) + "s ║%n", maPNH);
+        System.out.printf("║ Ma nhan vien: %-" + (W - 16) + "s ║%n", maNV);
+        System.out.printf("║ Ma nha cung cap: %-" + (W - 19) + "s ║%n", maNCC);
+        System.out.printf("║ Ngay nhap: %-" + (W - 13) + "s ║%n", ngayNhap);
+        System.out.printf("║ Tong tien: %-" + (W - 13) + ".2f ║%n", tongTien);
+        System.out.println("╚" + LINE + "╝");
     }
 
     @Override
     public String toString() {
-        return maPNH + "," + maNV + "," + maNCC + "," + ngayNhap + "," + tongTien;
+        return "Mã PNH: " + maPNH +
+                ", Mã NV: " + maNV +
+                ", Mã NCC: " + maNCC +
+                ", Ngày Nhập: " + ngayNhap +
+                ", Tổng Tiền: " + tongTien;
     }
 }
