@@ -1,33 +1,30 @@
 package duan;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class danhSachHoaDon implements ChucNang, IFile {
-    public hoaDon[] dsHoaDon;
-    public int soLuongHoaDon;
-    final int MAX_HOA_DON = 100;
+    private hoaDon[] dsHoaDon = new hoaDon[0];
+    private int soLuongHoaDon;
 
     private static Scanner sc = new Scanner(System.in);
 
+    // Constructor mac dinh
     public danhSachHoaDon() {
-        dsHoaDon = new hoaDon[0];
-        soLuongHoaDon = 0;
+        this.dsHoaDon = new hoaDon[0];
+        this.soLuongHoaDon = 0;
     }
 
-    public danhSachHoaDon(danhSachHoaDon other) {
-        this.soLuongHoaDon = other.soLuongHoaDon;
-        this.dsHoaDon = new hoaDon[other.soLuongHoaDon];
-        for (int i = 0; i < other.soLuongHoaDon; i++) {
-            this.dsHoaDon[i] = new hoaDon(other.dsHoaDon[i]);
+    // Constructor sao chep
+    public danhSachHoaDon(danhSachHoaDon ds) {
+        this.soLuongHoaDon = ds.soLuongHoaDon;
+        this.dsHoaDon = new hoaDon[ds.soLuongHoaDon];
+        for (int i = 0; i < this.soLuongHoaDon; i++) {
+            this.dsHoaDon[i] = new hoaDon(ds.dsHoaDon[i]);
         }
     }
 
+    // Kiem tra ma hoa don da ton tai hay chua
     public boolean kiemTraMa(String maHD) {
         for (int i = 0; i < soLuongHoaDon; i++) {
             if (dsHoaDon[i].getMaHD().equals(maHD))
@@ -36,59 +33,56 @@ public class danhSachHoaDon implements ChucNang, IFile {
         return false;
     }
 
+    // Them mot hoa don vao danh sach
     public void themHoaDon(hoaDon hd) {
-        if (soLuongHoaDon >= MAX_HOA_DON) {
-            System.out.println("Danh sach hoa don day");
+        if (kiemTraMa(hd.getMaHD())) {
+            System.out.println("Ma hoa don da ton tai");
             return;
         }
-        String maHD;
-        while (kiemTraMa(hd.getMaHD())) {
-            System.out.print("Nhap ma hoa don khac: ");
-            maHD = sc.nextLine();
-            if (!kiemTraMa(maHD)) {
-                hd.setMaHD(maHD);
-                break;
-            }
-            System.out.println("Ma hoa don bi trung, vui long nhap lai!");
-        }
-        this.dsHoaDon = Arrays.copyOf(dsHoaDon, dsHoaDon.length + 1);
+        dsHoaDon = Arrays.copyOf(dsHoaDon, soLuongHoaDon + 1);
         dsHoaDon[soLuongHoaDon] = hd;
         soLuongHoaDon++;
         System.out.println("Them hoa don thanh cong");
     }
 
+    // Them hoa don moi (nhap tu ban phim)
     @Override
     public void Them() {
-        if (soLuongHoaDon >= MAX_HOA_DON) {
-            System.out.println("Danh sach hoa don day");
-            return;
-        }
-        hoaDon hd = new hoaDon();
-        hd.Nhap();
-        this.themHoaDon(hd);
+        hoaDon hdMoi = new hoaDon();
+        boolean maBiTrung;
+        do {
+            maBiTrung = false;
+            hdMoi.Nhap();
+            if (kiemTraMa(hdMoi.getMaHD())) {
+                System.out.println("Vui long nhap lai ma khac.");
+                maBiTrung = true;
+            }
+        } while (maBiTrung);
+        themHoaDon(hdMoi);
     }
 
-    public void xoaHoaDon(String maHD) {
-        while (!kiemTraMa(maHD)) {
-            System.out.print("Ma hoa don khong hop le, vui long nhap lai (nhan 'q' de thoat): ");
-            maHD = sc.nextLine();
-            if (maHD.equalsIgnoreCase("q"))
-                return;
-        }
-        for (int i = 0; i < soLuongHoaDon; i++) {
-            if (dsHoaDon[i].getMaHD().equals(maHD)) {
-                for (int j = i; j < soLuongHoaDon - 1; j++) {
-                    dsHoaDon[j] = dsHoaDon[j + 1];
-                }
-                dsHoaDon = Arrays.copyOf(dsHoaDon, soLuongHoaDon - 1);
-                soLuongHoaDon--;
-                System.out.println("Xoa hoa don thanh cong");
+    // Nhap nhieu hoa don
+    public void nhapNHoaDon() {
+        int n;
+        try {
+            System.out.print("Nhap so luong hoa don can them: ");
+            n = Integer.parseInt(sc.nextLine());
+            if (n <= 0) {
+                System.out.println("So luong phai lon hon 0!");
                 return;
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Vui long nhap so hop le.");
+            return;
         }
-        System.out.println("Khong tim thay ma hoa don can xoa");
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("\n--- Nhap hoa don thu " + (soLuongHoaDon + 1) + " ---");
+            Them();
+        }
     }
 
+    // Xoa hoa don theo ma
     @Override
     public void Xoa() {
         if (soLuongHoaDon == 0) {
@@ -98,27 +92,29 @@ public class danhSachHoaDon implements ChucNang, IFile {
 
         System.out.print("Nhap ma hoa don can xoa: ");
         String maHD = sc.nextLine();
-        xoaHoaDon(maHD);
-    }
 
-    public void suaHoaDon(String maHD) {
-        while (!kiemTraMa(maHD)) {
-            System.out.print("Ma hoa don khong hop le, vui long nhap lai (nhan 'q' de thoat): ");
-            maHD = sc.nextLine();
-            if (maHD.equalsIgnoreCase("q"))
-                return;
-        }
-        for (int i = 0; i < this.soLuongHoaDon; i++) {
-            if (this.dsHoaDon[i].getMaHD().equalsIgnoreCase(maHD)) {
-                System.out.println(">> Nhap lai thong tin moi: ");
-                this.dsHoaDon[i].Nhap();
-                System.out.println(">> Da cap nhat!");
-                return;
+        int vt = -1;
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getMaHD().equalsIgnoreCase(maHD)) {
+                vt = i;
+                break;
             }
         }
-        System.out.println(">> Khong tim thay ma hoa don!");
+
+        if (vt == -1) {
+            System.out.println("Khong tim thay hoa don co ma " + maHD);
+            return;
+        }
+
+        for (int j = vt; j < soLuongHoaDon - 1; j++) {
+            dsHoaDon[j] = dsHoaDon[j + 1];
+        }
+        dsHoaDon = Arrays.copyOf(dsHoaDon, soLuongHoaDon - 1);
+        soLuongHoaDon--;
+        System.out.println("Xoa hoa don co ma " + maHD + " thanh cong!");
     }
 
+    // Sua thong tin hoa don
     @Override
     public void Sua() {
         if (soLuongHoaDon == 0) {
@@ -146,16 +142,16 @@ public class danhSachHoaDon implements ChucNang, IFile {
         boolean tiepTuc = true;
 
         while (tiepTuc) {
-            System.out.println("\n╔══════════════════════════════════════════════════════════╗");
-            System.out.println("║          SUA THONG TIN HOA DON: " + String.format("%-10s", maHD) + "         ║");
-            System.out.println("╠══════════════════════════════════════════════════════════╣");
-            System.out.println("║ 1. Sua ma KH                                             ║");
-            System.out.println("║ 2. Sua ma NV                                             ║");
-            System.out.println("║ 3. Sua ngay lap                                          ║");
-            System.out.println("║ 4. Sua so luong chi tiet                                 ║");
-            System.out.println("║ 5. Sua tat ca thong tin                                  ║");
-            System.out.println("║ 0. Hoan thanh                                            ║");
-            System.out.println("╚══════════════════════════════════════════════════════════╝");
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║          SUA THONG TIN HOA DON: " + String.format("%-10s", maHD) + "                     ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Sua ma khach hang                                             ║");
+            System.out.println("║ 2. Sua ma nhan vien                                              ║");
+            System.out.println("║ 3. Sua ngay lap                                                  ║");
+            System.out.println("║ 4. Sua chi tiet hoa don                                          ║");
+            System.out.println("║ 5. Sua tat ca thong tin                                          ║");
+            System.out.println("║ 0. Hoan thanh                                                    ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
             System.out.print("Chon (0-5): ");
 
             String luaChon = sc.nextLine();
@@ -182,7 +178,7 @@ public class danhSachHoaDon implements ChucNang, IFile {
                             int day = Integer.parseInt(parts[0]);
                             int month = Integer.parseInt(parts[1]);
                             int year = Integer.parseInt(parts[2]);
-                            if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > 2025)
+                            if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > 2100)
                                 throw new Exception("Ngay lap khong hop le");
                             hd.setNgayLap(ngayMoi);
                             break;
@@ -193,33 +189,16 @@ public class danhSachHoaDon implements ChucNang, IFile {
                     break;
 
                 case "4":
-                    while (true) {
-                        try {
-                            System.out.print("Nhap so luong chi tiet moi: ");
-                            int soLuongMoi = Integer.parseInt(sc.nextLine());
-                            if (soLuongMoi <= 0 || soLuongMoi > 100)
-                                throw new NumberFormatException();
-                            hd.setSoLuongChiTiet(soLuongMoi);
-                            for (int i = 0; i < soLuongMoi; i++) {
-                                System.out.println("Nhap chi tiet hoa don thu " + (i + 1) + ":");
-                                hd.getChiTietHoaDon()[i] = new chiTietHoaDon();
-                                hd.getChiTietHoaDon()[i].setMaHD(hd.getMaHD());
-                                hd.getChiTietHoaDon()[i].Nhap();
-                            }
-                            hd.setTongTien(hd.tinhTongTien());
-                            break;
-                        } catch (NumberFormatException e) {
-                            System.out.println("So luong chi tiet khong hop le. Vui long nhap lai.");
-                        }
-                    }
+                    System.out.println(">> Sua chi tiet hoa don chua duoc ho tro!");
                     break;
 
                 case "5":
-                    this.suaHoaDon(maHD);
+                    System.out.println("\n>> Nhap lai tat ca thong tin:");
+                    hd.Nhap();
                     break;
 
                 case "0":
-                    System.out.println(">> Hoan thanh sua thong tin hoa don!");
+                    System.out.println(">> Hoan thanh sua thong tin!");
                     tiepTuc = false;
                     break;
 
@@ -230,145 +209,387 @@ public class danhSachHoaDon implements ChucNang, IFile {
         }
     }
 
-    public void timKiemHoaDon(String maHD) {
-        if (soLuongHoaDon == 0) {
-            System.out.println("Danh sach hoa don rong");
-            return;
-        }
-        while (!kiemTraMa(maHD)) {
-            System.out.print("Ma hoa don khong hop le. Vui long nhap lai (nhap 'q' de thoat): ");
-            maHD = sc.nextLine();
-            if (maHD.equalsIgnoreCase("q"))
-                break;
-        }
-        for (int i = 0; i < soLuongHoaDon; i++) {
-            if (dsHoaDon[i].getMaHD().equalsIgnoreCase(maHD)) {
-                dsHoaDon[i].Xuat();
-                return;
-            }
-        }
-        System.out.println("Khong tim thay hoa don co ma " + maHD);
-    }
-
-    public void timKiemTheoMaKH(String maKH) {
-        if (soLuongHoaDon == 0) {
-            System.out.println("Danh sach hoa don rong");
-            return;
-        }
-        int found = 0;
-        for (int i = 0; i < soLuongHoaDon; i++) {
-            if (dsHoaDon[i].getMaKH().equals(maKH)) {
-                dsHoaDon[i].Xuat();
-                found = 1;
-            }
-        }
-        if (found == 0) {
-            System.out.println("Khong tim thay hoa don co ma " + maKH);
-        }
-    }
-
-    public void timKiemTheoMaNV(String maNV) {
-        if (soLuongHoaDon == 0) {
-            System.out.println("Danh sach hoa don rong");
-            return;
-        }
-        int found = 0;
-        for (int i = 0; i < soLuongHoaDon; i++) {
-            if (dsHoaDon[i].getMaNV().equals(maNV)) {
-                dsHoaDon[i].Xuat();
-                found = 1;
-            }
-        }
-        if (found == 0) {
-            System.out.println("Khong tim thay hoa don co ma " + maNV);
-        }
-    }
-
+    // Tim kiem hoa don (theo ma khach hang hoac ma nhan vien)
     @Override
     public void TimKiem() {
         System.out.println("Tim kiem hoa don theo:");
         System.out.println("1. Ma khach hang");
         System.out.println("2. Ma nhan vien");
-        System.out.println("3. Ma hoa don");
-        System.out.print("Chon loai tim kiem (1/2/3): ");
+        System.out.print("Chon loai tim kiem (1/2): ");
 
         String choice = sc.nextLine().trim();
 
         if (choice.equals("1")) {
             System.out.print("Nhap ma khach hang can tim: ");
-            String maKH = sc.nextLine();
-            timKiemTheoMaKH(maKH);
+            String maKH = sc.nextLine().trim();
+
+            hoaDon[] ketQua = timKiemTheoMaKH(maKH);
+            if (ketQua.length > 0) {
+                System.out.println("Tim thay " + ketQua.length + " hoa don cua khach hang ma " + maKH + ":");
+                hienThiBangHoaDon(ketQua, ketQua.length);
+            } else {
+                System.out.println("Khong tim thay hoa don cua khach hang ma: " + maKH);
+            }
         } else if (choice.equals("2")) {
             System.out.print("Nhap ma nhan vien can tim: ");
-            String maNV = sc.nextLine();
-            timKiemTheoMaNV(maNV);
-        } else if (choice.equals("3")) {
-            System.out.print("Nhap ma hoa don can tim: ");
-            String maHD = sc.nextLine();
-            timKiemHoaDon(maHD);
+            String maNV = sc.nextLine().trim();
+
+            hoaDon[] ketQua = timKiemTheoMaNV(maNV);
+            if (ketQua.length > 0) {
+                System.out.println("Tim thay " + ketQua.length + " hoa don cua nhan vien ma " + maNV + ":");
+                hienThiBangHoaDon(ketQua, ketQua.length);
+            } else {
+                System.out.println("Khong tim thay hoa don cua nhan vien ma: " + maNV);
+            }
         } else {
-            System.out.println("Lua chon khong hop le.");
+            System.out.println("Lua chon khong hop le!");
         }
     }
 
+    // Tim kiem hoa don theo ma khach hang
+    private hoaDon[] timKiemTheoMaKH(String maKH) {
+        int count = 0;
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getMaKH().equalsIgnoreCase(maKH)) {
+                count++;
+            }
+        }
+
+        hoaDon[] ketQua = new hoaDon[count];
+        int index = 0;
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getMaKH().equalsIgnoreCase(maKH)) {
+                ketQua[index++] = dsHoaDon[i];
+            }
+        }
+        return ketQua;
+    }
+
+    // Tim kiem hoa don theo ma nhan vien
+    private hoaDon[] timKiemTheoMaNV(String maNV) {
+        int count = 0;
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getMaNV().equalsIgnoreCase(maNV)) {
+                count++;
+            }
+        }
+
+        hoaDon[] ketQua = new hoaDon[count];
+        int index = 0;
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getMaNV().equalsIgnoreCase(maNV)) {
+                ketQua[index++] = dsHoaDon[i];
+            }
+        }
+        return ketQua;
+    }
+
+    // Hien thi bang hoa don
+    private void hienThiBangHoaDon(hoaDon[] danhSach, int soLuong) {
+        if (soLuong == 0) {
+            System.out.println("Danh sach rong");
+            return;
+        }
+
+        int[] colWidths = {12, 12, 12, 12, 15};
+        String[] headers = {"Ma HD", "Ma KH", "Ma NV", "Ngay lap", "Tong tien"};
+
+        String border = buildBorder(colWidths);
+        String headerRow = buildRowFormat(colWidths, headers);
+
+        System.out.println(border);
+        System.out.println(headerRow);
+        System.out.println(border);
+
+        for (int i = 0; i < soLuong; i++) {
+            String[] rowData = {
+                safeString(danhSach[i].getMaHD()),
+                safeString(danhSach[i].getMaKH()),
+                safeString(danhSach[i].getMaNV()),
+                safeString(danhSach[i].getNgayLap()),
+                String.format("%.0f", danhSach[i].getTongTien())
+            };
+            System.out.println(buildRowFormat(colWidths, rowData));
+        }
+
+        System.out.println(border);
+    }
+
+    // Hien thi danh sach hoa don
     public void hienThiDanhSachHoaDon() {
         if (soLuongHoaDon == 0) {
             System.out.println("Danh sach hoa don rong");
             return;
         }
+
+        int[] colWidths = {12, 12, 12, 12, 15};
+        String[] headers = {"Ma HD", "Ma KH", "Ma NV", "Ngay lap", "Tong tien"};
+
+        String border = buildBorder(colWidths);
+        String titleBorder = buildTitleBorder(colWidths);
+        String headerRow = buildRowFormat(colWidths, headers);
+
+        System.out.println(titleBorder);
+        System.out.println(buildCenteredTitle("DANH SACH HOA DON", colWidths));
+        System.out.println(border);
+        System.out.println(headerRow);
+        System.out.println(border);
+
         for (int i = 0; i < soLuongHoaDon; i++) {
-            dsHoaDon[i].Xuat();
-            System.out.println("-----------------------");
+            String[] rowData = {
+                safeString(dsHoaDon[i].getMaHD()),
+                safeString(dsHoaDon[i].getMaKH()),
+                safeString(dsHoaDon[i].getMaNV()),
+                safeString(dsHoaDon[i].getNgayLap()),
+                String.format("%.0f", dsHoaDon[i].getTongTien())
+            };
+            System.out.println(buildRowFormat(colWidths, rowData));
         }
+
+        System.out.println(buildBottomBorder(colWidths));
+        System.out.println("Tong so: " + soLuongHoaDon + " hoa don");
     }
 
-    public void thongKeHoaDonTheoMaKH(String maKH) {
-        int cnt = 0;
-        for (int i = 0; i < soLuongHoaDon; i++) {
-            if (dsHoaDon[i].getMaKH().equals(maKH))
-                cnt++;
-        }
-        if (cnt == 0) {
-            System.out.println("Khong tim thay hoa don cua khach hang ma: " + maKH);
-            return;
-        }
-        System.out.println("So luong hoa don cua khach hang ma: " + maKH + " la: " + cnt);
-    }
-
-    public void thongKeHoaDonTheoMaNV(String maNV) {
-        int cnt = 0;
-        for (int i = 0; i < soLuongHoaDon; i++) {
-            if (dsHoaDon[i].getMaNV().equals(maNV))
-                cnt++;
-        }
-        if (cnt == 0) {
-            System.out.println("Khong tim thay hoa don nhan vien co ma: " + maNV);
-            return;
-        }
-        System.out.println("So luong hoa don nhan vien co ma: " + maNV + " la: " + cnt);
-    }
-
-    public void nhapNHoaDon() {
-        if (soLuongHoaDon >= MAX_HOA_DON) {
-            System.out.println("Danh sach hoa don day, khong the nhap them");
-            return;
-        }
-        try {
-            System.out.print("Nhap so luong hoa don can them: ");
-            int n = Integer.parseInt(sc.nextLine());
-            if (n <= 0) {
-                System.out.println("So luong phai lon hon 0");
-                return;
+    // Tao duong vien giua
+    private String buildBorder(int[] colWidths) {
+        StringBuilder sb = new StringBuilder("╠");
+        for (int i = 0; i < colWidths.length; i++) {
+            sb.append(repeatChar('═', colWidths[i]));
+            if (i < colWidths.length - 1) {
+                sb.append("╬");
             }
-            for (int i = 0; i < n; i++) {
-                System.out.println("Nhap hoa don thu " + (i + 1) + ":");
-                this.Them();
+        }
+        sb.append("╣");
+        return sb.toString();
+    }
+
+    // Tao duong vien tren
+    private String buildTitleBorder(int[] colWidths) {
+        StringBuilder sb = new StringBuilder("╔");
+        for (int i = 0; i < colWidths.length; i++) {
+            sb.append(repeatChar('═', colWidths[i]));
+            if (i < colWidths.length - 1) {
+                sb.append("═");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("So luong khong hop le");
+        }
+        sb.append("╗");
+        return sb.toString();
+    }
+
+    // Tao duong vien duoi
+    private String buildBottomBorder(int[] colWidths) {
+        StringBuilder sb = new StringBuilder("╚");
+        for (int i = 0; i < colWidths.length; i++) {
+            sb.append(repeatChar('═', colWidths[i]));
+            if (i < colWidths.length - 1) {
+                sb.append("╩");
+            }
+        }
+        sb.append("╝");
+        return sb.toString();
+    }
+
+    // Tao tieu de can giua
+    private String buildCenteredTitle(String title, int[] colWidths) {
+        int totalWidth = 0;
+        for (int width : colWidths) {
+            totalWidth += width;
+        }
+        totalWidth += (colWidths.length - 1);
+
+        int padding = (totalWidth - title.length()) / 2;
+        StringBuilder sb = new StringBuilder("║");
+        sb.append(repeatChar(' ', padding));
+        sb.append(title);
+        sb.append(repeatChar(' ', totalWidth - padding - title.length()));
+        sb.append("║");
+        return sb.toString();
+    }
+
+    // Tao dong du lieu trong bang
+    private String buildRowFormat(int[] colWidths, String[] data) {
+        StringBuilder sb = new StringBuilder("║");
+        for (int i = 0; i < colWidths.length; i++) {
+            String value = i < data.length ? data[i] : "";
+            sb.append(String.format(" %-" + (colWidths[i] - 2) + "s ║", value));
+        }
+        return sb.toString();
+    }
+
+    // Lap lai ky tu n lan
+    private String repeatChar(char c, int count) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    // Xu ly chuoi null
+    private String safeString(String s) {
+        return s == null ? "" : s;
+    }
+
+    // Menu thong ke hoa don
+    public void menuThongKe() {
+        boolean tiepTuc = true;
+
+        while (tiepTuc) {
+            System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+            System.out.println("║              MENU THONG KE HOA DON                               ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.println("║ 1. Thong ke chung                                                ║");
+            System.out.println("║ 2. Thong ke theo khach hang                                      ║");
+            System.out.println("║ 3. Thong ke theo nhan vien                                       ║");
+            System.out.println("║ 0. Thoat                                                         ║");
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+            System.out.print("Chon (0-3): ");
+
+            String luaChon = sc.nextLine().trim();
+
+            switch (luaChon) {
+                case "1":
+                    thongKeChung();
+                    break;
+                case "2":
+                    thongKeTheoKhachHang();
+                    break;
+                case "3":
+                    thongKeTheoNhanVien();
+                    break;
+                case "0":
+                    System.out.println(">> Thoat menu thong ke!");
+                    tiepTuc = false;
+                    break;
+                default:
+                    System.out.println(">> Lua chon khong hop le!");
+            }
         }
     }
 
+    // Thong ke chung ve hoa don
+    public void thongKeChung() {
+        if (soLuongHoaDon == 0) {
+            System.out.println("Danh sach hoa don rong");
+            return;
+        }
+
+        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+        System.out.println("║              THONG KE DANH SACH HOA DON                          ║");
+        System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+
+        System.out.printf("║ Tong so hoa don: %48d║%n", soLuongHoaDon);
+
+        hoaDon hdMax = dsHoaDon[0];
+        for (int i = 1; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getTongTien() > hdMax.getTongTien()) {
+                hdMax = dsHoaDon[i];
+            }
+        }
+        System.out.printf("║ Hoa don co tong tien cao nhat: %-33s║%n", hdMax.getMaHD());
+        System.out.printf("║ Tong tien: %51.0f VND ║%n", hdMax.getTongTien());
+
+        double tongDoanhThu = 0;
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            tongDoanhThu += dsHoaDon[i].getTongTien();
+        }
+        System.out.printf("║ Tong doanh thu: %46.0f VND ║%n", tongDoanhThu);
+        System.out.printf("║ Trung binh tien/hoa don: %35.2f VND ║%n",
+                tongDoanhThu / soLuongHoaDon);
+
+        String[] dsMaKH = new String[soLuongHoaDon];
+        int soKhachHang = 0;
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            boolean daTonTai = false;
+            for (int j = 0; j < soKhachHang; j++) {
+                if (dsHoaDon[i].getMaKH().equals(dsMaKH[j])) {
+                    daTonTai = true;
+                    break;
+                }
+            }
+            if (!daTonTai) {
+                dsMaKH[soKhachHang] = dsHoaDon[i].getMaKH();
+                soKhachHang++;
+            }
+        }
+        System.out.printf("║ So khach hang da mua: %43d║%n", soKhachHang);
+        if (soKhachHang > 0) {
+            System.out.printf("║ Trung binh hoa don/khach: %39.2f║%n",
+                    (double) soLuongHoaDon / soKhachHang);
+        }
+
+        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+    }
+
+    // Thong ke theo khach hang
+    public void thongKeTheoKhachHang() {
+        if (soLuongHoaDon == 0) {
+            System.out.println("Danh sach hoa don rong");
+            return;
+        }
+
+        System.out.print("Nhap ma khach hang can thong ke: ");
+        String maKH = sc.nextLine().trim();
+
+        int soLuong = 0;
+        double tongTien = 0;
+
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getMaKH().equalsIgnoreCase(maKH)) {
+                soLuong++;
+                tongTien += dsHoaDon[i].getTongTien();
+            }
+        }
+
+        if (soLuong == 0) {
+            System.out.println("Khach hang chua co hoa don nao!");
+            return;
+        }
+
+        System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+        System.out.printf("║ Thong ke khach hang: %-44s║%n", maKH);
+        System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║ So luong hoa don: %47d║%n", soLuong);
+        System.out.printf("║ Tong chi tieu: %45.0f VND ║%n", tongTien);
+        System.out.printf("║ Trung binh/hoa don: %40.2f VND ║%n", tongTien / soLuong);
+        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+    }
+
+    // Thong ke theo nhan vien
+    public void thongKeTheoNhanVien() {
+        if (soLuongHoaDon == 0) {
+            System.out.println("Danh sach hoa don rong");
+            return;
+        }
+
+        System.out.print("Nhap ma nhan vien can thong ke: ");
+        String maNV = sc.nextLine().trim();
+
+        int soLuong = 0;
+        double tongTien = 0;
+
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            if (dsHoaDon[i].getMaNV().equalsIgnoreCase(maNV)) {
+                soLuong++;
+                tongTien += dsHoaDon[i].getTongTien();
+            }
+        }
+
+        if (soLuong == 0) {
+            System.out.println("Nhan vien chua lap hoa don nao!");
+            return;
+        }
+
+        System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
+        System.out.printf("║ Thong ke nhan vien: %-45s║%n", maNV);
+        System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║ So luong hoa don da lap: %40d║%n", soLuong);
+        System.out.printf("║ Tong doanh thu: %45.0f VND ║%n", tongTien);
+        System.out.printf("║ Trung binh/hoa don: %40.2f VND ║%n", tongTien / soLuong);
+        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+    }
+
+    // Doc danh sach hoa don tu file
     @Override
     public void docFile(String tenFile) {
         File f = new File(tenFile);
@@ -398,74 +619,45 @@ public class danhSachHoaDon implements ChucNang, IFile {
             this.dsHoaDon = new hoaDon[count];
             this.soLuongHoaDon = 0;
             String line;
-            int lineNumber = 2;
 
             while ((line = br.readLine()) != null && this.soLuongHoaDon < count) {
                 line = line.trim();
                 if (line.isEmpty()) {
-                    System.out.println("Dong " + lineNumber + ": Rong (bo qua)");
-                    lineNumber++;
                     continue;
                 }
 
                 String[] parts = line.split(",");
-                if (parts.length >= 10) {
+                if (parts.length >= 6) {
                     try {
                         String maHD = parts[0].trim();
                         String maKH = parts[1].trim();
                         String maNV = parts[2].trim();
                         String ngayLap = parts[3].trim();
-                        Double tongTien = Double.parseDouble(parts[4].trim());
-                        int soLuongChiTiet = Integer.parseInt(parts[5].trim());
+                        double tongTien = Double.parseDouble(parts[4].trim());
+                        int soLuongCT = Integer.parseInt(parts[5].trim());
 
-                        int expectedLength = 6 + (soLuongChiTiet * 4);
-                        if (parts.length < expectedLength) {
-                            System.err.println(" Dong " + lineNumber + ": Thiếu dữ liệu chi tiết. (có " + parts.length
-                                    + " trường, cần " + expectedLength + ")");
-                            lineNumber++;
-                            continue;
-                        }
+                        hoaDon hd = new hoaDon();
+                        hd.setMaHD(maHD);
+                        hd.setMaKH(maKH);
+                        hd.setMaNV(maNV);
+                        hd.setNgayLap(ngayLap);
+                        hd.setTongTien(tongTien);
 
-                        this.dsHoaDon[this.soLuongHoaDon] = new hoaDon(maHD, maKH, maNV, ngayLap, tongTien);
-                        this.dsHoaDon[this.soLuongHoaDon].chiTietHoaDon = new chiTietHoaDon[soLuongChiTiet];
-
-                        for (int i = 0; i < soLuongChiTiet; i++) {
-                            String maHH = parts[6 + i * 4].trim();
-                            String tenHH = parts[7 + i * 4].trim();
-                            int soLuong = Integer.parseInt(parts[8 + i * 4].trim());
-                            int gia = Integer.parseInt(parts[9 + i * 4].trim());
-
-                            this.dsHoaDon[this.soLuongHoaDon].chiTietHoaDon[i] = new chiTietHoaDon(maHD, maHH, tenHH,
-                                    soLuong, gia);
-                        }
-
+                        this.dsHoaDon[this.soLuongHoaDon] = hd;
                         this.soLuongHoaDon++;
 
-                    } catch (NumberFormatException e) {
-                        System.err.println("Dong " + lineNumber + ": Loi dinh dang so - " + e.getMessage());
+                    } catch (Exception e) {
+                        System.err.println("Loi doc du lieu hoa don: " + e.getMessage());
                     }
-                } else {
-                    System.err.println(" Dong " + lineNumber + ": Sai dinh dang du lieu. (co " + parts.length
-                            + " truong, can toi thieu 10)");
                 }
-
-                lineNumber++;
             }
 
-            if (this.soLuongHoaDon < count) {
-                System.out.println("Canh bao: Chi doc duoc " + this.soLuongHoaDon + "/" + count + " hoa don");
-            }
-
-            System.out.println(
-                    "╔══════════════════════════════════════════════════════════════════════════════════════╗");
-            System.out.println(
-                    "║                            DOC FILE THANH CONG!                                      ║");
-            System.out.println(
-                    "╠══════════════════════════════════════════════════════════════════════════════════════╣");
+            System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                            DOC FILE THANH CONG!                                      ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.printf("║ Da doc: %-76d ║%n", this.soLuongHoaDon);
             System.out.printf("║ Tu file: %-75s ║%n", tenFile);
-            System.out.println(
-                    "╚══════════════════════════════════════════════════════════════════════════════════════╝");
+            System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
 
         } catch (Exception e) {
             System.err.println("Loi doc file: " + e.getMessage());
@@ -474,78 +666,33 @@ public class danhSachHoaDon implements ChucNang, IFile {
         }
     }
 
+    // Ghi danh sach hoa don ra file
     @Override
     public void ghiFile(String tenFile) {
-        if (this.soLuongHoaDon == 0) {
-            System.out.println("Danh sach trong, khong co du lieu de ghi.");
-            return;
-        }
-
         System.out.println("Dang ghi file: " + tenFile + "...");
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(tenFile))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(tenFile))) {
+            pw.println(soLuongHoaDon);
 
-            bw.write(
-                    "╔════════════╦════════════╦════════════╦════════════╦══════════════╦════════════╦════════════════════╦════════════╦════════════╦══════════════╗\n");
-            bw.write(
-                    "║   Ma HD    ║   Ma KH    ║   Ma NV    ║  Ngay Lap  ║   Tong Tien  ║   Ma Thuoc ║       Ten          ║  So Luong  ║    Gia     ║   Tong Chi   ║\n");
-            bw.write(
-                    "╠════════════╬════════════╬════════════╬════════════╬══════════════╬════════════╬════════════════════╬════════════╬════════════╬══════════════╣\n");
-
-            for (int i = 0; i < this.soLuongHoaDon; i++) {
-                hoaDon hd = this.dsHoaDon[i];
-
-                for (int j = 0; j < hd.chiTietHoaDon.length; j++) {
-                    chiTietHoaDon ct = hd.chiTietHoaDon[j];
-                    double tongChi = ct.getSoLuong() * ct.getDonGia();
-
-                    if (j == 0) {
-                        bw.write(String.format(
-                                "║ %-10s ║ %-10s ║ %-10s ║ %-10s ║ %12.0f ║ %-10s ║ %-18s ║ %10d ║ %10.0f ║ %12.0f ║%n",
-                                hd.getMaHD(),
-                                hd.getMaKH(),
-                                hd.getMaNV(),
-                                hd.getNgayLap(),
-                                hd.getTongTien(),
-                                ct.getMaThuoc(),
-                                ct.getTenThuoc(),
-                                ct.getSoLuong(),
-                                ct.getDonGia(),
-                                tongChi));
-                    } else {
-                        bw.write(String.format(
-                                "║ %-10s ║ %-10s ║ %-10s ║ %-10s ║ %-12s ║ %-10s ║ %-18s ║ %10d ║ %10.0f ║ %12.0f ║%n",
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                ct.getMaThuoc(),
-                                ct.getTenThuoc(),
-                                ct.getSoLuong(),
-                                ct.getDonGia(),
-                                tongChi));
-                    }
-                }
+            for (int i = 0; i < soLuongHoaDon; i++) {
+                hoaDon hd = dsHoaDon[i];
+                pw.printf("%s,%s,%s,%s,%.0f,0%n",
+                        hd.getMaHD(),
+                        hd.getMaKH(),
+                        hd.getMaNV(),
+                        hd.getNgayLap(),
+                        hd.getTongTien());
             }
 
-            bw.write(
-                    "╚════════════╩════════════╩════════════╩════════════╩══════════════╩════════════╩════════════════════╩════════════╩════════════╩══════════════╝\n");
-
-            System.out.println(
-                    "╔══════════════════════════════════════════════════════════════════════════════════════╗");
-            System.out.println(
-                    "║                            GHI FILE THANH CONG!                                      ║");
-            System.out.println(
-                    "╠══════════════════════════════════════════════════════════════════════════════════════╣");
+            System.out.println("╔══════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║                            GHI FILE THANH CONG!                                      ║");
+            System.out.println("╠══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.printf("║ Da ghi: %-76d ║%n", this.soLuongHoaDon);
             System.out.printf("║ Vao file: %-74s ║%n", tenFile);
-            System.out.println(
-                    "╚══════════════════════════════════════════════════════════════════════════════════════╝");
+            System.out.println("╚══════════════════════════════════════════════════════════════════════════════════════╝");
 
         } catch (IOException e) {
             System.err.println("Loi ghi file: " + e.getMessage());
         }
     }
-
 }
