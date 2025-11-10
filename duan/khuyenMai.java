@@ -28,7 +28,6 @@ public class khuyenMai {
         this.ngayKT = other.ngayKT;
     }
 
-    // Getters
     public String getMaKM() {
         return maKM;
     }
@@ -49,7 +48,6 @@ public class khuyenMai {
         return ngayKT;
     }
 
-    // Setters
     public void setMaKM(String maKM) {
         this.maKM = maKM;
     }

@@ -37,7 +37,7 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
             dghMoi = new donGiaoHang();
 
             System.out.println("--- Nhap thong tin don giao hang moi ---");
-            dghMoi.nhapDonGiaoHang();
+            dghMoi.nhapDonGiaoHang(); 
 
             if (timKiemTheoMa(dghMoi.getMaDH()) != null) {
                 System.out.println("✗ Ma don hang da ton tai! Vui long nhap lai toan bo thong tin.");
@@ -103,9 +103,9 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
 
         System.out.println("Tim thay don hang. Chon thong tin can sua:");
         boolean tiepTuc = true;
-        while (tiepTuc) {
+        while(tiepTuc) {
             System.out.println("\n╔══════════════════════════════════════════════════════════════════╗");
-            System.out.println("║              SUA THONG TIN DON GIAO HANG: " + String.format("%-25s", ma) + "║");
+            System.out.println("║              SUA THONG TIN DON GIAO HANG: " + String.format("%-23s", ma) + "║");
             System.out.println("╠══════════════════════════════════════════════════════════════════╣");
             System.out.println("║ 1. Sua ma hoa don                                                ║");
             System.out.println("║ 2. Sua ngay giao                                                 ║");
@@ -113,7 +113,7 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
             System.out.println("║ 4. Sua so luong                                                  ║");
             System.out.println("║ 5. Sua trang thai                                                ║");
             System.out.println("║ 6. Sua tong tien                                                 ║");
-            System.out.println("║ 7. Sua lai tat ca (tru maDH)                                 ║");
+            System.out.println("║ 7. Sua lai tat ca (tru maDH)                                     ║");
             System.out.println("║ 0. Hoan thanh                                                    ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
             System.out.print("Chon (0-7): ");
@@ -122,50 +122,28 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
 
             switch (luaChon) {
                 case "1":
-                    System.out.print("Nhap ma hoa don moi (Hien tai: " + dghCanSua.getMaHD() + "): ");
-                    String maHD = sc.nextLine().trim();
-                    if (!maHD.isEmpty())
-                        dghCanSua.setMaHD(maHD);
+                    System.out.print("Nhap ma hoa don moi: ");
+                    dghCanSua.setMaHD(sc.nextLine());
                     break;
                 case "2":
-                    System.out.print("Nhap ngay giao moi (Hien tai: " + dghCanSua.getNgayGiao() + "): ");
-                    String ngayGiao = sc.nextLine().trim();
-                    if (!ngayGiao.isEmpty())
-                        dghCanSua.setNgayGiao(ngayGiao);
+                    System.out.print("Nhap ngay giao moi: ");
+                    dghCanSua.setNgayGiao(sc.nextLine());
                     break;
                 case "3":
-                    System.out.print("Nhap dia chi moi (Hien tai: " + dghCanSua.getDiaChi() + "): ");
-                    String diaChi = sc.nextLine().trim();
-                    if (!diaChi.isEmpty())
-                        dghCanSua.setDiaChi(diaChi);
+                    System.out.print("Nhap dia chi moi: ");
+                    dghCanSua.setDiaChi(sc.nextLine());
                     break;
                 case "4":
-                    System.out.print("Nhap so luong moi (Hien tai: " + dghCanSua.getSoLuong() + "): ");
-                    String soLuongStr = sc.nextLine().trim();
-                    if (!soLuongStr.isEmpty()) {
-                        try {
-                            dghCanSua.setSoLuong(Integer.parseInt(soLuongStr));
-                        } catch (NumberFormatException e) {
-                            System.out.println("(!) Loi: So luong nhap vao khong hop le, giu nguyen gia tri cu.");
-                        }
-                    }
+                    System.out.print("Nhap so luong moi: ");
+                    dghCanSua.setSoLuong(Integer.parseInt(sc.nextLine()));
                     break;
                 case "5":
-                    System.out.print("Nhap trang thai moi (Hien tai: " + dghCanSua.getTrangThai() + "): ");
-                    String trangThai = sc.nextLine().trim();
-                    if (!trangThai.isEmpty())
-                        dghCanSua.setTrangThai(trangThai);
+                    System.out.print("Nhap trang thai moi: ");
+                    dghCanSua.setTrangThai(sc.nextLine());
                     break;
                 case "6":
-                    System.out.print("Nhap tong tien moi (Hien tai: " + dghCanSua.getTongTien() + "): ");
-                    String tongTienStr = sc.nextLine().trim();
-                    if (!tongTienStr.isEmpty()) {
-                        try {
-                            dghCanSua.setTongTien(Double.parseDouble(tongTienStr));
-                        } catch (NumberFormatException e) {
-                            System.out.println("(!) Loi: Tong tien nhap vao khong hop le, giu nguyen gia tri cu.");
-                        }
-                    }
+                    System.out.print("Nhap tong tien moi: ");
+                    dghCanSua.setTongTien(Double.parseDouble(sc.nextLine()));
                     break;
                 case "7":
                     System.out.println("\n>> Nhap lai tat ca thong tin (tru MaDH):");
@@ -177,12 +155,12 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
                     dghCanSua.setDiaChi(sc.nextLine());
                     System.out.println("Nhap so luong: ");
                     dghCanSua.setSoLuong(sc.nextInt());
-                    sc.nextLine();
+                    sc.nextLine(); 
                     System.out.println("Nhap trang thai: ");
                     dghCanSua.setTrangThai(sc.nextLine());
                     System.out.println("Nhap tong tien: ");
                     dghCanSua.setTongTien(sc.nextDouble());
-                    sc.nextLine();
+                    sc.nextLine(); 
                     System.out.println("Da cap nhat tat ca thong tin.");
                     break;
                 case "0":
@@ -316,17 +294,14 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
     }
 
     public void hienThiBang(donGiaoHang[] arr, int size) {
-        final String LINE = "══════════════════════════════════════════════════════════════════════════════════════════════════════════";
-        final String HEADER_TITLE = "                                       DANH SACH DON GIAO HANG                                            ";
-
+        final String LINE = "══════════════════════════════════════════════════════════════════════════════════════════════════════════"; 
+        final String HEADER_TITLE = "                                       DANH SACH DON GIAO HANG                                            "; 
+        
         System.out.println("╔" + LINE + "╗");
         System.out.println("║" + HEADER_TITLE + "║");
-        System.out.println(
-                "╠══════════╦══════════╦════════════╦════════════════════════════╦══════════╦═══════════════╦═══════════════╣");
-        System.out.println(
-                "║  Ma DH   ║  Ma HD   ║ Ngay Giao  ║          Dia Chi           ║ So Luong ║  Trang Thai   ║   Tong Tien   ║");
-        System.out.println(
-                "╠══════════╬══════════╬════════════╬════════════════════════════╬══════════╬═══════════════╬═══════════════╣");
+        System.out.println("╠══════════╦══════════╦════════════╦════════════════════════════╦══════════╦═══════════════╦═══════════════╣");
+        System.out.println("║  Ma DH   ║  Ma HD   ║ Ngay Giao  ║          Dia Chi           ║ So Luong ║  Trang Thai   ║   Tong Tien   ║");
+        System.out.println("╠══════════╬══════════╬════════════╬════════════════════════════╬══════════╬═══════════════╬═══════════════╣");
 
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) {
@@ -340,8 +315,7 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
                         arr[i].getTongTien());
             }
         }
-        System.out.println(
-                "╚══════════╩══════════╩════════════╩════════════════════════════╩══════════╩═══════════════╩═══════════════╝");
+        System.out.println("╚══════════╩══════════╩════════════╩════════════════════════════╩══════════╩═══════════════╩═══════════════╝");
         System.out.println("Tong so: " + size + " don giao hang");
     }
 
@@ -423,8 +397,8 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
                 }
 
                 String[] parts = line.split(",");
-
-                if (parts.length >= 7) {
+                
+                if (parts.length >= 7) { 
                     try {
                         double tongTien = Double.parseDouble(parts[parts.length - 1].trim());
                         String trangThai = parts[parts.length - 2].trim();
@@ -438,7 +412,7 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
                         for (int i = 3; i < parts.length - 3; i++) {
                             diaChiBuilder.append(parts[i].trim());
                             if (i < parts.length - 4) {
-                                diaChiBuilder.append(",");
+                                diaChiBuilder.append(","); 
                             }
                         }
                         String diaChi = diaChiBuilder.toString();
@@ -490,7 +464,7 @@ public class danhSachDonGiaoHang implements ChucNang, IFile {
 
             for (int i = 0; i < soLuongDGH; i++) {
                 donGiaoHang dgh = dsDGH[i];
-                pw.printf("%s,%s,%s,%s,%d,%s,%.2f%n",
+                pw.printf("%s,%s,%s,%s,%d,%s,%.2f%n", 
                         dgh.getMaDH(),
                         dgh.getMaHD(),
                         dgh.getNgayGiao(),

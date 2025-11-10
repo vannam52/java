@@ -9,10 +9,12 @@ public class chiTietPhieuNhapHang {
     private double donGia;
     private double thanhTien;
 
-    public chiTietPhieuNhapHang() {}
+    public chiTietPhieuNhapHang() {
+    }
 
     public chiTietPhieuNhapHang(chiTietPhieuNhapHang other) {
-        if (other == null) return;
+        if (other == null)
+            return;
         this.maPNH = other.maPNH;
         this.maThuoc = other.maThuoc;
         this.soLuong = other.soLuong;
@@ -26,26 +28,53 @@ public class chiTietPhieuNhapHang {
         this.maThuoc = maThuoc;
         this.soLuong = soLuong;
         this.donGia = donGia;
-        this.thanhTien = soLuong * donGia; // Tự tính
+        this.thanhTien = soLuong * donGia;
     }
 
-    public String getMaPNH() { return maPNH; }
-    public void setMaPNH(String maPNH) { this.maPNH = maPNH; }
-    public String getMaThuoc() { return maThuoc; }
-    public void setMaThuoc(String maThuoc) { this.maThuoc = maThuoc; }
-    public int getSoLuong() { return soLuong; }
-    public void setSoLuong(int soLuong) { this.soLuong = soLuong; }
-    public double getDonGia() { return donGia; }
-    public void setDonGia(double donGia) { this.donGia = donGia; }
-    public double getThanhTien() { return thanhTien; }
-    public void setThanhTien(double thanhTien) { this.thanhTien = thanhTien; }
+    public String getMaPNH() {
+        return maPNH;
+    }
 
-   // Hàm thanhTien() (giống file test)
+    public void setMaPNH(String maPNH) {
+        this.maPNH = maPNH;
+    }
+
+    public String getMaThuoc() {
+        return maThuoc;
+    }
+
+    public void setMaThuoc(String maThuoc) {
+        this.maThuoc = maThuoc;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public double getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
+    }
+
+    public double getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
     public void thanhTien() {
         this.thanhTien = this.soLuong * this.donGia;
     }
 
-    // Hàm nhapChiTietPhieuNhapHang() (giống mẫu phieuXuatHang)
     public void nhapChiTietPhieuNhapHang() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhap ma cua phieu nhap hang: ");
@@ -58,7 +87,7 @@ public class chiTietPhieuNhapHang {
         System.out.println("Nhap don gia thuoc: ");
         this.donGia = sc.nextDouble();
         sc.nextLine();
-        thanhTien(); // Gọi hàm nội bộ
+        thanhTien();
         System.out.println("nhap thong tin thanh cong.");
     }
 

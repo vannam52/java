@@ -118,7 +118,7 @@ public class danhSachPhieuNhapHang implements ChucNang, IFile {
             System.out.println("║ 2. Sua ma nha cung cap                                           ║");
             System.out.println("║ 3. Sua ngay nhap                                                 ║");
             System.out.println("║ 4. Sua tong tien                                                 ║");
-            System.out.println("║ 5. Sua tat ca thong tin                                          ║");
+            System.out.println("║ 5. Sua tat ca thong tin (tru ma phieu)                           ║");
             System.out.println("║ 0. Hoan thanh                                                    ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
             System.out.print("Chon (0-5): ");
@@ -127,33 +127,20 @@ public class danhSachPhieuNhapHang implements ChucNang, IFile {
 
             switch (luaChon) {
                 case "1":
-                    System.out.print("Nhap ma nhan vien moi (Hien tai: " + pnh.getMaNV() + "): ");
-                    String maNV = sc.nextLine().trim();
-                    if (!maNV.isEmpty())
-                        pnh.setMaNV(maNV);
+                    System.out.print("Nhap ma nhan vien moi: ");
+                    pnh.setMaNV(sc.nextLine());
                     break;
                 case "2":
-                    System.out.print("Nhap ma nha cung cap moi (Hien tai: " + pnh.getMaNCC() + "): ");
-                    String maNCC = sc.nextLine().trim();
-                    if (!maNCC.isEmpty())
-                        pnh.setMaNCC(maNCC);
+                    System.out.print("Nhap ma nha cung cap moi: ");
+                    pnh.setMaNCC(sc.nextLine());
                     break;
                 case "3":
-                    System.out.print("Nhap ngay nhap moi (Hien tai: " + pnh.getNgayNhap() + "): ");
-                    String ngayNhap = sc.nextLine().trim();
-                    if (!ngayNhap.isEmpty())
-                        pnh.setNgayNhap(ngayNhap);
+                    System.out.print("Nhap ngay nhap moi: ");
+                    pnh.setNgayNhap(sc.nextLine());
                     break;
                 case "4":
-                    System.out.print("Nhap tong tien moi (Hien tai: " + pnh.getTongTien() + "): ");
-                    String tongTienStr = sc.nextLine().trim();
-                    if (!tongTienStr.isEmpty()) {
-                        try {
-                            pnh.setTongTien(Double.parseDouble(tongTienStr));
-                        } catch (NumberFormatException e) {
-                            System.out.println("(!) Loi: Tong tien nhap vao khong hop le.");
-                        }
-                    }
+                    System.out.print("Nhap tong tien moi: ");
+                    pnh.setTongTien(Double.parseDouble(sc.nextLine()));
                     break;
                 case "5":
                     System.out.println("\n>> Nhap lai tat ca thong tin (tru ma phieu):");

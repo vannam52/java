@@ -487,15 +487,15 @@ public class danhSachHoaDon implements ChucNang, IFile {
                 hdMax = dsHoaDon[i];
             }
         }
-        System.out.printf("║ Hoa don co tong tien cao nhat: %-33s║%n", hdMax.getMaHD());
-        System.out.printf("║ Tong tien: %51.0f VND ║%n", hdMax.getTongTien());
+        System.out.printf("║ Hoa don co tong tien cao nhat: %-33s ║%n", hdMax.getMaHD());
+        System.out.printf("║ Tong tien: %51.0f  ║%n", hdMax.getTongTien());
 
         double tongDoanhThu = 0;
         for (int i = 0; i < soLuongHoaDon; i++) {
             tongDoanhThu += dsHoaDon[i].getTongTien();
         }
-        System.out.printf("║ Tong doanh thu: %46.0f VND ║%n", tongDoanhThu);
-        System.out.printf("║ Trung binh tien/hoa don: %35.2f VND ║%n",
+        System.out.printf("║ Tong doanh thu: %46.0f   ║%n", tongDoanhThu);
+        System.out.printf("║ Trung binh tien/hoa don: %35.2f     ║%n",
                 tongDoanhThu / soLuongHoaDon);
 
         String[] dsMaKH = new String[soLuongHoaDon];
@@ -585,7 +585,7 @@ public class danhSachHoaDon implements ChucNang, IFile {
         System.out.printf("║ Thong ke nhan vien: %-45s║%n", maNV);
         System.out.println("╠══════════════════════════════════════════════════════════════════╣");
         System.out.printf("║ So luong hoa don da lap: %40d║%n", soLuong);
-        System.out.printf("║ Tong doanh thu: %45.0f VND ║%n", tongTien);
+        System.out.printf("║ Tong doanh thu: %45.0f VND║%n", tongTien);
         System.out.printf("║ Trung binh/hoa don: %40.2f VND ║%n", tongTien / soLuong);
         System.out.println("╚══════════════════════════════════════════════════════════════════╝");
     }

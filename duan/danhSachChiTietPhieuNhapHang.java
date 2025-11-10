@@ -137,20 +137,12 @@ public class danhSachChiTietPhieuNhapHang implements ChucNang, IFile {
                     break;
 
                 case "3":
-                    System.out.print("Nhap don gia moi (Hien tai: " + ctpnh.getDonGia() + "): ");
-                    String donGiaStr = sc.nextLine().trim();
-                    if (!donGiaStr.isEmpty()) {
-                        try {
-                            ctpnh.setDonGia(Double.parseDouble(donGiaStr));
-                        } catch (NumberFormatException e) {
-                            System.out.println("(!) Loi: Don gia nhap vao khong hop le.");
-                        }
-                    }
+                    System.out.print("Nhap don gia moi (Hien tai: ");
+                    ctpnh.setDonGia(Double.parseDouble(sc.nextLine()));
                     ctpnh.thanhTien();
                     break;
                 case "4":
                     System.out.println("\n>> Nhap lai tat ca thong tin (tru ma phieu & thanh tien):");
-                    String maCu = ctpnh.getMaPNH(); // giữ lại mã cũ
                     System.out.print("Nhap ma thuoc: ");
                     ctpnh.setMaThuoc(sc.nextLine());
                     System.out.print("Nhap so luong: ");
@@ -158,7 +150,6 @@ public class danhSachChiTietPhieuNhapHang implements ChucNang, IFile {
                     System.out.print("Nhap don gia: ");
                     ctpnh.setDonGia(Double.parseDouble(sc.nextLine()));
                     ctpnh.thanhTien(); // tự động tính lại
-                    ctpnh.setMaPNH(maCu); // giữ nguyên mã phiếu
                     break;
                 case "0":
                     System.out.println(">> Hoan thanh sua thong tin chi tiet phieu nhap!");

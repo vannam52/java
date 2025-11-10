@@ -71,10 +71,6 @@ public class danhSachNhanVien implements ChucNang, IFile {
 
     @Override
     public void Xoa() {
-        if (soLuongNV == 0) {
-            System.out.println(" Danh sach rong");
-            return;
-        }
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap ma nhan vien can xoa: ");
         String maCanXoa = sc.nextLine();
@@ -224,7 +220,6 @@ public class danhSachNhanVien implements ChucNang, IFile {
         } else {
             nhanVien[] ketQua = timKiemTheoTen(tuKhoa);
             if (ketQua.length > 0) {
-                System.out.println(" Tim thay " + ketQua.length + " nhan vien theo ten:");
                 hienThiBang(ketQua, ketQua.length);
             } else {
                 System.out.println(" Khong tim thay nhan vien co ma/ten: " + tuKhoa);

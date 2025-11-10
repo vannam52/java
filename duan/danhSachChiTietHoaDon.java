@@ -9,13 +9,11 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
 
     private static Scanner sc = new Scanner(System.in);
 
-    // Constructor mac dinh
     public danhSachChiTietHoaDon() {
         this.dsChiTietHD = new chiTietHoaDon[0];
         this.soLuongChiTietHD = 0;
     }
 
-    // Constructor sao chep
     public danhSachChiTietHoaDon(danhSachChiTietHoaDon dsct) {
         this.soLuongChiTietHD = dsct.soLuongChiTietHD;
         this.dsChiTietHD = new chiTietHoaDon[dsct.soLuongChiTietHD];
@@ -24,7 +22,6 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         }
     }
 
-    // Them mot chi tiet hoa don vao danh sach
     public void themChiTietHoaDon(chiTietHoaDon ct) {
         dsChiTietHD = Arrays.copyOf(dsChiTietHD, soLuongChiTietHD + 1);
         dsChiTietHD[soLuongChiTietHD] = ct;
@@ -32,7 +29,6 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         System.out.println("Them chi tiet hoa don thanh cong");
     }
 
-    // Them chi tiet hoa don moi (nhap tu ban phim)
     @Override
     public void Them() {
         chiTietHoaDon ct = new chiTietHoaDon();
@@ -40,7 +36,6 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         themChiTietHoaDon(ct);
     }
 
-    // Nhap nhieu chi tiet hoa don
     public void nhapNChiTietHoaDon() {
         int n;
         try {
@@ -61,7 +56,6 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         }
     }
 
-    // Xoa chi tiet hoa don theo ma hoa don va ma thuoc
     @Override
     public void Xoa() {
         if (soLuongChiTietHD == 0) {
@@ -96,7 +90,6 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         System.out.println("Xoa chi tiet hoa don thanh cong!");
     }
 
-    // Sua thong tin chi tiet hoa don
     @Override
     public void Sua() {
         if (soLuongChiTietHD == 0) {
@@ -212,11 +205,11 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         System.out.println("2. Ma thuoc");
         System.out.print("Chon loai tim kiem (1/2): ");
 
-        String choice = sc.nextLine().trim();
+        String choice = sc.nextLine();
 
         if (choice.equals("1")) {
             System.out.print("Nhap ma hoa don can tim: ");
-            String maHD = sc.nextLine().trim();
+            String maHD = sc.nextLine();
 
             chiTietHoaDon[] ketQua = timKiemTheoMaHD(maHD);
             if (ketQua.length > 0) {
@@ -227,7 +220,7 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
             }
         } else if (choice.equals("2")) {
             System.out.print("Nhap ma thuoc can tim: ");
-            String maThuoc = sc.nextLine().trim();
+            String maThuoc = sc.nextLine();
 
             chiTietHoaDon[] ketQua = timKiemTheoMaThuoc(maThuoc);
             if (ketQua.length > 0) {
@@ -375,7 +368,7 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         }
 
         System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-        System.out.println("║           THONG KE DANH SACH CHI TIET HOA DON                   ║");
+        System.out.println("║           THONG KE DANH SACH CHI TIET HOA DON                    ║");
         System.out.println("╠══════════════════════════════════════════════════════════════════╣");
 
         System.out.printf("║ Tong so chi tiet hoa don: %-39d║%n", soLuongChiTietHD);
@@ -396,15 +389,15 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         for (int i = 0; i < soLuongChiTietHD; i++) {
             tongThanhTien += dsChiTietHD[i].getThanhTien();
         }
-        System.out.printf("║ Tong thanh tien tat ca chi tiet: %30d VND ║%n", tongThanhTien);
-        System.out.printf("║ Trung binh thanh tien/chi tiet: %27.2f VND ║%n",
+        System.out.printf("║ Tong thanh tien tat ca chi tiet: %27d VND ║%n", tongThanhTien);
+        System.out.printf("║ Trung binh thanh tien/chi tiet: %28.2f VND ║%n",
                 (double) tongThanhTien / soLuongChiTietHD);
 
         int tongSoLuong = 0;
         for (int i = 0; i < soLuongChiTietHD; i++) {
             tongSoLuong += dsChiTietHD[i].getSoLuong();
         }
-        System.out.printf("║ Tong so luong thuoc da ban: %36d║%n", tongSoLuong);
+        System.out.printf("║ Tong so luong thuoc da ban: %37d║%n", tongSoLuong);
 
         String[] dsMaHD = new String[soLuongChiTietHD];
         int soHoaDon = 0;
@@ -423,7 +416,7 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         }
         System.out.printf("║ So hoa don co chi tiet: %41d║%n", soHoaDon);
         if (soHoaDon > 0) {
-            System.out.printf("║ Trung binh chi tiet/hoa don: %35.2f║%n",
+            System.out.printf("║ Trung binh chi tiet/hoa don: %36.2f║%n",
                     (double) soLuongChiTietHD / soHoaDon);
         }
 
@@ -460,7 +453,7 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         System.out.println("╠══════════════════════════════════════════════════════════════════╣");
         System.out.printf("║ So lan xuat hien: %47d║%n", soChiTiet);
         System.out.printf("║ Tong so luong da ban: %43d║%n", tongSoLuong);
-        System.out.printf("║ Trung binh so luong/lan: %39.2f║%n", (double) tongSoLuong / soChiTiet);
+        System.out.printf("║ Trung binh so luong/lan: %39.2f ║%n", (double) tongSoLuong / soChiTiet);
         System.out.println("╚══════════════════════════════════════════════════════════════════╝");
     }
 
@@ -493,8 +486,8 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
         System.out.printf("║ Thong ke hoa don: %-47s║%n", maHD);
         System.out.println("╠══════════════════════════════════════════════════════════════════╣");
         System.out.printf("║ So luong chi tiet: %46d║%n", soChiTiet);
-        System.out.printf("║ Tong thanh tien: %45d VND ║%n", tongTien);
-        System.out.printf("║ Trung binh tien/chi tiet: %35.2f VND ║%n", (double) tongTien / soChiTiet);
+        System.out.printf("║ Tong thanh tien: %43d VND ║%n", tongTien);
+        System.out.printf("║ Trung binh tien/chi tiet: %34.2f VND ║%n", (double) tongTien / soChiTiet);
         System.out.println("╚══════════════════════════════════════════════════════════════════╝");
     }
 

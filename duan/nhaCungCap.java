@@ -76,13 +76,13 @@ public class nhaCungCap {
 
     public void Xuat() {
         System.out.println("╔════════════════════════════════════════════════════════════════════╗");
-        System.out.printf("║ MA NHA CUNG CAP    : %-46s ║%n", maNCC);
+        System.out.printf("║ MA NHA CUNG CAP    : %-45s ║%n", maNCC);
         System.out.println("╠════════════════════════════════════════════════════════════════════╣");
-        System.out.printf("║ TEN NHA CUNG CAP   : %-46s ║%n", tenNCC);
+        System.out.printf("║ TEN NHA CUNG CAP   : %-45s ║%n", tenNCC);
         System.out.println("╠════════════════════════════════════════════════════════════════════╣");
-        System.out.printf("║ DIA CHI            : %-46s ║%n", diaChi);
+        System.out.printf("║ DIA CHI            : %-45s ║%n", diaChi);
         System.out.println("╠════════════════════════════════════════════════════════════════════╣");
-        System.out.printf("║ SO DIEN THOAI      : %-46s ║%n", sdt);
+        System.out.printf("║ SO DIEN THOAI      : %-45s ║%n", sdt);
         System.out.println("╚════════════════════════════════════════════════════════════════════╝");
     }
 }

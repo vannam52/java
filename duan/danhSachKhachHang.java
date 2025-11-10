@@ -208,7 +208,6 @@ public class danhSachKhachHang implements ChucNang, IFile {
         } else {
             khachHang[] ketQua = timKiemTheoTen(tuKhoa);
             if (ketQua.length > 0) {
-                System.out.println("Tim thay " + ketQua.length + " khach hang theo ten:");
                 hienThiBang(ketQua, ketQua.length);
             } else {
                 System.out.println("Khong tim thay khach hang co ma/ten: " + tuKhoa);

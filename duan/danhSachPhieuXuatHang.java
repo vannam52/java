@@ -273,13 +273,13 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
 
         // Bảng thống kê ngang
         System.out.println(
-                "╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+                "╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
         System.out.println(
                 "║                                  BANG THONG KE PHIEU XUAT HANG                                               ║");
         System.out.println(
                 "╠════════════════╦══════════════════╦══════════════════╦══════════════════╦══════════════════╦══════════════════╣");
         System.out.printf("║ %-14s ║ %-16s ║ %-16s ║ %-16s ║ %-16s ║ %-16s ║%n",
-                "Tong so luong PXH",
+                "Tong so PXH",
                 "Tong doanh thu",
                 "Doanh thu TB",
                 "PXH cao nhat",

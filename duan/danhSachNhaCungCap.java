@@ -149,7 +149,8 @@ public class danhSachNhaCungCap implements ChucNang, IFile {
 
         while (tiepTuc) {
             System.out.println("\n╔══════════════════════════════════════════════════════════╗");
-            System.out.println("║        SUA THONG TIN NHA CUNG CAP: " + String.format("%-10s", maNCC) + "       ║");
+            System.out
+                    .println("║        SUA THONG TIN NHA CUNG CAP: " + String.format("%-10s", maNCC) + "            ║");
             System.out.println("╠══════════════════════════════════════════════════════════╣");
             System.out.println("║ 1. Sua ten nha cung cap                                  ║");
             System.out.println("║ 2. Sua dia chi                                           ║");
@@ -300,7 +301,7 @@ public class danhSachNhaCungCap implements ChucNang, IFile {
 
         System.out.printf("║ So thanh pho khac nhau: %41d║%n", soThanhPhoKhacNhau);
         if (soThanhPhoKhacNhau > 0) {
-            System.out.printf("║ Trung binh NCC/thanh pho: %41.2f║%n",
+            System.out.printf("║ Trung binh NCC/thanh pho: %39.2f║%n",
                     (double) soLuongNCC / soThanhPhoKhacNhau);
         }
 

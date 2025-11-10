@@ -111,7 +111,7 @@ public class danhSachThuoc implements ChucNang, IFile {
         }
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap ma thuoc can sua: ");
-        String ma = sc.nextLine().trim();
+        String ma = sc.nextLine();
 
         int viTri = -1;
         for (int i = 0; i < soLuongThuoc; i++) {
@@ -147,10 +147,9 @@ public class danhSachThuoc implements ChucNang, IFile {
             System.out.println("║ 3. Sua gia ban                                                   ║");
             System.out.println("║ 4. Sua so luong                                                  ║");
             System.out.println("║ 5. Sua han su dung (HSD)                                         ║");
-            System.out.println("║ 6. Sua loai thuoc ke don                                         ║");
             System.out.println("║ 0. Thoat                                                         ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-            System.out.print("Chon (0-6): ");
+            System.out.print("Chon (0-5): ");
 
             String luaChon = sc.nextLine();
 
@@ -171,9 +170,6 @@ public class danhSachThuoc implements ChucNang, IFile {
             } else if (luaChon.equals("5")) {
                 System.out.print("Nhap HSD moi: ");
                 tkd.setHSD(sc.nextLine());
-            } else if (luaChon.equals("6")) {
-                System.out.print("Nhap loai thuoc ke don moi: ");
-                tkd.setLoaiThuocKeDon(sc.nextLine());
             } else if (luaChon.equals("0")) {
                 System.out.println("\n>> Thong tin sau khi cap nhat:");
                 tkd.Xuat();
@@ -198,12 +194,11 @@ public class danhSachThuoc implements ChucNang, IFile {
             System.out.println("║ 3. Sua gia ban                                                   ║");
             System.out.println("║ 4. Sua so luong                                                  ║");
             System.out.println("║ 5. Sua han su dung (HSD)                                         ║");
-            System.out.println("║ 6. Sua loai thuc pham                                            ║");
             System.out.println("║ 0. Thoat                                                         ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-            System.out.print("Chon (0-6): ");
+            System.out.print("Chon (0-5): ");
 
-            String luaChon = sc.nextLine().trim();
+            String luaChon = sc.nextLine();
 
             if (luaChon.equals("1")) {
                 System.out.print("Nhap ten thuoc moi: ");
@@ -222,9 +217,6 @@ public class danhSachThuoc implements ChucNang, IFile {
             } else if (luaChon.equals("5")) {
                 System.out.print("Nhap HSD moi: ");
                 tpcn.setHSD(sc.nextLine());
-            } else if (luaChon.equals("6")) {
-                System.out.print("Nhap loai thuc pham moi: ");
-                tpcn.setLoaiTP(sc.nextLine());
             } else if (luaChon.equals("0")) {
                 System.out.println("\n>> Thong tin sau khi cap nhat:");
                 tpcn.Xuat();
@@ -444,7 +436,6 @@ public class danhSachThuoc implements ChucNang, IFile {
                         ? arr[i].getDonViTinh().substring(0, 12) + "..."
                         : arr[i].getDonViTinh();
 
-                // Xác định loại thuốc
                 String loai;
                 if (arr[i] instanceof thuocKeDon) {
                     thuocKeDon tkd = (thuocKeDon) arr[i];
@@ -554,7 +545,6 @@ public class danhSachThuoc implements ChucNang, IFile {
 
                 String[] parts = line.split(",");
 
-                // Đọc theo loại thuốc
                 try {
                     String loai = parts[0].trim();
 
@@ -629,7 +619,6 @@ public class danhSachThuoc implements ChucNang, IFile {
             for (int i = 0; i < soLuongThuoc; i++) {
                 Thuoc th = dsThuoc[i];
 
-                // Ghi theo loại thuốc
                 if (th instanceof thuocKeDon) {
                     thuocKeDon tkd = (thuocKeDon) th;
                     pw.printf("ThuocKeDon,%s,%s,%s,%.2f,%d,%s,%s,%n",

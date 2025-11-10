@@ -103,18 +103,18 @@ public class donGiaoHang {
         this.diaChi = sc.nextLine();
         System.out.println("Nhap so luong: ");
         this.soLuong = sc.nextInt();
-        sc.nextLine(); // Tiêu thụ ký tự Enter
+        sc.nextLine(); 
         System.out.println("Nhap trang thai: ");
         this.trangThai = sc.nextLine();
         System.out.println("Nhap tong tien: ");
         this.tongTien = sc.nextDouble();
-        sc.nextLine(); // Tiêu thụ ký tự Enter
+        sc.nextLine(); 
         System.out.println("nhap thong tin thanh cong.");
     }
 
     public void Xuat() {
         final String LINE = "═════════════════════════════════════════════════════════════════════════════";
-        final int W = 77; // Giữ nguyên chiều rộng của mẫu
+        final int W = 77; 
 
         System.out.println("╔" + LINE + "╗");
         System.out.println("║ ------------------- THONG TIN DON GIAO HANG -----------------------------   ║");
