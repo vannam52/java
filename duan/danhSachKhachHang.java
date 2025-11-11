@@ -59,17 +59,13 @@ public class danhSachKhachHang implements ChucNang, IFile {
         for (int j = vt; j < soLuongKH - 1; j++) {
             dsKH[j] = dsKH[j + 1];
         }
-        dsKH = Arrays.copyOf(dsKH, soLuongKH - 1);
+        dsKH[soLuongKH - 1] = null;
         soLuongKH--;
         System.out.println("Xoa khach hang co ma " + maKH + " thanh cong!");
     }
 
     @Override
     public void Xoa() {
-        if (soLuongKH == 0) {
-            System.out.println("Danh sach rong");
-            return;
-        }
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap ma khach hang can xoa: ");
         String maCanXoa = sc.nextLine();
@@ -498,5 +494,4 @@ public class danhSachKhachHang implements ChucNang, IFile {
             System.err.println("Loi ghi file: " + e.getMessage());
         }
     }
-
 }

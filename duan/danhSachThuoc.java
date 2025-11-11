@@ -21,9 +21,9 @@ public class danhSachThuoc implements ChucNang, IFile {
         }
         dsThuoc = Arrays.copyOf(dsThuoc, soLuongThuoc + 1);
         if (th instanceof thucPhamChucNang) {
-            dsThuoc[dsThuoc.length - 1] = new thucPhamChucNang((thucPhamChucNang) th);
+            dsThuoc[soLuongThuoc] = new thucPhamChucNang((thucPhamChucNang) th);
         } else {
-            dsThuoc[dsThuoc.length - 1] = new thuocKeDon((thuocKeDon) th);
+            dsThuoc[soLuongThuoc] = new thuocKeDon((thuocKeDon) th);
         }
         soLuongThuoc++;
         System.out.println("Them thuoc thanh cong");

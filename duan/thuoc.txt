@@ -1,21 +1,21 @@
 20
-ThuocKeDon,T001,Paracetamol 500mg,Vien,25000.00,100,2025-12-31,Giam dau - Hạ sot,
-ThuocKeDon,T002,Amoxicillin 250mg,Vien,18000.00,150,2026-06-15,Khang sinh,
-ThuocKeDon,T003,Omeprazole 20mg,Vien,22000.00,80,2025-10-20,Tieu hoa,
-ThuocKeDon,T004,Metformin 500mg,Vien,15000.00,200,2026-08-10,Dieu tri dai thao,
-ThuocKeDon,T005,Atorvastatin 10mg,Vien,35000.00,60,2026-03-05,Hạ cholesterol,
-ThuocKeDon,T006,Vitamin C 1000mg,Vien,8000.00,300,2025-11-25,Tang suc de khang,
-ThuocKeDon,T007,Aspirin 100mg,Vien,5000.00,500,2026-09-12,Giam dau - Chong dot quy,
-ThuocKeDon,T008,Ibuprofen 400mg,Vien,12000.00,120,2025-07-30,Giam dau - Chong viêm,
-ThucPhamChucNang,T009,Omega 3 Fish Oil,Vien,85000.00,45,2026-02-28,
-ThucPhamChucNang,T010,Vitamin D3 2000IU,Vien,45000.00,90,2026-12-01,
-ThucPhamChucNang,T011,Probiotic 10 Billion,Vien,55000.00,70,2025-09-15,
-ThucPhamChucNang,T012,Collagen Type II,Goi,120000.00,30,2026-05-20,
-ThucPhamChucNang,T013,Ginseng Red Ginseng,Goi,95000.00,25,2025-10-10,
-ThucPhamChucNang,T014,Spirulina Powder,Goi,75000.00,40,2026-04-08,
-ThucPhamChucNang,T015,Calcium + Vitamin D,Vien,65000.00,55,2026-11-30,
-ThuocKeDon,T016,Loratadine 10mg,Vien,15000.00,180,2026-10-10,Chong di ung,
-ThuocKeDon,T017,Salbutamol 2mg,Vien,9000.00,220,2025-08-15,Hen suyen,
-ThucPhamChucNang,T018,Iron (Ferrous Sulfate),Vien,30000.00,130,2026-11-20,
-ThuocKeDon,T019,Amlodipine 5mg,Vien,28000.00,100,2027-01-30,Huyet ap,
-ThucPhamChucNang,T020,Glucosamine HCL,Vien,110000.00,50,2026-07-22,
+ThuocKeDon,T001,Paracetamol 500mg,Vien,25000.00,100,2025-12-31,Giam dau - Hạ sot
+ThuocKeDon,T002,Amoxicillin 250mg,Vien,18000.00,150,2026-06-15,Khang sinh
+ThuocKeDon,T003,Omeprazole 20mg,Vien,22000.00,80,2025-10-20,Tieu hoa
+ThuocKeDon,T004,Metformin 500mg,Vien,15000.00,200,2026-08-10,Dieu tri dai thao
+ThuocKeDon,T005,Atorvastatin 10mg,Vien,35000.00,60,2026-03-05,Hạ cholesterol
+ThuocKeDon,T006,Vitamin C 1000mg,Vien,8000.00,300,2025-11-25,Tang suc de khang
+ThuocKeDon,T007,Aspirin 100mg,Vien,5000.00,500,2026-09-12,Giam dau - Chong dot quy
+ThuocKeDon,T008,Ibuprofen 400mg,Vien,12000.00,120,2025-07-30,Giam dau - Chong viêm
+ThucPhamChucNang,T009,Omega 3 Fish Oil,Vien,85000.00,45,2026-02-28,Vitamin va Khoang chat
+ThucPhamChucNang,T010,Vitamin D3 2000IU,Vien,45000.00,90,2026-12-01,Vitamin va Khoang chat
+ThucPhamChucNang,T011,Probiotic 10 Billion,Vien,55000.00,70,2025-09-15,Men vi sinh
+ThucPhamChucNang,T012,Collagen Type II,Goi,120000.00,30,2026-05-20,Dep da va Sac khoe
+ThucPhamChucNang,T013,Ginseng Red Ginseng,Goi,95000.00,25,2025-10-10,Thao duoc
+ThucPhamChucNang,T014,Spirulina Powder,Goi,75000.00,40,2026-04-08,Thao duoc
+ThucPhamChucNang,T015,Calcium + Vitamin D,Vien,65000.00,55,2026-11-30,Vitamin va Khoang chat
+ThuocKeDon,T016,Loratadine 10mg,Vien,15000.00,180,2026-10-10,Chong di ung
+ThuocKeDon,T017,Salbutamol 2mg,Vien,9000.00,220,2025-08-15,Hen suyen
+ThucPhamChucNang,T018,Iron (Ferrous Sulfate),Vien,30000.00,130,2026-11-20,Bo sung sat
+ThuocKeDon,T019,Amlodipine 5mg,Vien,28000.00,100,2027-01-30,Huyet ap
+ThucPhamChucNang,T020,Glucosamine HCL,Vien,110000.00,50,2026-07-22,Xuong khop
