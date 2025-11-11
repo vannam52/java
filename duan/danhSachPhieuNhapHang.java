@@ -9,10 +9,15 @@ import java.time.format.DateTimeParseException;
 public class danhSachPhieuNhapHang implements ChucNang, IFile {
     private phieuNhapHang[] dsPNH;
     private int soLuongPNH;
+    private danhSachThuoc dsThuoc;
 
     public danhSachPhieuNhapHang() {
         this.dsPNH = new phieuNhapHang[0];
         this.soLuongPNH = 0;
+    }
+
+    public void setDanhSachThuoc(danhSachThuoc dsThuoc) {
+        this.dsThuoc = dsThuoc;
     }
 
     public void themPhieuNhapHang(phieuNhapHang pnh) {
@@ -43,8 +48,35 @@ public class danhSachPhieuNhapHang implements ChucNang, IFile {
                 System.out.println("✗ Ma phieu nhap hang da ton tai! Vui long nhap lai toan bo thong tin.");
                 maBiTrung = true;
             } else {
+                System.out.print("Nhap ma thuoc can cap nhat kho (neu co): ");
+                String maThuoc = sc.nextLine().trim();
+                int soLuongNhap = 0;
+                if (!maThuoc.isEmpty()) {
+                    System.out.print("Nhap so luong nhap (so nguyen): ");
+                    try {
+                        soLuongNhap = Integer.parseInt(sc.nextLine().trim());
+                        if (soLuongNhap <= 0) {
+                            System.out.println("So luong nhap phai lon hon 0. Bo qua cap nhat kho.");
+                            soLuongNhap = 0;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("So luong khong hop le. Bo qua cap nhat kho.");
+                        soLuongNhap = 0;
+                    }
+                }
+
                 themPhieuNhapHang(pnhMoi);
                 System.out.println("✓ Da them phieu nhap hang thanh cong!");
+                if (this.dsThuoc != null && !maThuoc.isEmpty() && soLuongNhap > 0) {
+                    boolean ok = this.dsThuoc.tangSoLuong(maThuoc, soLuongNhap);
+                    if (ok) {
+                        System.out.println("✓ Da cap nhat kho: " + maThuoc + " + " + soLuongNhap);
+                    } else {
+                        System.out.println("✗ Canh bao: Khong tim thay ma thuoc trong kho: " + maThuoc);
+                    }
+                } else if (this.dsThuoc == null && !maThuoc.isEmpty() && soLuongNhap > 0) {
+                    System.out.println("✗ Chu y: danhSachThuoc chua duoc ket noi, khong cap nhat kho.");
+                }
             }
 
         } while (maBiTrung);

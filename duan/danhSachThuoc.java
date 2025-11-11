@@ -414,6 +414,16 @@ public class danhSachThuoc implements ChucNang, IFile {
         }
     }
 
+    public boolean tangSoLuong(String maThuoc, int soLuongTang) {
+        if (soLuongTang <= 0)
+            return false;
+        Thuoc t = timKiemTheoMa(maThuoc);
+        if (t == null)
+            return false;
+        t.setSoLuong(t.getSoLuong() + soLuongTang);
+        return true;
+    }
+
     public void hienThiBang(Thuoc[] arr, int size) {
         final String LINE = "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════";
         System.out.println("╔" + LINE + "╗");

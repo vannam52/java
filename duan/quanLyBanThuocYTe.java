@@ -6,8 +6,9 @@ public class quanLyBanThuocYTe {
 
     public static danhSachNhanVien dsNhanVien = new danhSachNhanVien();
     public static danhSachKhachHang dsKhachHang = new danhSachKhachHang();
-    public static danhSachKhuyenMai dsKhuyenMai = new danhSachKhuyenMai();
     public static danhSachThuoc dsThuocYTe = new danhSachThuoc();
+
+    public static danhSachKhuyenMai dsKhuyenMai = new danhSachKhuyenMai();
     public static danhSachPhieuXuatHang dsPhieuXuatHang = new danhSachPhieuXuatHang();
     public static danhSachHoaDon dsHoaDon = new danhSachHoaDon();
     public static danhSachChiTietHoaDon dsChiTietHoaDon = new danhSachChiTietHoaDon();
@@ -29,6 +30,8 @@ public class quanLyBanThuocYTe {
         dsNhanVien.docFile("duan/nhanVien.txt");
         dsKhachHang.docFile("duan/khachHang.txt");
         dsThuocYTe.docFile("duan/Thuoc.txt");
+        dsPhieuNhapHang.setDanhSachThuoc(dsThuocYTe);
+        // dsChiTietPhieuNhapHang.setDanhSachThuoc(dsThuocYTe);
         dsKhuyenMai.docFile("duan/khuyenMai.txt");
         dsPhieuXuatHang.docFile("duan/phieuXuatHang.txt");
         dsHoaDon.docFile("duan/hoaDon.txt");

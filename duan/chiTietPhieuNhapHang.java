@@ -8,6 +8,7 @@ public class chiTietPhieuNhapHang {
     private int soLuong;
     private double donGia;
     private double thanhTien;
+    private danhSachThuoc dsThuoc;
 
     public chiTietPhieuNhapHang() {
     }
@@ -29,6 +30,10 @@ public class chiTietPhieuNhapHang {
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.thanhTien = soLuong * donGia;
+    }
+
+    public void setDanhSachThuoc(danhSachThuoc dsThuoc) {
+        this.dsThuoc = dsThuoc;
     }
 
     public String getMaPNH() {
