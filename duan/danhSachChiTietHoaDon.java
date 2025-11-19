@@ -303,8 +303,8 @@ public class danhSachChiTietHoaDon implements ChucNang, IFile {
             return;
         }
 
-        System.out.println("╔══════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                    DANH SACH CHI TIET HOA DON                                ║");
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                    DANH SACH CHI TIET HOA DON                               ║");
         System.out.println("╠══════════╦══════════╦════════════════════╦══════════╦══════════╦════════════╣");
         System.out.println("║  Ma HD   ║ Ma Thuoc ║     Ten Thuoc      ║ So Luong ║ Don Gia  ║ Thanh Tien ║");
         System.out.println("╠══════════╬══════════╬════════════════════╬══════════╬══════════╬════════════╣");

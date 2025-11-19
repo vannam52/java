@@ -38,6 +38,7 @@ public class thucPhamChucNang extends Thuoc {
     @Override
     public void Xuat() {
         super.Xuat();
+        //
     }
 
     @Override

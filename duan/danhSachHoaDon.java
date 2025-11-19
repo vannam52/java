@@ -442,9 +442,11 @@ public class danhSachHoaDon implements ChucNang, IFile {
             System.out.println("║ 1. Thong ke chung                                                ║");
             System.out.println("║ 2. Thong ke theo khach hang                                      ║");
             System.out.println("║ 3. Thong ke theo nhan vien                                       ║");
+            System.out.println("║ 4. Thong ke theo quy                                             ║");
+            System.out.println("║ 5. Bang tong ket nhan vien                                       ║");
             System.out.println("║ 0. Thoat                                                         ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-            System.out.print("Chon (0-3): ");
+            System.out.print("Chon (0-5): ");
 
             String luaChon = sc.nextLine().trim();
 
@@ -457,6 +459,12 @@ public class danhSachHoaDon implements ChucNang, IFile {
                     break;
                 case "3":
                     thongKeTheoNhanVien();
+                    break;
+                case "4":
+                    this.thongKeTongKetTheoQuy();
+                    break;
+                case "5":
+                    thongKeTongKetNhanVien();
                     break;
                 case "0":
                     System.out.println(">> Thoat menu thong ke!");
@@ -487,15 +495,15 @@ public class danhSachHoaDon implements ChucNang, IFile {
                 hdMax = dsHoaDon[i];
             }
         }
-        System.out.printf("║ Hoa don co tong tien cao nhat: %-33s ║%n", hdMax.getMaHD());
-        System.out.printf("║ Tong tien: %51.0f  ║%n", hdMax.getTongTien());
+        System.out.printf("║ Hoa don co tong tien cao nhat: %-33s║%n", hdMax.getMaHD());
+        System.out.printf("║ Tong tien: %51.0f VND ║%n", hdMax.getTongTien());
 
         double tongDoanhThu = 0;
         for (int i = 0; i < soLuongHoaDon; i++) {
             tongDoanhThu += dsHoaDon[i].getTongTien();
         }
-        System.out.printf("║ Tong doanh thu: %46.0f   ║%n", tongDoanhThu);
-        System.out.printf("║ Trung binh tien/hoa don: %35.2f     ║%n",
+        System.out.printf("║ Tong doanh thu: %46.0f VND ║%n", tongDoanhThu);
+        System.out.printf("║ Trung binh tien/hoa don: %35.2f VND ║%n",
                 tongDoanhThu / soLuongHoaDon);
 
         String[] dsMaKH = new String[soLuongHoaDon];
@@ -585,12 +593,284 @@ public class danhSachHoaDon implements ChucNang, IFile {
         System.out.printf("║ Thong ke nhan vien: %-45s║%n", maNV);
         System.out.println("╠══════════════════════════════════════════════════════════════════╣");
         System.out.printf("║ So luong hoa don da lap: %40d║%n", soLuong);
-        System.out.printf("║ Tong doanh thu: %45.0f VND║%n", tongTien);
+        System.out.printf("║ Tong doanh thu: %45.0f VND ║%n", tongTien);
         System.out.printf("║ Trung binh/hoa don: %40.2f VND ║%n", tongTien / soLuong);
         System.out.println("╚══════════════════════════════════════════════════════════════════╝");
     }
 
-    // Doc danh sach hoa don tu file
+    public void thongKeTongKetTheoQuy() {
+        if (soLuongHoaDon == 0) {
+            System.out.println("Danh sach hoa don rong");
+            return;
+        }
+
+        int nam;
+
+        while (true) {
+            try {
+                System.out.print("Nhap nam can thong ke (VD: 2025): ");
+                nam = Integer.parseInt(sc.nextLine().trim());
+                if (nam < 1900 || nam > 2100) {
+                    System.out.println("Nam khong hop le. Vui long nhap lai.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Nam khong hop le. Vui long nhap lai.");
+            }
+        }
+
+        String[] dsMaHD = new String[soLuongHoaDon];
+        int soHoaDon = 0;
+
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            String[] dateParts = dsHoaDon[i].getNgayLap().split("/");
+            int namHD = Integer.parseInt(dateParts[2]);
+
+            if (namHD == nam) {
+                boolean daTonTai = false;
+                for (int j = 0; j < soHoaDon; j++) {
+                    if (dsHoaDon[i].getMaHD().equals(dsMaHD[j])) {
+                        daTonTai = true;
+                        break;
+                    }
+                }
+                if (!daTonTai) {
+                    dsMaHD[soHoaDon] = dsHoaDon[i].getMaHD();
+                    soHoaDon++;
+                }
+            }
+        }
+
+        if (soHoaDon == 0) {
+            System.out.println("Khong co hoa don nao trong nam " + nam + "!");
+            return;
+        }
+
+        double[][] tienTheoQuy = new double[soHoaDon][4];
+        double[] tongNam = new double[soHoaDon];
+
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            String[] dateParts = dsHoaDon[i].getNgayLap().split("/");
+            int quyHD = (Integer.parseInt(dateParts[1]) - 1) / 3 + 1;
+            int namHD = Integer.parseInt(dateParts[2]);
+
+            if (namHD == nam) {
+                for (int j = 0; j < soHoaDon; j++) {
+                    if (dsHoaDon[i].getMaHD().equals(dsMaHD[j])) {
+                        tienTheoQuy[j][quyHD - 1] += dsHoaDon[i].getTongTien();
+                        tongNam[j] += dsHoaDon[i].getTongTien();
+                        break;
+                    }
+                }
+            }
+        }
+
+        int colWidth = 15;
+        int totalWidth = colWidth * 6 + 5;
+
+        System.out.println("\n╔" + repeatChar('═', totalWidth) + "╗");
+        System.out.println("║" + centerText("BANG TONG KET HOA DON THEO QUY - NAM " + nam, totalWidth) + "║");
+        System.out.println("╠" + repeatChar('═', totalWidth) + "╣");
+
+        StringBuilder headerRow = new StringBuilder("║");
+        headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "MA HOA DON"));
+        headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "QUY 1"));
+        headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "QUY 2"));
+        headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "QUY 3"));
+        headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "QUY 4"));
+        headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "CA NAM"));
+        System.out.println(headerRow.toString());
+
+        System.out.print("╠" + repeatChar('═', colWidth) + "╬");
+        for (int i = 0; i < 4; i++) {
+            System.out.print(repeatChar('═', colWidth) + "╬");
+        }
+        System.out.println(repeatChar('═', colWidth) + "╣");
+
+        for (int i = 0; i < soHoaDon; i++) {
+            StringBuilder row = new StringBuilder("║");
+            row.append(String.format(" %-" + (colWidth - 2) + "s ║", dsMaHD[i]));
+
+            for (int q = 0; q < 4; q++) {
+                if (tienTheoQuy[i][q] > 0) {
+                    row.append(String.format(" %-" + (colWidth - 2) + ".0f ║", tienTheoQuy[i][q]));
+                } else {
+                    row.append(String.format(" %-" + (colWidth - 2) + "s ║", "-"));
+                }
+            }
+
+            row.append(String.format(" %-" + (colWidth - 2) + ".0f ║", tongNam[i]));
+            System.out.println(row.toString());
+        }
+
+        System.out.print("╠" + repeatChar('═', colWidth) + "╬");
+        for (int i = 0; i < 4; i++) {
+            System.out.print(repeatChar('═', colWidth) + "╬");
+        }
+        System.out.println(repeatChar('═', colWidth) + "╣");
+
+        double[] tongQuy = new double[4];
+        double tongCaNam = 0;
+
+        for (int i = 0; i < soHoaDon; i++) {
+            for (int q = 0; q < 4; q++) {
+                tongQuy[q] += tienTheoQuy[i][q];
+            }
+            tongCaNam += tongNam[i];
+        }
+
+        StringBuilder tongRow = new StringBuilder("║");
+        tongRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "TONG"));
+        for (int q = 0; q < 4; q++) {
+            tongRow.append(String.format(" %-" + (colWidth - 2) + ".0f ║", tongQuy[q]));
+        }
+        tongRow.append(String.format(" %-" + (colWidth - 2) + ".0f ║", tongCaNam));
+        System.out.println(tongRow.toString());
+
+        System.out.print("╚" + repeatChar('═', colWidth) + "╩");
+        for (int i = 0; i < 4; i++) {
+            System.out.print(repeatChar('═', colWidth) + "╩");
+        }
+        System.out.println(repeatChar('═', colWidth) + "╝");
+
+        System.out.println("\n>> Tong ket: " + soHoaDon + " hoa don trong nam " + nam);
+        System.out.printf(">> Tong doanh thu ca nam: %.0f VND%n", tongCaNam);
+    }
+
+    public void thongKeTongKetNhanVien() {
+        if (soLuongHoaDon == 0) {
+            System.out.println("Danh sach hoa don rong");
+            return;
+        }
+
+        String[] dsMaNV = new String[soLuongHoaDon];
+        int soNhanVien = 0;
+
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            boolean daTonTai = false;
+            for (int j = 0; j < soNhanVien; j++) {
+                if (dsHoaDon[i].getMaNV().equals(dsMaNV[j])) {
+                    daTonTai = true;
+                    break;
+                }
+            }
+            if (!daTonTai) {
+                dsMaNV[soNhanVien] = dsHoaDon[i].getMaNV();
+                soNhanVien++;
+            }
+        }
+
+        if (soNhanVien == 0) {
+            System.out.println("Khong co nhan vien nao!");
+            return;
+        }
+
+        int[] soLuongHD = new int[soNhanVien];
+        double[] tongTien = new double[soNhanVien];
+        double[] maxTien = new double[soNhanVien];
+        double[] minTien = new double[soNhanVien];
+
+        for (int i = 0; i < soNhanVien; i++) {
+            maxTien[i] = 0;
+            minTien[i] = Double.MAX_VALUE;
+        }
+
+        for (int i = 0; i < soLuongHoaDon; i++) {
+            for (int j = 0; j < soNhanVien; j++) {
+                if (dsHoaDon[i].getMaNV().equals(dsMaNV[j])) {
+                    soLuongHD[j]++;
+                    tongTien[j] += dsHoaDon[i].getTongTien();
+
+                    if (dsHoaDon[i].getTongTien() > maxTien[j]) {
+                        maxTien[j] = dsHoaDon[i].getTongTien();
+                    }
+                    if (dsHoaDon[i].getTongTien() < minTien[j]) {
+                        minTien[j] = dsHoaDon[i].getTongTien();
+                    }
+                    break;
+                }
+            }
+        }
+
+        int colWidth = 15;
+        int totalWidth = colWidth * (soNhanVien + 1) + soNhanVien;
+
+        System.out.println("\n╔" + repeatChar('═', totalWidth) + "╗");
+        System.out.println("║" + centerText("BANG TONG KET THEO NHAN VIEN", totalWidth) + "║");
+        System.out.println("╠" + repeatChar('═', totalWidth) + "╣");
+
+        StringBuilder headerRow = new StringBuilder("║");
+        headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "CHI TIEU"));
+        for (int i = 0; i < soNhanVien; i++) {
+            headerRow.append(String.format(" %-" + (colWidth - 2) + "s ║", dsMaNV[i]));
+        }
+        System.out.println(headerRow.toString());
+
+        System.out.print("╠" + repeatChar('═', colWidth) + "╬");
+        for (int i = 0; i < soNhanVien - 1; i++) {
+            System.out.print(repeatChar('═', colWidth) + "╬");
+        }
+        System.out.println(repeatChar('═', colWidth) + "╣");
+
+        StringBuilder slRow = new StringBuilder("║");
+        slRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "So luong HD"));
+        for (int i = 0; i < soNhanVien; i++) {
+            slRow.append(String.format(" %-" + (colWidth - 2) + "d ║", soLuongHD[i]));
+        }
+        System.out.println(slRow.toString());
+
+        StringBuilder tongRow = new StringBuilder("║");
+        tongRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "Tong tien"));
+        for (int i = 0; i < soNhanVien; i++) {
+            tongRow.append(String.format(" %-" + (colWidth - 2) + ".0f ║", tongTien[i]));
+        }
+        System.out.println(tongRow.toString());
+
+        StringBuilder maxRow = new StringBuilder("║");
+        maxRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "Max"));
+        for (int i = 0; i < soNhanVien; i++) {
+            maxRow.append(String.format(" %-" + (colWidth - 2) + ".0f ║", maxTien[i]));
+        }
+        System.out.println(maxRow.toString());
+
+        StringBuilder minRow = new StringBuilder("║");
+        minRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "Min"));
+        for (int i = 0; i < soNhanVien; i++) {
+            minRow.append(String.format(" %-" + (colWidth - 2) + ".0f ║", minTien[i]));
+        }
+        System.out.println(minRow.toString());
+
+        StringBuilder tbRow = new StringBuilder("║");
+        tbRow.append(String.format(" %-" + (colWidth - 2) + "s ║", "Trung binh"));
+        for (int i = 0; i < soNhanVien; i++) {
+            double tb = soLuongHD[i] > 0 ? tongTien[i] / soLuongHD[i] : 0;
+            tbRow.append(String.format(" %-" + (colWidth - 2) + ".2f ║", tb));
+        }
+        System.out.println(tbRow.toString());
+
+        System.out.print("╚" + repeatChar('═', colWidth) + "╩");
+        for (int i = 0; i < soNhanVien - 1; i++) {
+            System.out.print(repeatChar('═', colWidth) + "╩");
+        }
+        System.out.println(repeatChar('═', colWidth) + "╝");
+
+        System.out.println("\n>> Tong ket: " + soNhanVien + " nhan vien da lap " + soLuongHoaDon + " hoa don");
+    }
+
+    private String centerText(String text, int width) {
+        int padding = (width - text.length()) / 2;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < padding; i++) {
+            sb.append(" ");
+        }
+        sb.append(text);
+        while (sb.length() < width) {
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
     @Override
     public void docFile(String tenFile) {
         File f = new File(tenFile);
@@ -637,12 +917,7 @@ public class danhSachHoaDon implements ChucNang, IFile {
                         double tongTien = Double.parseDouble(parts[4].trim());
                         int soLuongCT = Integer.parseInt(parts[5].trim());
 
-                        hoaDon hd = new hoaDon();
-                        hd.setMaHD(maHD);
-                        hd.setMaKH(maKH);
-                        hd.setMaNV(maNV);
-                        hd.setNgayLap(ngayLap);
-                        hd.setTongTien(tongTien);
+                        hoaDon hd = new hoaDon(maHD, maKH, maNV, ngayLap, tongTien, soLuongCT);
 
                         this.dsHoaDon[this.soLuongHoaDon] = hd;
                         this.soLuongHoaDon++;

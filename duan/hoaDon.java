@@ -29,14 +29,14 @@ public class hoaDon {
         }
     }
 
-    public hoaDon(String maHD, String maKH, String maNV, String ngayLap, double tongTien) {
+    public hoaDon(String maHD, String maKH, String maNV, String ngayLap, double tongTien, int soLuongChiTiet) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.ngayLap = ngayLap;
         this.tongTien = tongTien;
-        this.chiTietHoaDon = new chiTietHoaDon[0];
-        this.soLuongChiTiet = 0;
+        this.soLuongChiTiet = soLuongChiTiet;
+        this.chiTietHoaDon = new chiTietHoaDon[soLuongChiTiet];
     }
 
     public String getMaHD() {

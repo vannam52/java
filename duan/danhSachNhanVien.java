@@ -323,9 +323,10 @@ public class danhSachNhanVien implements ChucNang, IFile {
             System.out.println("╠══════════════════════════════════════════════════════════════════╣");
             System.out.println("║ 1. Thong ke chung                                                ║");
             System.out.println("║ 2. Thong ke theo gioi tinh                                       ║");
+            System.out.println("║ 3. Bang luong thuc lanh                                          ║");
             System.out.println("║ 0. Thoat                                                         ║");
             System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-            System.out.print("Chon (0-2): ");
+            System.out.print("Chon (0-3): ");
 
             String luaChon = sc.nextLine();
 
@@ -335,6 +336,9 @@ public class danhSachNhanVien implements ChucNang, IFile {
                     break;
                 case "2":
                     thongKeTheoGioiTinh();
+                    break;
+                case "3":
+                    hienThiBangLuongThucLanh();
                     break;
                 case "0":
                     System.out.println(" Thoat menu thong ke!");
@@ -405,6 +409,35 @@ public class danhSachNhanVien implements ChucNang, IFile {
                     "╚══════════════════════════════════════════════════════════════════════════════════════╝");
             Them();
         }
+    }
+
+    public void hienThiBangLuongThucLanh() {
+        if (soLuongNV == 0) {
+            System.out.println("Danh sach nhan vien rong");
+            return;
+        }
+
+        double tongLuongThucLanh = 0;
+        for (int i = 0; i < soLuongNV; i++) {
+            tongLuongThucLanh += dsNV[i].getLuong();
+        }
+
+        System.out.println("╔════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                 BANG LUONG THUC LANH NHAN VIEN                 ║");
+        System.out.println("╠════════════╦═══════════════════════════════════════════════════╣");
+        System.out.println("║   Ma NV    ║           Luong Thuc Lanh (VND)                   ║");
+        System.out.println("╠════════════╬═══════════════════════════════════════════════════╣");
+
+        for (int i = 0; i < soLuongNV; i++) {
+            System.out.printf("║ %-10s ║ %,48.0f  ║%n",
+                    dsNV[i].getMaNV(),
+                    dsNV[i].getLuong());
+        }
+
+        System.out.println("╠════════════╩═══════════════════════════════════════════════════╣");
+        System.out.printf("║ TONG LUONG: %,47.0f    ║%n", tongLuongThucLanh);
+        System.out.println("╚════════════════════════════════════════════════════════════════╝");
+        System.out.println("Tong so: " + soLuongNV + " nhan vien");
     }
 
     @Override
@@ -549,4 +582,5 @@ public class danhSachNhanVien implements ChucNang, IFile {
     public nhanVien[] getDsNV() {
         return dsNV;
     }
+
 }

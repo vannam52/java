@@ -275,7 +275,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
         System.out.println(
-                "║                                  BANG THONG KE PHIEU XUAT HANG                                               ║");
+                "║                                  BANG THONG KE PHIEU XUAT HANG                                                ║");
         System.out.println(
                 "╠════════════════╦══════════════════╦══════════════════╦══════════════════╦══════════════════╦══════════════════╣");
         System.out.printf("║ %-14s ║ %-16s ║ %-16s ║ %-16s ║ %-16s ║ %-16s ║%n",
@@ -299,7 +299,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
     }
 
     public void hienThiBang(phieuXuatHang[] arr, int size) {
-        final String LINE = "════════════════════════════════════════════════════════════════════════════════════════════";
+        final String LINE = "══════════════════════════════════════════════════════════════════════════════════════════";
         System.out.println("╔" + LINE + "╗");
         System.out
                 .println("║                              DANH SACH PHIEU XUAT HANG                                  ║");
@@ -477,7 +477,7 @@ public class danhSachPhieuXuatHang implements ChucNang, IFile {
             System.out.println(
                     "╠═══════════════════════════════════════════════════════════════════════════════════════╣");
             System.out.printf("║ Da ghi: %-77d ║%n", this.soLuongPXH);
-            System.out.printf("║ Vao file: %-74s ║%n", tenFile);
+            System.out.printf("║ Vao file: %-74s  ║%n", tenFile);
             System.out.println(
                     "╚═══════════════════════════════════════════════════════════════════════════════════════╝");
 

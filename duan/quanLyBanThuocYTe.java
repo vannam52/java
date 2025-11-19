@@ -31,7 +31,6 @@ public class quanLyBanThuocYTe {
         dsKhachHang.docFile("duan/khachHang.txt");
         dsThuocYTe.docFile("duan/Thuoc.txt");
         dsPhieuNhapHang.setDanhSachThuoc(dsThuocYTe);
-        // dsChiTietPhieuNhapHang.setDanhSachThuoc(dsThuocYTe);
         dsKhuyenMai.docFile("duan/khuyenMai.txt");
         dsPhieuXuatHang.docFile("duan/phieuXuatHang.txt");
         dsHoaDon.docFile("duan/hoaDon.txt");
