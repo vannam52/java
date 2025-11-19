@@ -41,6 +41,7 @@ public class thuocKeDon extends Thuoc {
     @Override
     public void Xuat() {
         super.Xuat();
+        System.out.println("Loai: " + loaiThuoc);
     }
 
     @Override

@@ -12,6 +12,15 @@ public class danhSachThuoc implements ChucNang, IFile {
         this.dsThuoc = new Thuoc[0];
         this.soLuongThuoc = 0;
     }
+    public danhSachThuoc(Thuoc[] dsThuoc, int soLuongThuoc) {
+        this.dsThuoc = dsThuoc;
+        this.soLuongThuoc = soLuongThuoc;
+    }
+
+    public danhSachThuoc(danhSachThuoc other) {
+        this.soLuongThuoc = other.soLuongThuoc;
+        this.dsThuoc = Arrays.copyOf(other.dsThuoc, other.soLuongThuoc);
+    }
 
     // them
     public void themThuoc(Thuoc th) {
